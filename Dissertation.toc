@@ -1,0 +1,32 @@
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {chapter}{\numberline {2}Literature Survey}{2}{chapter.2}
+\contentsline {section}{\numberline {2.1}StarCraft}{2}{section.2.1}
+\contentsline {section}{\numberline {2.2}Artificial Intelligence}{3}{section.2.2}
+\contentsline {section}{\numberline {2.3}Behaviour Oriented Design (BOD)}{4}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Architecture}{4}{subsection.2.3.1}
+\contentsline {subsection}{\numberline {2.3.2}Decomposition}{5}{subsection.2.3.2}
+\contentsline {subsection}{\numberline {2.3.3}Methodology}{5}{subsection.2.3.3}
+\contentsline {section}{\numberline {2.4}Simon Davies' AI}{5}{section.2.4}
+\contentsline {section}{\numberline {2.5}Possible ideas for expansions}{6}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Unit micro-management strategies}{7}{subsection.2.5.1}
+\contentsline {subsubsection}{Potential fields}{7}{section*.7}
+\contentsline {subsubsection}{Monte-Carlo planning}{7}{section*.8}
+\contentsline {subsubsection}{Bayesian Modelling}{8}{section*.9}
+\contentsline {subsection}{\numberline {2.5.2}Macromanagement strategies}{8}{subsection.2.5.2}
+\contentsline {subsubsection}{Micro Focus}{8}{section*.10}
+\contentsline {subsubsection}{Planning}{8}{section*.11}
+\contentsline {subsubsection}{Case-based reasoning}{9}{section*.12}
+\contentsline {chapter}{\numberline {3}Requirements}{10}{chapter.3}
+\contentsline {section}{\numberline {3.1}Functional Requirements}{10}{section.3.1}
+\contentsline {section}{\numberline {3.2}Non-Functional Requirements}{10}{section.3.2}
+\contentsline {section}{\numberline {3.3}Inherited Non-Functional Requirements}{11}{section.3.3}
+\contentsline {chapter}{\numberline {4}Design}{12}{chapter.4}
+\contentsline {section}{\numberline {4.1}Initial Structure}{12}{section.4.1}
+\contentsline {chapter}{\numberline {5}Implementation and Testing}{14}{chapter.5}
+\contentsline {chapter}{\numberline {6}Results}{15}{chapter.6}
+\contentsline {chapter}{\numberline {7}Conclusions}{16}{chapter.7}
+\contentsline {chapter}{\numberline {A}Design Diagrams}{20}{appendix.A}
+\contentsline {chapter}{\numberline {B}User Documentation}{21}{appendix.B}
+\contentsline {chapter}{\numberline {C}Raw results output}{22}{appendix.C}
+\contentsline {chapter}{\numberline {D}Code}{23}{appendix.D}
+\contentsline {section}{\numberline {D.1}File: yourCodeFile.java}{24}{section.D.1}
