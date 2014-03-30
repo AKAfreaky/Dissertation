@@ -8,6 +8,7 @@
 \usepackage{multicol}   % Provides ability to split output into columns
 \usepackage{listings}   % Provides styled code listings
 \usepackage{hyperref}   % Provides URL stuff
+\usepackage{nameref}    % Reference chapter names
 
 %%
 %% Set some page size changes from the standard article class
@@ -105,6 +106,13 @@ from the date of submission of the dissertation.
 Signed:
 \end{centrespaced}
 }
+
+
+% Code listing without page breaks
+\lstnewenvironment{Code}[1][]%
+  {\minipage{\linewidth}
+   \lstset{basicstyle=\ttfamily\footnotesize,frame=single,#1}}
+  {\endminipage}
 
 %%
 %% END OF DEFINITIONS

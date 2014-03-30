@@ -1,9 +1,12 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces The architecture model for the StarCraft BOD AI. \cite {davies2012}}}{6}{figure.2.1}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces A screenshot of StarCraft during a game. It shows the base of a Protoss player}}{3}{figure.2.1}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces The architecture model for the StarCraft BOD AI. \cite {davies2012}}}{7}{figure.2.2}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Davies' class diagram that shows the Managers used for the categorising the different behaviours. The connections between the managers shows which classes call behaviours from other managers.\cite {davies2012}}}{13}{figure.4.1}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Davies' class diagram that shows the Managers used for the categorising the different behaviours. The connections between the managers shows which classes call behaviours from other managers.\cite {davies2012}}}{14}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces The general class structure used when methods couldn't be generalised.}}{15}{figure.4.2}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces The final class structure of the behaviour library. Classes with a ``[*]'' in their name have race specific behaviour in sub-classes in the style of figure \ref {fig:GeneralStructure}.}}{16}{figure.4.3}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
