@@ -271,7 +271,7 @@ After this initial design work, I proceeded with implementation. The iterative d
 \item{Repeat the process.}
 \end{itemize}
 
- This differs from BOD in that there is less focus on revising the specification, more on getting the other races capabilities up to par with the Zerg. The Zerg agent was used as the specification for the other races agents, so while revisions weren't avoided, they were not the focus of the process. 
+ This differs from BOD in that there is less focus on revising the specification, more on getting the other races capabilities up to par with the Zerg. The Zerg agent was used as the specification for the other races agents, so while revisions weren't avoided, they were not the focus of the process.
 
 \subsection{Final Class Structure}
 The final class structure of the behaviour library can be seen in figure \ref{fig:ClassDia}. The race-specific sub-classes have been hidden as they increase the complexity of the diagram without really adding any information. The only change to the structure that came up during implementation was to the intelligence mananger. It was found to be better to split the scouting control(moving the unit around) into its own class and have the intelligence manager start the scouting. This allowed for race specific scouting behaviour without code duplication.
@@ -288,6 +288,7 @@ The final class structure of the behaviour library can be seen in figure \ref{fi
 \section{Behaviour Library Generalisation}
 This section covers some of the work done generalising the Java behaviour library.
 \subsection{API issues}
+\label{APIIssue}
 This subsection explains the issues experienced by updating the external libraries that the AI uses and details how they were overcome.
 
 BWAPI and JNIBWAPI had both released newer version since \possessivecite{davies2012} work. It was decided to update the project to use these newer versions as they offered bug fixes and the JNIBWAPI update exposed more BWAPI functionality. The update went fine, and seemed to be without issues. It was then noticed that workers would not act on any command they were given, unless it was sent during a game tick call.\footnote{A common feature of real-time games. This is a function called regularly that will perform all the computation for the game engine. For StarCraft/BWAPI the function is called gameUpdate() and gets called at ~20Hz.} Actions from POSH are called from outside the game tick and were seemingly ignored by the engine.
@@ -300,7 +301,7 @@ The bug was not limited to just workers but also affected producing units and re
 \subsection{Parameterisation of building, recruitment and research}
 This subsection explains how the building, production and upgrade managers were moved from specific behaviour methods to general, parameterised methods.
 
-In the initial stages of the project, the main content of the race-specific managers for building, production and upgrades was methods to build specific buildings, produce specific units and research specific upgrades. An example can be seen in listing \ref{spawnZergling}. As more of these methods were added for each race, a pattern was noticed. 
+In the initial stages of the project, the main content of the race-specific managers for building, production and upgrades was methods to build specific buildings, produce specific units and research specific upgrades. An example can be seen in listing \ref{spawnZergling}. As more of these methods were added for each race, a pattern was noticed.
 
 The pattern is:
 \begin{itemize}
@@ -325,7 +326,7 @@ public boolean spawnZerglings(){
 }
 \end{Code}
 
-Using methods provided by JNIBWAPI, it is possible to find out all the needed information just from the unit type. The code to do this can be seen in listing \ref{produceUnit}. The important methods that allow this simplification is canMake() method provided by JNIBWAPI and the getLeastBusyUnitofType() method added to the unit manager. 
+Using methods provided by JNIBWAPI, it is possible to find out all the needed information just from the unit type. The code to do this can be seen in listing \ref{produceUnit}. The important methods that allow this simplification is canMake() method provided by JNIBWAPI and the getLeastBusyUnitofType() method added to the unit manager.
 
 canMake() has two forms in BWAPI, and it is the first that is the most valuable. The first method checks that it is valid to build that unit type; that means the necessary resources are available, the necessary research has been performed, and that there exists a unit on your roster that is the progenitor type for the passed type. The second canMake() method checks if a specific unit can make the passed unit type; so it's the correct type and it is not busy with another task.
 
@@ -359,7 +360,7 @@ public boolean produceUnit(UnitType.UnitTypes unitType){
 	}
 	return false;
 }
-\end{Code} 
+\end{Code}
 
 \subsection{Generalising Scouting}
 This subsection explains how the scouting behaviours of the AI were generalised and the reasoning behind the decisions.
@@ -400,12 +401,14 @@ A problem in the AI identified by \citeasnoun{davies2012} was that possible expa
 This section details some of the POSH plan elements created or changed during the project
 
 \subsection{Simplified Competences}
+This sub-section covers how some competences were simplified, and the rationale behind that.
+
+The task of starting to gather gas is a two step process. The first a building needs to be built on the gas resource nodes (called an extractor). Once this building has completed, workers must be moved from other tasks to begin harvesting the gas. The original POSH plan (see listing \ref{oldGasPOSH} had both these steps in a competence. Because of bugs encountered from upgrading the external APIs (see section \ref{APIIssue}), the second step of the competence would often not work, and it would take some time to start gathering gas.
+
+The solution found for this is to move the second step directly into the behaviour library. It will never be the case that a gas extraction building is constructed without wanting to send workers to it. There is an event when ever a unit is completed, so the completion of the extraction building.
 
 
-%%OLD
-; Collecting gas competence
-	; Builds a geyser if the player doesn't have one
-	; Sends drones to mine gas if they aren't already
+\begin{Code}[frame=single,language=Lisp,tabsize=4,breaklines,breakatwhitespace,caption={The original POSH competence to manage collecting gas},label=oldGasPOSH]
 	(C collect-gas-competence (seconds 1.0) (goal ((gas_saturated)))
 		(elements
 			(
@@ -421,25 +424,17 @@ This section details some of the POSH plan elements created or changed during th
 			)
 		)
 	)
+\end{Code}
 
-(
-				; Start collecting gas
-				(get-vespene (trigger ((has_completed_spawning_pool) (gas_saturated 0 =)))
-					collect-gas-competence(seconds 4.0))
-)
-
-
-%%NEW
-
-	(AP build-extractor-ap (seconds 1.0) (build_extractor))
+\begin{Code}[frame=single,language=Lisp,tabsize=4,breaklines,breakatwhitespace,caption={The current POSH drive to begin collecting gas},label=newGasPOSH]
 			(
 				; Start collecting gas
 				(get-vespene (trigger (	(has_completed_spawning_pool)
 										(has_extractor_saturation 0 =)
 										(mineral_count 25 >=)))
 					build-extractor-ap(seconds 4.0))
-			) 
-
+			)
+\end{Code}
 
 
 \chapter{Results}

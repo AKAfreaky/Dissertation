@@ -39,10 +39,11 @@
 \contentsline {subsubsection}{Impatience}{22}{section*.15}
 \contentsline {subsubsection}{Expansion Locations}{22}{section*.16}
 \contentsline {section}{\numberline {5.2}POSH Plans}{22}{section.5.2}
-\contentsline {chapter}{\numberline {6}Results}{23}{chapter.6}
-\contentsline {chapter}{\numberline {7}Conclusions}{24}{chapter.7}
-\contentsline {chapter}{\numberline {A}Design Diagrams}{28}{appendix.A}
-\contentsline {chapter}{\numberline {B}User Documentation}{29}{appendix.B}
-\contentsline {chapter}{\numberline {C}Raw results output}{30}{appendix.C}
-\contentsline {chapter}{\numberline {D}Code}{31}{appendix.D}
-\contentsline {section}{\numberline {D.1}File: yourCodeFile.java}{32}{section.D.1}
+\contentsline {subsection}{\numberline {5.2.1}Simplified Competences}{22}{subsection.5.2.1}
+\contentsline {chapter}{\numberline {6}Results}{24}{chapter.6}
+\contentsline {chapter}{\numberline {7}Conclusions}{25}{chapter.7}
+\contentsline {chapter}{\numberline {A}Design Diagrams}{29}{appendix.A}
+\contentsline {chapter}{\numberline {B}User Documentation}{30}{appendix.B}
+\contentsline {chapter}{\numberline {C}Raw results output}{31}{appendix.C}
+\contentsline {chapter}{\numberline {D}Code}{32}{appendix.D}
+\contentsline {section}{\numberline {D.1}File: yourCodeFile.java}{33}{section.D.1}
