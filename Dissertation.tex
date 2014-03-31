@@ -403,10 +403,7 @@ This section details some of the POSH plan elements created or changed during th
 \subsection{Simplified Competences}
 This sub-section covers how some competences were simplified, and the rationale behind that.
 
-The task of starting to gather gas is a two step process. The first a building needs to be built on the gas resource nodes (called an extractor). Once this building has completed, workers must be moved from other tasks to begin harvesting the gas. The original POSH plan (see listing \ref{oldGasPOSH} had both these steps in a competence. Because of bugs encountered from upgrading the external APIs (see section \ref{APIIssue}), the second step of the competence would often not work, and it would take some time to start gathering gas.
-
-The solution found for this is to move the second step directly into the behaviour library. It will never be the case that a gas extraction building is constructed without wanting to send workers to it. There is an event when ever a unit is completed, so the completion of the extraction building.
-
+The task of starting to gather gas is a two step process. The first a building needs to be built on the gas resource nodes. Once this building has completed, workers must be moved from other tasks to begin harvesting the gas. The original POSH plan (see listing \ref{oldGasPOSH}) had both these steps in a competence. Because of bugs encountered from upgrading the external APIs (see section \ref{APIIssue}), the second step of the competence would often not work, and it would take some time to start gathering gas.
 
 \begin{Code}[frame=single,language=Lisp,tabsize=4,breaklines,breakatwhitespace,caption={The original POSH competence to manage collecting gas},label=oldGasPOSH]
 	(C collect-gas-competence (seconds 1.0) (goal ((gas_saturated)))
@@ -426,6 +423,8 @@ The solution found for this is to move the second step directly into the behavio
 	)
 \end{Code}
 
+The solution found for this is to move the second step directly into the behaviour library. It will never be the case that a gas extraction building is constructed without needing workers sent to it. A new feature of JNIBWAPI is an event when ever a unit is completed, so the completion of the extraction building is detected and workers are reassigned. The competence has been refactored into a drive element and an action pattern\footnote{The action pattern only has a single primitive. It is necessary as the version of POSH used cannot call action primitives from a drive element.}. The drive element can be seen in listing \ref{newGasPOSH}. 
+
 \begin{Code}[frame=single,language=Lisp,tabsize=4,breaklines,breakatwhitespace,caption={The current POSH drive to begin collecting gas},label=newGasPOSH]
 			(
 				; Start collecting gas
@@ -436,6 +435,9 @@ The solution found for this is to move the second step directly into the behavio
 			)
 \end{Code}
 
+A similar method was employed in the expansion building behaviour. There was one competence that would send a worker to an expansion, and then when it appeared the worker had arrived, there was another competence to tell the worker to build. This suffered the same bugs as above, and in some cases would result in two new base buildings\footnote{All races in StarCraft have buildings where harvested resources need to be returned, so that they can be added to the resource pool. These buildings form the core of any new base, so I will refer to them as base buildings.} in the same location (the worker would take too long, so another would be sent). This is a waste of resources and not really desirable.
+
+The solution here is the same as the extractor problem. It can be detected when the worker arrives at the expansion location, so instead of waiting for the action selection mechanism to choose to build, it is done as soon as it is necessary. This speeds the process up, and reduces the behaviour to a single action pattern.
 
 \chapter{Results}
 This is the chapter in which you review the outcomes, and
