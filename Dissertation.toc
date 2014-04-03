@@ -7,15 +7,15 @@
 \contentsline {subsection}{\numberline {2.3.2}Decomposition}{5}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}Methodology}{6}{subsection.2.3.3}
 \contentsline {section}{\numberline {2.4}Simon Davies' AI}{6}{section.2.4}
-\contentsline {section}{\numberline {2.5}Possible ideas for expansions}{7}{section.2.5}
-\contentsline {subsection}{\numberline {2.5.1}Unit micro-management strategies}{7}{subsection.2.5.1}
-\contentsline {subsubsection}{Potential fields}{8}{section*.7}
-\contentsline {subsubsection}{Monte-Carlo planning}{8}{section*.8}
+\contentsline {section}{\numberline {2.5}Possible Ideas for Expansion}{7}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Unit Micro-management Strategies}{7}{subsection.2.5.1}
+\contentsline {subsubsection}{Potential Fields}{8}{section*.7}
+\contentsline {subsubsection}{Monte-Carlo Planning}{8}{section*.8}
 \contentsline {subsubsection}{Bayesian Modelling}{8}{section*.9}
-\contentsline {subsection}{\numberline {2.5.2}Macromanagement strategies}{9}{subsection.2.5.2}
+\contentsline {subsection}{\numberline {2.5.2}Macro-management Strategies}{9}{subsection.2.5.2}
 \contentsline {subsubsection}{Micro Focus}{9}{section*.10}
 \contentsline {subsubsection}{Planning}{9}{section*.11}
-\contentsline {subsubsection}{Case-based reasoning}{10}{section*.12}
+\contentsline {subsubsection}{Case-based Reasoning}{9}{section*.12}
 \contentsline {section}{\numberline {2.6}Summary}{10}{section.2.6}
 \contentsline {chapter}{\numberline {3}Requirements}{11}{chapter.3}
 \contentsline {section}{\numberline {3.1}Functional Requirements}{11}{section.3.1}
@@ -25,25 +25,31 @@
 \contentsline {section}{\numberline {4.1}Initial Behaviour Library Structure}{13}{section.4.1}
 \contentsline {section}{\numberline {4.2}Behaviour Library Structure Changes}{14}{section.4.2}
 \contentsline {subsection}{\numberline {4.2.1}Initial Design}{14}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Iterative design process}{15}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.2}Iterative Design Process}{15}{subsection.4.2.2}
 \contentsline {subsection}{\numberline {4.2.3}Final Class Structure}{15}{subsection.4.2.3}
 \contentsline {chapter}{\numberline {5}Implementation}{17}{chapter.5}
 \contentsline {section}{\numberline {5.1}Behaviour Library Generalisation}{17}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}API issues}{17}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Parameterisation of building, recruitment and research}{18}{subsection.5.1.2}
+\contentsline {subsection}{\numberline {5.1.1}API Issues}{17}{subsection.5.1.1}
+\contentsline {subsection}{\numberline {5.1.2}Parameterisation of Building, Recruitment and Research}{18}{subsection.5.1.2}
 \contentsline {subsection}{\numberline {5.1.3}Generalising Scouting}{19}{subsection.5.1.3}
 \contentsline {subsection}{\numberline {5.1.4}Generalising the Military}{20}{subsection.5.1.4}
 \contentsline {subsection}{\numberline {5.1.5}Small improvements}{21}{subsection.5.1.5}
-\contentsline {subsubsection}{Build locations}{21}{section*.13}
-\contentsline {subsubsection}{Resource reservation}{21}{section*.14}
+\contentsline {subsubsection}{Build Locations}{21}{section*.13}
+\contentsline {subsubsection}{Resource Reservation}{21}{section*.14}
 \contentsline {subsubsection}{Impatience}{22}{section*.15}
 \contentsline {subsubsection}{Expansion Locations}{22}{section*.16}
 \contentsline {section}{\numberline {5.2}POSH Plans}{22}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Simplified Competences}{22}{subsection.5.2.1}
-\contentsline {chapter}{\numberline {6}Results}{25}{chapter.6}
-\contentsline {chapter}{\numberline {7}Conclusions}{26}{chapter.7}
-\contentsline {chapter}{\numberline {A}Design Diagrams}{30}{appendix.A}
-\contentsline {chapter}{\numberline {B}User Documentation}{31}{appendix.B}
-\contentsline {chapter}{\numberline {C}Raw results output}{32}{appendix.C}
-\contentsline {chapter}{\numberline {D}Code}{33}{appendix.D}
-\contentsline {section}{\numberline {D.1}File: yourCodeFile.java}{34}{section.D.1}
+\contentsline {subsection}{\numberline {5.2.1}Overall Strategy}{22}{subsection.5.2.1}
+\contentsline {subsubsection}{Initial Behaviour}{22}{section*.17}
+\contentsline {subsubsection}{Building a Military}{23}{section*.18}
+\contentsline {subsubsection}{What to do Next}{23}{section*.19}
+\contentsline {subsubsection}{When to Attack}{23}{section*.20}
+\contentsline {subsection}{\numberline {5.2.2}Simplified Competences}{24}{subsection.5.2.2}
+\contentsline {subsection}{\numberline {5.2.3}Improvements to Worker Production}{25}{subsection.5.2.3}
+\contentsline {chapter}{\numberline {6}Results}{27}{chapter.6}
+\contentsline {chapter}{\numberline {7}Conclusions}{28}{chapter.7}
+\contentsline {chapter}{\numberline {A}Design Diagrams}{32}{appendix.A}
+\contentsline {chapter}{\numberline {B}User Documentation}{33}{appendix.B}
+\contentsline {chapter}{\numberline {C}Raw results output}{34}{appendix.C}
+\contentsline {chapter}{\numberline {D}Code}{35}{appendix.D}
+\contentsline {section}{\numberline {D.1}File: yourCodeFile.java}{36}{section.D.1}

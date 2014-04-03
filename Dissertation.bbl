@@ -1,18 +1,8 @@
 \begin{thebibliography}{xx}
 
-\harvarditem{{\em A StarCraft AI bot}}{n.d.}{AIBot}
-{\em A StarCraft AI bot}  \harvardyearleft n.d.\harvardyearright ,
-  \url{https://code.google.com/p/bthai/}.
-\newblock Retrieved November 22, 2013.
-
-\harvarditem{{\em Berkeley Overmind}}{n.d.}{BerkeleyOvermind}
-{\em Berkeley Overmind}  \harvardyearleft n.d.\harvardyearright ,
-  \url{http://overmind.cs.berkeley.edu/\#desc}.
-\newblock Retrieved November 22, 2013.
-
-\harvarditem{{\em Blizzard Entertainment -- StarCraft}}{n.d.}{Blizzard}
-{\em Blizzard Entertainment -- StarCraft}  \harvardyearleft
-  n.d.\harvardyearright , \url{http://us.blizzard.com/en-us/games/sc/}.
+\harvarditem{{Blizzard Entertainment}}{2009}{Blizzard}
+{Blizzard Entertainment}  \harvardyearleft 2009\harvardyearright , `Starcraft',
+  \url{http://us.blizzard.com/en-us/games/sc/}.
 \newblock Retrieved November 21, 2013.
 
 \harvarditem{Bryson}{2001}{bryson2001intelligence}
@@ -25,19 +15,13 @@ Bryson, J.~J.  \harvardyearleft 2003\harvardyearright , `The behavior-oriented
   design of modular agent intelligence', {\em Agent technologies,
   infrastructures, tools, and applications for e-services} pp.~61--76.
 
-\harvarditem{Bryson}{2005}{BODWeb}
-Bryson, J.~J.  \harvardyearleft 2005\harvardyearright , `The behavior-oriented
-  design of modular agent intelligence',
-  \url{http://www.cs.bath.ac.uk/~jjb/web/BOD/AgeS02/node13.html}.
-\newblock Retrieved March 30, 2014.
-
-\harvarditem{{\em BWAPI}}{n.d.}{bwapiMain}
-{\em BWAPI}  \harvardyearleft n.d.\harvardyearright ,
+\harvarditem{{\em BWAPI}}{2010}{bwapiMain}
+{\em BWAPI}  \harvardyearleft 2010\harvardyearright ,
   \url{https://code.google.com/p/bwapi/}.
 \newblock Retrieved November 21, 2013.
 
-\harvarditem{{\em BWAPI - Competitions}}{n.d.}{bwapiCompetitions}
-{\em BWAPI - Competitions}  \harvardyearleft n.d.\harvardyearright ,
+\harvarditem{{\em BWAPI - Competitions}}{2011}{bwapiCompetitions}
+{\em BWAPI - Competitions}  \harvardyearleft 2011\harvardyearright ,
   \url{https://code.google.com/p/bwapi/wiki/Competitions}.
 \newblock Retrieved November 21, 2013.
 
@@ -64,10 +48,15 @@ Galloway, A.~R.  \harvardyearleft 2007\harvardyearright , `Starcraft, or,
   balance', {\em Grey Room} {\bf 28},~86--107.
 
 \harvarditem[Gaudl et~al.]{Gaudl, Davies \harvardand\
-  Bryson}{n.d.}{gaudlbehaviour}
+  Bryson}{2013}{gaudlbehaviour}
 Gaudl, S., Davies, S. \harvardand\ Bryson, J.~J.  \harvardyearleft
-  n.d.\harvardyearright , `Behaviour oriented design for real-time-strategy
-  games'.
+  2013\harvardyearright , `{B}ehaviour {O}riented {D}esign for
+  {R}eal-{T}ime-{S}trategy games'.
+
+\harvarditem{Hagelbäck}{2010}{AIBot}
+Hagelbäck, J.  \harvardyearleft 2010\harvardyearright , `A starcraft ai bot',
+  \url{https://code.google.com/p/bthai/}.
+\newblock Retrieved November 22, 2013.
 
 \harvarditem[Hostetler et~al.]{Hostetler, Dereszynski, Dietterich \harvardand\
   Fern}{2012}{hostetler2012inferring}
@@ -81,10 +70,10 @@ Huang, H.  \harvardyearleft 2011\harvardyearright , `Skynet meets the swarm',
   \url{http://arstechnica.com/gaming/2011/01/skynet-meets-the-swarm-how-the-berkeley-overmind-won-the-2010-starcraft-ai-competition/}.
 \newblock Retrieved November 22, 2013.
 
-\harvarditem{{\em JNIBWAPI}}{n.d.}{JNIBWAPI}
-{\em JNIBWAPI}  \harvardyearleft n.d.\harvardyearright ,
-  \url{https://code.google.com/p/jnibwapi/}.
-\newblock Retrieved November 13, 2013.
+\harvarditem{Klien}{2011}{BerkeleyOvermind}
+Klien, D.  \harvardyearleft 2011\harvardyearright , `Berkeley overmind',
+  \url{http://overmind.cs.berkeley.edu/\#desc}.
+\newblock Retrieved November 22, 2013.
 
 \harvarditem{Kurzweil}{2005}{kurzweil2005singularity}
 Kurzweil, R.  \harvardyearleft 2005\harvardyearright , `The singularity is
@@ -95,15 +84,15 @@ McCorduck, P.  \harvardyearleft 2004\harvardyearright , `Machines who think: A
   personal inquiry into the history and prospects of artificial intelligence,
   ak peters', {\em Natick, Mass} .
 
-\harvarditem{{\em Monte-Carlo method}}{n.d.}{MonteCarlo}
-{\em Monte-Carlo method}  \harvardyearleft n.d.\harvardyearright ,
+\harvarditem{{\em Monte-Carlo method}}{2011}{MonteCarlo}
+{\em Monte-Carlo method}  \harvardyearleft 2011\harvardyearright ,
   \url{http://www.encyclopediaofmath.org/index.php/Monte-Carlo\_method}.
 \newblock Retrieved November 22, 2013.
 
 \harvarditem{Rathe \harvardand\ Svendsen}{2012}{rathe2012micromanagement}
 Rathe, E.~A. \harvardand\ Svendsen, J.~B.  \harvardyearleft
-  2012\harvardyearright , `Micromanagement in starcraft using potential fields
-  tuned with a multi-objective genetic algorithm'.
+  2012\harvardyearright , `Micromanagement in {S}tarcraft using potential
+  fields tuned with a multi-objective genetic algorithm'.
 
 \harvarditem[Russell et~al.]{Russell, Norvig, Canny, Malik \harvardand\
   Edwards}{1995}{russell1995artificial}
@@ -115,15 +104,20 @@ Russell, S.~J., Norvig, P., Canny, J.~F., Malik, J.~M. \harvardand\ Edwards,
 Safadi, F. \harvardand\ Ernst, D.  \harvardyearleft 2010\harvardyearright ,
   `Organization in ai design for real-time strategy games'.
 
-\harvarditem{{\em StarCraft Replays}}{n.d.}{Replays}
-{\em StarCraft Replays}  \harvardyearleft n.d.\harvardyearright ,
+\harvarditem{{\em StarCraft Replays}}{2002}{Replays}
+{\em StarCraft Replays}  \harvardyearleft 2002\harvardyearright ,
   \url{http://www.teamliquid.net/replay/}.
 \newblock Retrieved November 22, 2013.
 
-\harvarditem{{\em StarCraft Wiki}}{n.d.}{SCWiki}
-{\em StarCraft Wiki}  \harvardyearleft n.d.\harvardyearright ,
+\harvarditem{{\em StarCraft Wiki}}{2005}{SCWiki}
+{\em StarCraft Wiki}  \harvardyearleft 2005\harvardyearright ,
   \url{http://starcraft.wikia.com/wiki/StarCraft\_Wiki}.
 \newblock Retrieved November 21, 2013.
+
+\harvarditem{{Strategy Wiki}}{2006}{StratWiki}
+{Strategy Wiki}  \harvardyearleft 2006\harvardyearright , `{StarCraft}',
+  \url{http://strategywiki.org/wiki/StarCraft}.
+\newblock Retrieved April 01, 2014.
 
 \harvarditem{Synnaeve \harvardand\ Bessiere}{2011}{synnaeve2011bayesian}
 Synnaeve, G. \harvardand\ Bessiere, P.  \harvardyearleft 2011\harvardyearright
@@ -136,15 +130,15 @@ Synnaeve, G. \harvardand\ Bessiere, P.  \harvardyearleft 2012\harvardyearright
   , A bayesian tactician, {\em in} `Proceedings of the Computer Games Workshop
   at the European Conference of Artificial Intelligence 2012'.
 
-\harvarditem{{\em Team Liquid}}{n.d.}{TeamLiquid}
-{\em Team Liquid}  \harvardyearleft n.d.\harvardyearright ,
-  \url{http://www.teamliquid.net/}.
-\newblock Retrieved November 21, 2013.
-
-\harvarditem{{\em Team Liquid, Micro}}{n.d.}{TLMicro}
-{\em Team Liquid, Micro}  \harvardyearleft n.d.\harvardyearright ,
+\harvarditem{{Team Liquid}}{2010}{TLMicro}
+{Team Liquid}  \harvardyearleft 2010\harvardyearright , `Micro',
   \url{http://wiki.teamliquid.net/starcraft2/Micro\_(StarCraft)}.
 \newblock Retrieved March 27, 2014.
+
+\harvarditem{{\em Team Liquid}}{2002}{TeamLiquid}
+{\em Team Liquid}  \harvardyearleft 2002\harvardyearright ,
+  \url{http://www.teamliquid.net/}.
+\newblock Retrieved November 21, 2013.
 
 \harvarditem[Togelius et~al.]{Togelius, Preuss, Beume, Wessing, Hagelback
   \harvardand\ Yannakakis}{2010}{togelius2010multiobjective}
@@ -156,9 +150,16 @@ Togelius, J., Preuss, M., Beume, N., Wessing, S., Hagelback, J. \harvardand\
 \harvarditem[Wang et~al.]{Wang, Nguyen, Thawonmas \harvardand\
   Rinaldo}{2012}{zheusing}
 Wang, Z., Nguyen, K.~Q., Thawonmas, R. \harvardand\ Rinaldo, F.
-  \harvardyearleft 2012\harvardyearright , Monte-carlo planning for unit
+  \harvardyearleft 2012\harvardyearright , {M}onte-{C}arlo planning for unit
   control in starcraft, {\em in} `Consumer Electronics (GCCE), 2012 IEEE 1st
   Global Conference on', IEEE, pp.~263--264.
+
+\harvarditem[Weber et~al.]{Weber, krasi000@gmail.com \harvardand\
+  phoglenix@gmail.com}{2011}{JNIBWAPI}
+Weber, B.~G., krasi000@gmail.com \harvardand\ phoglenix@gmail.com
+  \harvardyearleft 2011\harvardyearright , `{JNIBWAPI}',
+  \url{https://code.google.com/p/jnibwapi/}.
+\newblock Retrieved November 13, 2013.
 
 \harvarditem{Weber \harvardand\ Mateas}{2009}{weber2009data}
 Weber, B.~G. \harvardand\ Mateas, M.  \harvardyearleft 2009\harvardyearright ,

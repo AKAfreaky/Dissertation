@@ -76,7 +76,7 @@ StarCraft has recently seen increased development in the field of AI, due to the
 \section{StarCraft}
 StarCraft is a real-time strategy game where the player commands an army from one of three distinct races \footnote{Races can be thought about as teams or factions. Race is the term used in the StarCraft community}. It was released in 1998 by Blizzard Entertainment and its expansion StarCraft: Brood War was released later the same year \cite{Blizzard}. During a game, the player controls their army from a top-down perspective, or ``God's eye view'' (see figure \ref{fig:StarCraft}). The army must harvest two limited resources, minerals and vespene gas, and use them to construct buildings, recruit units and research upgrades with the ultimate goal of destroying the opponent. The game can be said to be split into three stages: The opening, where choosing the most suitable order of construction is vital due to limited resources; the mid-game, where players build up for larger attacks and must expand to gain more resources; and the end-game, where one player has gained the advantage and should be looking to make a very large push to secure it \cite{yi2011adaptive}.
 
-The three races differ from each other substantially in both play style and unit ability. The insectile Zerg focus on small, fast and cheap units and swarm tactics; the psychic and advanced Protoss focus on expensive but extremely powerful units; and the human Terran are the balance between the two, not as weak or as numerous as the Zerg, but not as powerful or as expensive as the Protoss. They also focus on attacking from range.  Due to the game's age and popularity, there are many online communities that have collated a large amount of information about the game and effective strategies, such as the StarCraft wiki \cite{SCWiki} and team liquid \cite{TeamLiquid}.
+The three races differ from each other substantially in both play style and unit ability. The insectile Zerg focus on small, fast and cheap units and swarm tactics; the psychic and advanced Protoss focus on expensive but extremely powerful units; and the human Terran are the balance between the two, not as weak or as numerous as the Zerg, but not as powerful or as expensive as the Protoss. They also focus on attacking from range.  Due to the game's age and popularity, there are many online communities that have collated a large amount of information about the game and effective strategies, such as the \citeasnoun{SCWiki} and \citeasnoun{TeamLiquid}.
 
 StarCraft has regularly found itself used as a subject in academia, probably due to its prominence and well-balanced game play.  Uses can vary from essays on what StarCraft's design communicates \cite{galloway2007starcraft}, analysis of the game's network traffic \cite{dainotti2005packet} , to algorithmically generating playable maps \cite{togelius2010multiobjective}. The creation of the Brood War Application Programming Interface (BWAPI) in 2010 \cite{bwapiMain} has led to increased usage as a platform to explore and construct AI and a target for AI competitions \cite{bwapiCompetitions}.
 
@@ -107,7 +107,7 @@ BOD is an AI development methodology conceived by Bryson \cite{bryson2001intelli
 As stated,  the BOD architecture consists of two main parts:
 \begin{description}
 \item[The Behaviour Library] Behaviours are like object oriented design (OOD) objects and encapsulate how to do something, including perception and actions. Behaviours should be modular, can have state, can implement learning techniques, or even be wrappers for external libraries. This separation from the action selection also facilitates code re-use and allows modification of behaviours without affecting plans \cite{gaudlbehaviour}.
-\item[POSH plans and action selection] POSH plans are a hierarchy of behaviours and their triggers \cite{gaudlbehaviour}. The primitives of the hierarchy are actions and senses. These primitives are formed into three groupings, action patterns, competences and drive collections, in order of increasing complexity. Action patterns are simple sequences of primitives; competences are basic reactive plans, a prioritised list of actions and triggers; drive collections are the root of the hierarchy and determine where the agent's attention should be focused \cite{bryson2003behavior}.
+\item[POSH plans and action selection] \label{POSHPlans}POSH plans are a hierarchy of behaviours and their triggers \cite{gaudlbehaviour}. The primitives of the hierarchy are actions and senses. These primitives are formed into three groupings, action patterns, competences and drive collections, in order of increasing complexity. Action patterns are simple sequences of primitives; competences are basic reactive plans, a prioritised list of actions and triggers; drive collections are the root of the hierarchy and determine where the agent's attention should be focused \cite{bryson2003behavior}.
 \end{description}
 
 \subsection{Decomposition}
@@ -123,7 +123,7 @@ BOD provides a set of initial steps to begin the decomposition of behaviours and
 As BOD is meant to be performed iteratively, getting these steps right initially isn't paramount, but will save some effort later on.
 
 \subsection{Methodology}
-BOD champions an iterative development cycle and rapid prototyping. It specifies to only implement a section at a time, to fully test and debug each section and to re-evaluate the specification after each section is complete. During this evaluation, the focus is to simplify, if feasible, anything that has gotten too complex. Plan elements are also analysed, to determine if they are still doing what they were intended to do. Complex primitives should become action patterns; Long action patterns should either be reduced into primitives or extended into a competence; Simple, deterministic competences should become action patterns and complex competences should be broken down into simpler competences. The line where a element becomes too complex can be a bit blurry, though BOD does offer guide lines. It is the designer's role to use trial and error and their own experience to determine the best way to keep the AI simple \cite{BODWeb}.
+BOD champions an iterative development cycle and rapid prototyping. It specifies to only implement a section at a time, to fully test and debug each section and to re-evaluate the specification after each section is complete. During this evaluation, the focus is to simplify, if feasible, anything that has gotten too complex. Plan elements are also analysed, to determine if they are still doing what they were intended to do. Complex primitives should become action patterns; Long action patterns should either be reduced into primitives or extended into a competence; Simple, deterministic competences should become action patterns and complex competences should be broken down into simpler competences. The line where a element becomes too complex can be a bit blurry, though BOD does offer guide lines. It is the designer's role to use trial and error and their own experience to determine the best way to keep the AI simple \cite{bryson2003behavior}.
 
 \section{Simon Davies' AI}
 In 2012, Simon Davies used BOD to create a Zerg AI bot for StarCraft \cite{davies2012}. The strategy it follows is quite simple; it builds up a simple army until it has a certain number of units and then it attacks the enemy until it has lost a certain number of units. It also builds defences and expands its resource harvesting capacity.
@@ -148,23 +148,23 @@ The architecture is slightly more complicated than it needs to be, but Davies ha
 \label{LitSrvyClass}
 The Java behaviour library of the bot is implemented as a collection of managers, which split the behaviours into correlated sub-sections. The decomposition Davies chose appears effective and his reasoning is solid.  Most of the behaviours and the action patterns are specific to the Zerg race, and as mentioned above, the other races do play quite differently. However, the base mechanics of the game (resource gathering, construction, research) are nearly identical between races and it is these areas I will look to generalise.
 
-\section{Possible ideas for expansions}
+\section{Possible Ideas for Expansion}
 This section covers various AI strategies and techniques that have been applied StarCraft and offers some opinion on their applicability for improving the bot's performance.
 
-\subsection{Unit micro-management strategies}
+\subsection{Unit Micro-management Strategies}
 Unit micro-management (micro) refers to the low-level control of units; how the units are positioned, what the units attack, and how the units attack \cite{TLMicro}.
 The micro of Davies' bot is relatively simple compared to some other examples. There is a single army that moves towards the enemy's base. Each unit prioritises visible enemies based on their type and how far away they are. Each unit will then attack the unit it calculates to have the highest priority. While simple, this can be effective in some situations. It does have problems, units don't make use of any abilities they possess and units don't consider their position, so a weak ranged unit can end up in melee range. There are other works that show possible paths for improvement.
 
-\subsubsection{Potential fields}
+\subsubsection{Potential Fields}
 Adapted from an idea in physics, this is where individual entities in the game are given an attractive or repulsive force. So units are attracted to weaker units while being repulsed from stronger or more dangerous units. Units can also be affected by changes in their own circumstances, perhaps retreating while under fire. The advantage of potential fields is that a single function can control lots of units, however the strength of the forces involved must be figured out manually and carefully considered to avoid units becoming stuck in local maxima. Genetic algorithms have been used to reduce the workload needed to optimise the values \cite{rathe2012micromanagement}. The Berkeley Overmind \cite{BerkeleyOvermind} implemented potential fields to such success that it was able to beat an ex-professional player \cite{OvermindArticle}. There are also an open source implementation available \cite{AIBot}.
 
-\subsubsection{Monte-Carlo planning}
+\subsubsection{Monte-Carlo Planning}
 Planning is usually associated with large scale strategy, due to its time cost and the large search space of micro-management. \citeasnoun{zheusing} have applied it to the micro-management of units using a Monte-Carlo planning method. Monte-Carlo methods rely on entering random samples into a simulation and analysing the results \cite{MonteCarlo}. Wang et al created a simulation of the game state and then evaluated several predefined stochastic plans. They tested their AI in game and an imbalanced scenario (their AI was at a disadvantage) and it was able to beat beginner players and the original AI with some consistency, though was still beaten by an expert. This does show some potential for planning at a micro level. However, plan evaluation must be weighted manually and the simulator is limited to a few types of units and a small environment. It is unclear if this method could be scaled to a full game, as they have concerns about simulator speed .
 
 \subsubsection{Bayesian Modelling}
 There is a project that focuses on using Bayesian models for all aspects of a StarCraft AI \cite{synnaeve2012bayesian} which includes unit control \cite{synnaeve2011bayesian}. This uses the distribution of game elements to decide what to do with a unit next. Units receive tactical goals as sensory inputs and maintain a finite state machine (FSM) for different modes (attacking, defending, etc.). It uses re-enforcement learning to build its probability tables and succeeded quite well in trails against both the original AI and against winners of the 2010 AIIDE competition. Their implementation is available open source.
 
-\subsection{Macromanagement strategies}
+\subsection{Macro-management Strategies}
 Macromanagemt (macro), as used in computer gaming, is a term for the economic or large-scale strategy of the player. For StarCraft, this covers resource collection and spending; the decision on what buildings or units to build. Davies' bot is quite effective on the resource collection side, but is very restricted on the 'what to build' side. Its strategy is very rigid and doesn't adapt to the enemies actions, which is a key part of successful StarCraft play. Improving and generalising his work will require creating several strategies, and should look into making them adaptable. There is work done in StarCraft in this area.
 
 \subsubsection{Micro Focus}
@@ -173,7 +173,7 @@ Safadi and Ernst \cite{safadi2010organization} take the interesting position tha
 \subsubsection{Planning}
 There are many replays of StarCraft games publicly available \cite{Replays}, some of which are of high level play. Using BWAPI, it's possible to retrieve lots of data from these replays and data mine the results. There are several papers that do this and use the data to create Bayesian models of what the opponents are likely to be doing \cite{synnaeve2011bayesian,hostetler2012inferring,weber2009data}.  This has the advantage that the bot gains expert-level knowledge without designers needing to know expert strategies. Planning and prediction are popular areas in the StarCraft AI field, probably due to the availability of vast amounts of completed game data. The main strategy in StarCraft revolves around predicting and countering the opponents high-level decisions, so a successful bot does need to react in someway to what it thinks its opponent is doing.
 
-\subsubsection{Case-based reasoning}
+\subsubsection{Case-based Reasoning}
 \citeasnoun{certicky2013case} implemented cased-based reasoning (CBR) for army composition. CBR is a cyclical process where there is a databases of problem cases with solutions. For each problem, a case is chosen that best fits. The solution is adapted to fit the current problem and if it works it is added back to the database as a new case. Certicky constructed cases based on the ratios of units that the opponent has and the solutions are the recommend ratios for the bot's army. This process has the potential to be useful, but it needs quite a bit of expert knowledge about common army ratios and their counters. Additionally, this relies on good scouting and accurate information, if the bot picks the wrong case it could be disastrous. This method is similar to the Bayesian planning mentioned above, but there is more learning done on the fly, which might impact performance.
 
 \section{Summary}
@@ -261,7 +261,7 @@ The remaining classes were sub-classed in a general way, which can be seen in fi
     \label{fig:GeneralStructure}
 \end{figure}
 
-\subsection{Iterative design process}
+\subsection{Iterative Design Process}
 After this initial design work, I proceeded with implementation. The iterative development methodology used in BOD means the design is repeatedly modified as work progresses. The process that was followed for implementation was a very slightly altered version of the BOD development methodology which went like this:
 \begin{itemize}
 \item{Choose a behaviour of the Zerg agent.}
@@ -287,7 +287,7 @@ The final class structure of the behaviour library can be seen in figure \ref{fi
 
 \section{Behaviour Library Generalisation}
 This section covers some of the work done generalising the Java behaviour library.
-\subsection{API issues}
+\subsection{API Issues}
 \label{APIIssue}
 This subsection explains the issues experienced by updating the external libraries that the AI uses and details how they were overcome.
 
@@ -298,7 +298,7 @@ To solve this required the implementation of a queue in the worker manager class
 The bug was not limited to just workers but also affected producing units and researching upgrades, so the same fix has been applied to the production and upgrade manager classes.
 
 
-\subsection{Parameterisation of building, recruitment and research}
+\subsection{Parameterisation of Building, Recruitment and Research}
 This subsection explains how the building, production and upgrade managers were moved from specific behaviour methods to general, parameterised methods.
 
 In the initial stages of the project, the main content of the race-specific managers for building, production and upgrades was methods to build specific buildings, produce specific units and research specific upgrades. An example can be seen in listing \ref{spawnZergling}. As more of these methods were added for each race, a pattern was noticed.
@@ -384,11 +384,11 @@ The implemented solution to this is to use the basic movement and attack behavio
 
 \subsection{Small improvements}
 This subsection covers small improvements made to the behaviour library.
-\subsubsection{Build locations}
+\subsubsection{Build Locations}
 The building manager maintains a list of build locations, which it chooses from when it is time to build a building. The locations were originally generated based on the locations of resources nodes near initial base building. The method needed to modified, but it was too complex. The method has been re-written to be simpler and easier to follow.
 
 Another improvement to build locations is that when one is added, the position is checked to ensure it doesn't conflict with any existing build locations. This is needed for both the Protoss and the Terran as both would duplicate locations as they built buildings which would then create cluttered bases.
-\subsubsection{Resource reservation}
+\subsubsection{Resource Reservation}
 The original resource reservation system simply a integer variable that could be set when a behaviour needed to reserve some resources. Multiple resources reserving at the same time just wasn't feasible because while behaviours could simply increase the reservation instead of setting it, the behaviours are no longer running by the time the task is performed and the resources consumed.
 
 The solution implemented to solve this is to pass an integer ID along with the reservation amount. Then when the resources have been consumed, the reservation with the chosen ID can be cleared. This makes simultaneous reservations easier to deal with, but it doesn't solve the problem of not knowing when to clear the reservation. Reserving resources is only done when building as there is a delay between the command and the resources being spent. Any other time resources are spent, it happen instantly. By using the worker unit ID as the reservation ID, it can be identified when the resources have been spent and which reservation to clear.
@@ -398,12 +398,35 @@ The original AI had an issue where after it destroyed the main enemy base, it wo
 A problem in the AI identified by \citeasnoun{davies2012} was that possible expansion locations were calculated on straight line distance, instead of walking distance. So bases that are close by but take a long time to walk to would be preferred over more accessible options. This couldn't be fixed at the time as JNIBWAPI did not provide the necessary functions. The updated JNIBWAPI does provide the necessary functions, so the method has been updated to make better choices.
 
 \section{POSH Plans}
-This section details some of the POSH plan elements created or changed during the project
+POSH plans are hierarchical plans with lisp like syntax. They are explained in section \ref{POSHPlans}. This section details some of the POSH plan elements created or changed during the project.
+
+\subsection{Overall Strategy}
+
+The aim of this project is to flesh out Davies' behaviour library, so that it can be used by all races. To test that the generalisations were successful, POSH plans were created for the Protoss and the Terran. These plans followed the same general strategy that Davies' plan followed, with minor adjustments. This sub-section will outline that strategy.
+
+\subsubsection{Initial Behaviour}
+The very start of a game is identical for all races. Workers are ordered to collect minerals and new workers are produced. The first behaviour is handled automatically by the behaviour library. The second behaviour has to be outlined in the plan, and initially the Protoss and Terran copied the Zerg. As development continued, some problems were found with Davies' approach, so worker production was modified slightly(see section \ref{workerProd}).
+
+\subsubsection{Building a Military}
+Once a decent number of workers have been amassed, and minerals are flowing in, it is time to start spending. The next goal for every race is to construct their first tier military building\footnote{Buildings in StarCraft often require other buildings to be built before they can be built. Buildings without these requirements can be called the first tier buildings.}, so that some soldiers can be recruited for defense (and eventual offense). The behaviour for Protoss and Terran is slightly different to the Zerg here because of the unique way Zerg produce units. Protoss and Terran units are produced at certain buildings. It is common to build several of these buildings during the game so that units can be produced at a faster rate. It was decided that both the Protoss and the Terran would build two of these buildings, based on basic analysis of several online build orders\footnote{Build orders in the StarCraft community refer to the initial strategy of the player, detailing the order and timings of building and production. Build orders are regularly shared on websites like \citeasnoun{TeamLiquid} and \citeasnoun{StratWiki}.}. As soon as these buildings are finished, they begin producing the basic soldier for each race. 
+
+\subsubsection{What to do Next}
+At this point there are several choices on what to do next.
+\begin{itemize}
+\item{Units in StarCraft rarely start out at their full potential. Each race has many upgrades and technologies to research to improve certain units effectiveness. Generally, research is conducted at specialised buildings. Research takes a long time, so it is important to start early. With that in mind, that is one of the next steps in the strategy; build the correct buildings and start researching.}
+\item{It is important to continue growing the economy after the start of the game. Expanding allows for a greater resources income, which leads to a larger and stronger army.}
+\item{It is rarely a good idea to focus on a single type of unit. More units can be made available by building certain buildings. Which buildings to choose depends on the overall strategy.}
+\end{itemize}
+These behaviours can often be done in parallel, if the resources are available. There is also some overlap. New buildings can unlock new upgrades as well as new units.
+
+\subsubsection{When to Attack}
+Choosing the best army size to begin to attack is tricky. Too soon and it may not be strong enough to succeed. Too late and the enemy may be too well defend, or countered your unit choices. There isn't a good formal way to decide this, it has to be worked out via trial and error and probably should be adjusted depending on the opponent. There is a simple competence to give some variability to this, where the attack time is adjusted based on the enemies race.
+
 
 \subsection{Simplified Competences}
-This sub-section covers how some competences were simplified, and the rationale behind that.
+The iterative development process outlined by BOD involves re-evaluating previous implementation after each cycle. This sub-section details the results of one such evaluation where it was noticed that some behaviours were more complicated than they needed to be at the plan level and how that was remedied.
 
-The task of starting to gather gas is a two step process. The first a building needs to be built on the gas resource nodes. Once this building has completed, workers must be moved from other tasks to begin harvesting the gas. The original POSH plan (see listing \ref{oldGasPOSH}) had both these steps in a competence. Because of bugs encountered from upgrading the external APIs (see section \ref{APIIssue}), the second step of the competence would often not work, and it would take some time to start gathering gas.
+The task of starting to gather gas is a two step process. The first a building needs to be built on the gas resource nodes. Once this building has completed, workers must be moved from other tasks to begin harvesting the gas. The original POSH plan (see listing \ref{oldGasPOSH}) had both these steps in a competence. Due to bugs resulting from upgrading the external APIs (see section \ref{APIIssue}), the second step of the competence would often not work, and there would be a large delay between the building being completed and workers starting to gather gas.
 
 \begin{Code}[frame=single,language=Lisp,tabsize=4,breaklines,breakatwhitespace,caption={The original POSH competence to manage collecting gas},label=oldGasPOSH]
 	(C collect-gas-competence (seconds 1.0) (goal ((gas_saturated)))
@@ -423,26 +446,59 @@ The task of starting to gather gas is a two step process. The first a building n
 	)
 \end{Code}
 
-The solution found for this is to move the second step directly into the behaviour library. It will never be the case that a gas extraction building is constructed without needing workers sent to it. A new feature of JNIBWAPI is an event when ever a unit is completed, so the completion of the extraction building is detected and workers are reassigned. The competence has been refactored into a drive element and an action pattern\footnote{The action pattern only has a single primitive. It is necessary as the version of POSH used cannot call action primitives from a drive element.}. The drive element can be seen in listing \ref{newGasPOSH}. 
+The solution found for this is to move the second step directly into the behaviour library. It will never be the case that a gas extraction building is constructed without needing workers sent to it. A new feature of JNIBWAPI is an event when ever a unit is completed, so the completion of the extraction building is detected and workers are reassigned. The competence has been refactored into a drive element and an action pattern\footnote{The action pattern only has a single primitive. It is necessary as the version of POSH used cannot call action primitives from a drive element.}. The drive element can be seen in listing \ref{newGasPOSH}.
 
 \begin{Code}[frame=single,language=Lisp,tabsize=4,breaklines,breakatwhitespace,caption={The current POSH drive to begin collecting gas},label=newGasPOSH]
-			(
-				; Start collecting gas
-				(get-vespene (trigger (	(has_completed_spawning_pool)
-										(has_extractor_saturation 0 =)
-										(mineral_count 25 >=)))
-					build-extractor-ap(seconds 4.0))
-			)
+(
+	; Start collecting gas
+	(get-vespene (trigger (	(has_completed_spawning_pool)
+							(has_extractor_saturation 0 =)
+							(mineral_count 25 >=)))
+		build-extractor-ap(seconds 4.0))
+)
 \end{Code}
 
-A similar method was employed in the expansion building behaviour. There was one competence that would send a worker to an expansion, and then when it appeared the worker had arrived, there was another competence to tell the worker to build. This suffered the same bugs as above, and in some cases would result in two new base buildings\footnote{All races in StarCraft have buildings where harvested resources need to be returned, so that they can be added to the resource pool. These buildings form the core of any new base, so I will refer to them as base buildings.} in the same location (the worker would take too long, so another would be sent). This is a waste of resources and not really desirable.
+A similar method was employed in the expansion building behaviour. There was one competence that would send a worker to an expansion, and then when it appeared the worker had arrived, there was another competence to tell the worker to build. This suffered the same kind of bugs as starting to gather gas, and in some cases would it result in two new base buildings\footnote{All races in StarCraft have buildings where harvested resources need to be returned, so that they can be added to the resource pool. These buildings form the core of any new base, and are referred to as base buildings.} in the same location (the worker would take too long to build, so another worker would be sent). This is a waste of resources and not really desirable.
 
-The solution here is the same as the extractor problem. It can be detected when the worker arrives at the expansion location, so instead of waiting for the action selection mechanism to choose to build, it is done as soon as it is necessary. This speeds the process up, and reduces the behaviour to a single action pattern.
+The solution here is the same as the extractor problem. It can be detected when the worker arrives at the expansion location, so instead of waiting for the action selection mechanism to choose to build, it is done as soon as it is necessary. This speeds the process up, and reduces the behaviour to a single action pattern. Like with building a gas extractor, the actions are tied together; A worker wouldn't be sent to expand without the intention to build a new expansion.
+
+\subsection{Improvements to Worker Production}
+\label{workerProd}
+During testing, it was noticed that Davies' plan produces workers quite frequently. The plan has multiple drive elements to trigger worker production, and because of workers low cost compared to most other units, workers get produced frequently. This isn't a massive problem; workers are used to collect resources so as the game progresses the rate that resources are spent on workers is outpaced by the rate that those workers collect resources. However, it does delay the production of military units, both by consuming resources and by occupying space in the recruitment queue. It can be fixed by adding more restrictions to recruitment of workers, but the distribution of the activation across several drive elements makes this harder than it needs to be. The Protoss and Terran plans attempt to improve this.
+
+\begin{Code}[frame=single,language=Lisp,tabsize=4,breaklines,breakatwhitespace,caption={A competence to control the production of worker units at different stages of the game.},label=workerPOSH]
+(C worker-production-competence (seconds 1.0) (goal ((game_over) (drone_count 50 >)))
+	(elements
+		(
+			(build_workers_late_game(trigger (
+										(expansion_count 1 >=)
+                                        (zealot_count 13 >)
+										(drone_count 51 <)
+										(mineral_count 50 >=)
+										(supply_available 2 >)))
+				train_probe -1)
+			(build_workers_mid_game(trigger (
+										(zealot_count 9 >)
+										(drone_count 26 <)
+										(mineral_count 50 >=)
+										(supply_available 2 >)))
+				train_probe -1)
+			(build_workers_initial (trigger (
+										(drone_count 11 <)
+										(mineral_count 50 >=)
+										(supply_available 2 >)))
+				train_probe -1)
+		)
+	)
+)
+\end{Code}
+
+These plans group worker production into a single competence with each element covering a different stage of worker production. Listing \ref{workerPOSH} shows the competence used by the Protoss plan. At the start of the game, worker production has very little constraints. This is so enough workers are produced to create a good resource income. Production is then halted until some military units have been produced. This provides some protection against early attacks by the opponent. It also allows resources to build up, that way more resource expensive behaviours are likely to fire. Worker production is constrained again in the late game until an expansion is built, as increasing the amount of workers at a resource node gives diminishing returns. Other constraints are similar to the mid game because the calling drive element is low priority. As the game progress, higher priority drive elements become available, so worker production is chosen less, so more constraints aren't needed. The higher priority drives are effectively implicit constraints on this behaviour.
+
+
 
 \chapter{Results}
-This is the chapter in which you review the outcomes, and
-critique the outcomes process.  You may include user evaluation here
-too.
+
 
 
 %%

@@ -9,6 +9,7 @@
 \usepackage{listings}   % Provides styled code listings
 \usepackage{hyperref}   % Provides URL stuff
 \usepackage{nameref}    % Reference chapter names
+\usepackage{enumitem}   % Better list control
 
 %%
 %% Set some page size changes from the standard article class
@@ -113,6 +114,10 @@ Signed:
   {\minipage{\linewidth}
    \lstset{basicstyle=\ttfamily\footnotesize,frame=single,#1}}
   {\endminipage}
+  
+  
+% Give description lists an indent
+\setdescription{leftmargin=\parindent,labelindent=\parindent}
 
 %%
 %% END OF DEFINITIONS
