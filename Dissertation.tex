@@ -8,6 +8,9 @@
 \newcommand\myTitle{Extending a StarCraft AI Behaviour Library}
 \newcommand\myAuthor{Alex Aiton}
 
+% Give description lists an indent
+\setdescription{leftmargin=1cm,labelindent=1cm}
+
 \title{\myTitle}
 \author{\myAuthor}
 \date{Bachelor of Science in Computer Science with Honours\\The University of Bath\\April 2014}
@@ -133,7 +136,7 @@ This strategy leaves the bot weak in the early game, and stronger in the late ga
 The architecture of the bot's implementation has three layers, detailed below and visualised in \ref{fig:AI-Architecture}
 \begin{description}
 \item[The POSH layer] This layer contains the POSH action selection and plans, and a thin jython behaviour library which calls into the behaviour layer.
-\item[The Behaviour layer] This layer contains the behaviour implementations in Java and it uses a Java native interface to BWAPI \cite{JNIBWAPI} to talk with the StarCraft layer.
+\item[The Behaviour layer] This layer contains the actual behaviour implementation in Java and it uses the Java Native Interface\footnote{Java Native Interface is a programming framework that enables Java code to call and be called by native applications \cite{JNIDef}.} for BWAPI (JNIBWAPI) library \cite{JNIBWAPI} to access the StarCraft layer.
 \item[The StarCraft layer] This layer contains the actual game and the BWAPI library which is implemented in C++ and communicates to the game through DLL injection.
 \end{description}
 \begin{figure}[h]
@@ -199,7 +202,7 @@ This chapter covers the basic requirements specification that was followed for t
 \end{itemize}
 \section{Non-Functional Requirements}
 \begin{itemize}
-\item{The behaviour library refactoring should not negatively affect the existing Zerg agent's performance.}
+\item{Refactoring the behaviour library should not negatively affect the existing Zerg agent's performance.}
 \item{The behaviour library should avoid race specific behaviour where possible}
 \end{itemize}
 
@@ -216,6 +219,9 @@ This chapter covers the basic requirements specification that was followed for t
 
 \chapter{Design}
 This chapter covers the design work done for the project, including an overview of the initial class structure of the behaviour library, the changes needed to generalise the behaviour library and the process
+
+\section{Generalisation}
+Behaviour oriented design encourages behaviours to be implemented in an object-oriented style \cite{bryson2003behavior}. So generalising Davies' behaviour library should be done in an object-oriented style. In this style, a super-class is created by extracting common attributes and methods from more specialised classes. The specialised classes then become sub-classes of the new class. Because Davies' library has no behaviour for other races, this project will apply the process backwards; using the already implemented behaviour as a base and sub-classing parts that can't be applied to the other races. 
 
 
 \section{Initial Behaviour Library Structure}
@@ -249,7 +255,7 @@ These classes were:
 \item[Resource Manager]Every race competes for the same resources and they each handles resources in the same way.
 \item[Unit Manager]The methods in this class are already parameterised by unit type.
 \item[Worker Manager]Each race uses workers and gathers resources in nearly the same way. Generalisation is mostly changing method and variable names.
-\item[Intelligence Manager]Generalisation just needs to adjust the unit used for scouting.
+\item[Intelligence Manager]Each race receives the same information about the world. Generalisation just needs to parameterise scouting.
 \end{description}
 
 The remaining classes were sub-classed in a general way, which can be seen in figure \ref{fig:GeneralStructure}. During the initialisation of the AI client, the appropriate sub-class will be created, based on what BWAPI reports about the player's selected race.
@@ -408,15 +414,15 @@ The aim of this project is to flesh out Davies' behaviour library, so that it ca
 The very start of a game is identical for all races. Workers are ordered to collect minerals and new workers are produced. The first behaviour is handled automatically by the behaviour library. The second behaviour has to be outlined in the plan, and initially the Protoss and Terran copied the Zerg. As development continued, some problems were found with Davies' approach, so worker production was modified slightly(see section \ref{workerProd}).
 
 \subsubsection{Building a Military}
-Once a decent number of workers have been amassed, and minerals are flowing in, it is time to start spending. The next goal for every race is to construct their first tier military building\footnote{Buildings in StarCraft often require other buildings to be built before they can be built. Buildings without these requirements can be called the first tier buildings.}, so that some soldiers can be recruited for defense (and eventual offense). The behaviour for Protoss and Terran is slightly different to the Zerg here because of the unique way Zerg produce units. Protoss and Terran units are produced at certain buildings. It is common to build several of these buildings during the game so that units can be produced at a faster rate. It was decided that both the Protoss and the Terran would build two of these buildings, based on basic analysis of several online build orders\footnote{Build orders in the StarCraft community refer to the initial strategy of the player, detailing the order and timings of building and production. Build orders are regularly shared on websites like \citeasnoun{TeamLiquid} and \citeasnoun{StratWiki}.}. As soon as these buildings are finished, they begin producing the basic soldier for each race. 
+Once a decent number of workers have been amassed, and minerals are flowing in, it is time to start spending. The next goal for every race is to construct their first tier military building\footnote{Buildings in StarCraft often require other buildings to be built before they can be built. Buildings without these requirements can be called the first tier buildings.}, so that some soldiers can be recruited for defense (and eventual offense). The behaviour for Protoss and Terran is slightly different to the Zerg here because of the unique way Zerg produce units. Protoss and Terran units are produced at certain buildings. It is common to build several of these buildings during the game so that units can be produced at a faster rate. It was decided that both the Protoss and the Terran would build two of these buildings, based on basic analysis of several online build orders\footnote{Build orders in the StarCraft community refer to the initial strategy of the player, detailing the order and timings of building and production. Build orders are regularly shared on websites like \citeasnoun{TeamLiquid} and \citeasnoun{StratWiki}.}. As soon as these buildings are finished, they begin producing the basic soldier for each race.
 
 \subsubsection{What to do Next}
 At this point there are several choices on what to do next.
-\begin{itemize}
-\item{Units in StarCraft rarely start out at their full potential. Each race has many upgrades and technologies to research to improve certain units effectiveness. Generally, research is conducted at specialised buildings. Research takes a long time, so it is important to start early. With that in mind, that is one of the next steps in the strategy; build the correct buildings and start researching.}
-\item{It is important to continue growing the economy after the start of the game. Expanding allows for a greater resources income, which leads to a larger and stronger army.}
-\item{It is rarely a good idea to focus on a single type of unit. More units can be made available by building certain buildings. Which buildings to choose depends on the overall strategy.}
-\end{itemize}
+\begin{description}[leftmargin=1.5cm,labelindent=1cm]
+\item[Research upgrades]{Units in StarCraft rarely start out at their full potential. Each race has many upgrades and technologies to research to improve certain units effectiveness. Generally, research is conducted at specialised buildings. Research takes a long time, so it is important to start early. With that in mind, that is one of the next steps in the strategy; build the correct buildings and start researching.}
+\item[Expand to new bases]{It is important to continue growing the economy after the start of the game. Expanding allows for a greater resources income, which leads to a larger and stronger army.}
+\item[Produce different units]{It is rarely a good idea to focus on a single type of unit. More units can be made available by building certain buildings. Which buildings to choose depends on the overall strategy.}
+\end{description}
 These behaviours can often be done in parallel, if the resources are available. There is also some overlap. New buildings can unlock new upgrades as well as new units.
 
 \subsubsection{When to Attack}

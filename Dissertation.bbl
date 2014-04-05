@@ -89,6 +89,11 @@ McCorduck, P.  \harvardyearleft 2004\harvardyearright , `Machines who think: A
   \url{http://www.encyclopediaofmath.org/index.php/Monte-Carlo\_method}.
 \newblock Retrieved November 22, 2013.
 
+\harvarditem{Oracle}{2002}{JNIDef}
+Oracle  \harvardyearleft 2002\harvardyearright , `Java native interface',
+  \url{http://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/intro.html}.
+\newblock Retrieved April 01, 2014.
+
 \harvarditem{Rathe \harvardand\ Svendsen}{2012}{rathe2012micromanagement}
 Rathe, E.~A. \harvardand\ Svendsen, J.~B.  \harvardyearleft
   2012\harvardyearright , `Micromanagement in {S}tarcraft using potential
@@ -154,10 +159,8 @@ Wang, Z., Nguyen, K.~Q., Thawonmas, R. \harvardand\ Rinaldo, F.
   control in starcraft, {\em in} `Consumer Electronics (GCCE), 2012 IEEE 1st
   Global Conference on', IEEE, pp.~263--264.
 
-\harvarditem[Weber et~al.]{Weber, krasi000@gmail.com \harvardand\
-  phoglenix@gmail.com}{2011}{JNIBWAPI}
-Weber, B.~G., krasi000@gmail.com \harvardand\ phoglenix@gmail.com
-  \harvardyearleft 2011\harvardyearright , `{JNIBWAPI}',
+\harvarditem{Weber}{2011}{JNIBWAPI}
+Weber, B.~G.  \harvardyearleft 2011\harvardyearright , `{JNIBWAPI}',
   \url{https://code.google.com/p/jnibwapi/}.
 \newblock Retrieved November 13, 2013.
 
