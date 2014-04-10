@@ -43,9 +43,21 @@ Davies, S.  \harvardyearleft 2012\harvardyearright , Development of an ai for
   the real-time-strategy game starcraft using behaviour oriented design,
   Master's thesis, University of Bath.
 
+\harvarditem{Emden \harvardand\ Moonen}{2002}{Emden02javaquality}
+Emden, E.~V. \harvardand\ Moonen, L.  \harvardyearleft 2002\harvardyearright ,
+  Java quality assurance by detecting code smells, {\em in} `in Proceedings of
+  the 9th Working Conference on Reverse Engineering. IEEE Computer', Society
+  Press, pp.~97--107.
+\newblock Just read the abstract for a reasonable definition of code smell.
+
 \harvarditem{Galloway}{2007}{galloway2007starcraft}
 Galloway, A.~R.  \harvardyearleft 2007\harvardyearright , `Starcraft, or,
   balance', {\em Grey Room} {\bf 28},~86--107.
+
+\harvarditem{Gaudl}{2012}{abode}
+Gaudl, S.  \harvardyearleft 2012\harvardyearright , `Abode',
+  \url{https://code.google.com/p/abode-star/}.
+\newblock Retrieved April 01, 2014.
 
 \harvarditem[Gaudl et~al.]{Gaudl, Davies \harvardand\
   Bryson}{2013}{gaudlbehaviour}

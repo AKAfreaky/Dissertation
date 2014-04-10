@@ -104,12 +104,13 @@ The concept of an agent is a popular one in AI. An agent is a system capable fle
 StarCraft can be argued to be an inaccessible, deterministic, dynamic, continuous environment with the possibility to be episodic and accessible depending on game settings \cite{davies2012}. The majority of StarCraft games have the fog of war setting enabled, so only objects within unit vision are visible and have up-to-date information. It is possible to disable the setting, turning it into an accessible environment. Almost all agent actions are deterministic, though there is some small randomness in ranged attacks. StarCraft is played against another agent, so must be dynamic. The number of units and the number of positions they can be in make it more like a continuous environment than a discrete one, though I think the number of actions available is just extremely high rather than infinite.
 
 \section{Behaviour Oriented Design (BOD)}
+\label{BOD}
 BOD is an AI development methodology conceived by Bryson \cite{bryson2001intelligence}. It details both an agent architecture and a design methodology.  The BOD architecture has two parts, a modular library of behaviours (actions, senses and state) and parallel rooted, ordered, slip-stack,  and hierarchical (POSH) reactive plans for action selection. The methodology specifies how to decompose an agent's behaviours and emphasises an iterative development approach for implementation \cite{bryson2003behavior}. BOD focuses on the design of the AI system, aiming to produce agents that are easy to extend and maintain. It's modularity allows many different AI techniques to be used in tandem, encouraging the developer to use whatever approach fits an individual problem best \cite{gaudlbehaviour}.
 
 \subsection{Architecture}
 As stated,  the BOD architecture consists of two main parts:
 \begin{description}
-\item[The Behaviour Library] Behaviours are like object oriented design (OOD) objects and encapsulate how to do something, including perception and actions. Behaviours should be modular, can have state, can implement learning techniques, or even be wrappers for external libraries. This separation from the action selection also facilitates code re-use and allows modification of behaviours without affecting plans \cite{gaudlbehaviour}.
+\item[The Behaviour Library] Behaviours are like object oriented design objects and encapsulate how to do something, including perception and actions. Behaviours should be modular, can have state, can implement learning techniques, or even be wrappers for external libraries. This separation from the action selection also facilitates code re-use and allows modification of behaviours without affecting plans \cite{gaudlbehaviour}.
 \item[POSH plans and action selection] \label{POSHPlans}POSH plans are a hierarchy of behaviours and their triggers \cite{gaudlbehaviour}. The primitives of the hierarchy are actions and senses. These primitives are formed into three groupings, action patterns, competences and drive collections, in order of increasing complexity. Action patterns are simple sequences of primitives; competences are basic reactive plans, a prioritised list of actions and triggers; drive collections are the root of the hierarchy and determine where the agent's attention should be focused \cite{bryson2003behavior}.
 \end{description}
 
@@ -129,11 +130,11 @@ As BOD is meant to be performed iteratively, getting these steps right initially
 BOD champions an iterative development cycle and rapid prototyping. It specifies to only implement a section at a time, to fully test and debug each section and to re-evaluate the specification after each section is complete. During this evaluation, the focus is to simplify, if feasible, anything that has gotten too complex. Plan elements are also analysed, to determine if they are still doing what they were intended to do. Complex primitives should become action patterns; Long action patterns should either be reduced into primitives or extended into a competence; Simple, deterministic competences should become action patterns and complex competences should be broken down into simpler competences. The line where a element becomes too complex can be a bit blurry, though BOD does offer guide lines. It is the designer's role to use trial and error and their own experience to determine the best way to keep the AI simple \cite{bryson2003behavior}.
 
 \section{Simon Davies' AI}
-In 2012, Simon Davies used BOD to create a Zerg AI bot for StarCraft \cite{davies2012}. The strategy it follows is quite simple; it builds up a simple army until it has a certain number of units and then it attacks the enemy until it has lost a certain number of units. It also builds defences and expands its resource harvesting capacity.
+In 2012, Simon Davies used BOD to create a Zerg AI agent for StarCraft \cite{davies2012}. The strategy it follows is quite simple; it builds up a simple army until it has a certain number of units and then it attacks the enemy until it has lost a certain number of units. It also builds defences and expands its resource harvesting capacity.
 
-This strategy leaves the bot weak in the early game, and stronger in the late game. It doesn't use information about its opponents to modify this strategy, so often lost when opponents tried an early game push. The bot also has problems with the implementation being a bit rough; there's only two hard coded base expansions; melee (close combat) units will try to attack air units; and forces wait on a single slow scout to find the enemy, when they could do it themselves.
+This strategy leaves the agent weak in the early game, and stronger in the late game. It doesn't use information about its opponents to modify this strategy, so often lost when opponents tried an early game push. The agent also has problems with the implementation being a bit rough; there's only two hard coded base expansions; melee (close combat) units will try to attack air units; and forces wait on a single slow scout to find the enemy, when they could do it themselves.
 
-The architecture of the bot's implementation has three layers, detailed below and visualised in \ref{fig:AI-Architecture}
+The architecture of the agent's implementation has three layers, detailed below and visualised in \ref{fig:AI-Architecture}
 \begin{description}
 \item[The POSH layer] This layer contains the POSH action selection and plans, and a thin jython behaviour library which calls into the behaviour layer.
 \item[The Behaviour layer] This layer contains the actual behaviour implementation in Java and it uses the Java Native Interface\footnote{Java Native Interface is a programming framework that enables Java code to call and be called by native applications \cite{JNIDef}.} for BWAPI (JNIBWAPI) library \cite{JNIBWAPI} to access the StarCraft layer.
@@ -149,14 +150,15 @@ The architecture of the bot's implementation has three layers, detailed below an
 The architecture is slightly more complicated than it needs to be, but Davies had trouble linking the python of POSH to the C++ used by BWAPI, so Java is used as an intermediary. Simplifying the architecture of the project now would require a major re-write and possibly a re-implementation of POSH in C++. This is outside the goal and scope of this project and in no way necessary, as long as JNIBWAPI remains up-to-date with BWAPI.
 
 \label{LitSrvyClass}
-The Java behaviour library of the bot is implemented as a collection of managers, which split the behaviours into correlated sub-sections. The decomposition Davies chose appears effective and his reasoning is solid.  Most of the behaviours and the action patterns are specific to the Zerg race, and as mentioned above, the other races do play quite differently. However, the base mechanics of the game (resource gathering, construction, research) are nearly identical between races and it is these areas I will look to generalise.
+The Java behaviour library of the agent is implemented as a collection of managers, which split the behaviours into correlated sub-sections. The decomposition Davies chose appears effective and his reasoning is solid.  Most of the behaviours and the action patterns are specific to the Zerg race, and as mentioned above, the other races do play quite differently. However, the base mechanics of the game (resource gathering, construction, research) are nearly identical between races and it is these areas I will look to generalise.
 
 \section{Possible Ideas for Expansion}
-This section covers various AI strategies and techniques that have been applied StarCraft and offers some opinion on their applicability for improving the bot's performance.
+This section covers various AI strategies and techniques that have been applied StarCraft and offers some opinion on their applicability for improving the agent's performance.
 
 \subsection{Unit Micro-management Strategies}
+\label{LitSrvyMicro}
 Unit micro-management (micro) refers to the low-level control of units; how the units are positioned, what the units attack, and how the units attack \cite{TLMicro}.
-The micro of Davies' bot is relatively simple compared to some other examples. There is a single army that moves towards the enemy's base. Each unit prioritises visible enemies based on their type and how far away they are. Each unit will then attack the unit it calculates to have the highest priority. While simple, this can be effective in some situations. It does have problems, units don't make use of any abilities they possess and units don't consider their position, so a weak ranged unit can end up in melee range. There are other works that show possible paths for improvement.
+The micro of Davies' agent is relatively simple compared to some other examples. There is a single army that moves towards the enemy's base. Each unit prioritises visible enemies based on their type and how far away they are. Each unit will then attack the unit it calculates to have the highest priority. While simple, this can be effective in some situations. It does have problems, units don't make use of any abilities they possess and units don't consider their position, so a weak ranged unit can end up in melee range. There are other works that show possible paths for improvement.
 
 \subsubsection{Potential Fields}
 Adapted from an idea in physics, this is where individual entities in the game are given an attractive or repulsive force. So units are attracted to weaker units while being repulsed from stronger or more dangerous units. Units can also be affected by changes in their own circumstances, perhaps retreating while under fire. The advantage of potential fields is that a single function can control lots of units, however the strength of the forces involved must be figured out manually and carefully considered to avoid units becoming stuck in local maxima. Genetic algorithms have been used to reduce the workload needed to optimise the values \cite{rathe2012micromanagement}. The Berkeley Overmind \cite{BerkeleyOvermind} implemented potential fields to such success that it was able to beat an ex-professional player \cite{OvermindArticle}. There are also an open source implementation available \cite{AIBot}.
@@ -165,39 +167,36 @@ Adapted from an idea in physics, this is where individual entities in the game a
 Planning is usually associated with large scale strategy, due to its time cost and the large search space of micro-management. \citeasnoun{zheusing} have applied it to the micro-management of units using a Monte-Carlo planning method. Monte-Carlo methods rely on entering random samples into a simulation and analysing the results \cite{MonteCarlo}. Wang et al created a simulation of the game state and then evaluated several predefined stochastic plans. They tested their AI in game and an imbalanced scenario (their AI was at a disadvantage) and it was able to beat beginner players and the original AI with some consistency, though was still beaten by an expert. This does show some potential for planning at a micro level. However, plan evaluation must be weighted manually and the simulator is limited to a few types of units and a small environment. It is unclear if this method could be scaled to a full game, as they have concerns about simulator speed .
 
 \subsubsection{Bayesian Modelling}
-There is a project that focuses on using Bayesian models for all aspects of a StarCraft AI \cite{synnaeve2012bayesian} which includes unit control \cite{synnaeve2011bayesian}. This uses the distribution of game elements to decide what to do with a unit next. Units receive tactical goals as sensory inputs and maintain a finite state machine (FSM) for different modes (attacking, defending, etc.). It uses re-enforcement learning to build its probability tables and succeeded quite well in trails against both the original AI and against winners of the 2010 AIIDE competition. Their implementation is available open source.
+There is a project that focuses on using Bayesian models for all aspects of a StarCraft AI \cite{synnaeve2012bayesian} which includes unit control \cite{synnaeve2011bayesian}. This uses the distribution of game elements to decide what to do with a unit next. Units receive tactical goals as sensory inputs and maintain a finite state machine for different modes (attacking, defending, etc.). It uses re-enforcement learning to build its probability tables and succeeded quite well in trails against both the original AI and against winners of the 2010 AIIDE competition. Their implementation is available open source.
 
 \subsection{Macro-management Strategies}
-Macromanagemt (macro), as used in computer gaming, is a term for the economic or large-scale strategy of the player. For StarCraft, this covers resource collection and spending; the decision on what buildings or units to build. Davies' bot is quite effective on the resource collection side, but is very restricted on the 'what to build' side. Its strategy is very rigid and doesn't adapt to the enemies actions, which is a key part of successful StarCraft play. Improving and generalising his work will require creating several strategies, and should look into making them adaptable. There is work done in StarCraft in this area.
+Macro-management (macro), as used in computer gaming, is a term for the economic or large-scale strategy of the player. For StarCraft, this covers resource collection and spending; the decision on what buildings or units to build. Davies' agent is quite effective on the resource collection side, but is very restricted on the 'what to build' side. Its strategy is very rigid and doesn't adapt to the enemies actions, which is a key part of successful StarCraft play. Improving and generalising his work will require creating several strategies, and should look into making them adaptable. There is work done in StarCraft in this area.
 
 \subsubsection{Micro Focus}
-Safadi and Ernst \cite{safadi2010organization} take the interesting position that a agents macro strategy is fairly unimportant. Their view is that planning and pattern recognition is something humans excel so well at that a bot couldn't hope to match it, the bot would require a database of possible strategies which would require continuous updates as the meta-game evolves. Instead the bot should play to it's advantages in the multi-tasking area; 300 unique action per minute is considered the average for StarCraft professionals, but it would be trivial for a computer to match and beat that. They did have some success and this is comparable to how the Berkeley Overmind succeeds. However, StarCraft units generally have a "Rock Paper Scissors" dynamic; they are strong against some units and are countered by others. Effective unit-level play needs effective unit choice otherwise it can be easily exploited.
+Safadi and Ernst \cite{safadi2010organization} take the interesting position that a agents macro strategy is fairly unimportant. Their view is that planning and pattern recognition is something humans excel so well at that an agent couldn't hope to match it, the agent would require a database of possible strategies which would require continuous updates as the meta-game evolves. Instead the agent should play to it's advantages in the multi-tasking area; 300 unique action per minute is considered the average for StarCraft professionals, but it would be trivial for a computer to match and beat that. They did have some success and this is comparable to how the Berkeley Overmind succeeds. However, StarCraft units generally have a "Rock Paper Scissors" dynamic; they are strong against some units and are countered by others. Effective unit-level play needs effective unit choice otherwise it can be easily exploited.
 
 \subsubsection{Planning}
-There are many replays of StarCraft games publicly available \cite{Replays}, some of which are of high level play. Using BWAPI, it's possible to retrieve lots of data from these replays and data mine the results. There are several papers that do this and use the data to create Bayesian models of what the opponents are likely to be doing \cite{synnaeve2011bayesian,hostetler2012inferring,weber2009data}.  This has the advantage that the bot gains expert-level knowledge without designers needing to know expert strategies. Planning and prediction are popular areas in the StarCraft AI field, probably due to the availability of vast amounts of completed game data. The main strategy in StarCraft revolves around predicting and countering the opponents high-level decisions, so a successful bot does need to react in someway to what it thinks its opponent is doing.
+There are many replays of StarCraft games publicly available \cite{Replays}, some of which are of high level play. Using BWAPI, it's possible to retrieve lots of data from these replays and data mine the results. There are several papers that do this and use the data to create Bayesian models of what the opponents are likely to be doing \cite{synnaeve2011bayesian,hostetler2012inferring,weber2009data}.  This has the advantage that the agent gains expert-level knowledge without designers needing to know expert strategies. Planning and prediction are popular areas in the StarCraft AI field, probably due to the availability of vast amounts of completed game data. The main strategy in StarCraft revolves around predicting and countering the opponents high-level decisions, so a successful agent does need to react in someway to what it thinks its opponent is doing.
 
 \subsubsection{Case-based Reasoning}
-\citeasnoun{certicky2013case} implemented cased-based reasoning (CBR) for army composition. CBR is a cyclical process where there is a databases of problem cases with solutions. For each problem, a case is chosen that best fits. The solution is adapted to fit the current problem and if it works it is added back to the database as a new case. Certicky constructed cases based on the ratios of units that the opponent has and the solutions are the recommend ratios for the bot's army. This process has the potential to be useful, but it needs quite a bit of expert knowledge about common army ratios and their counters. Additionally, this relies on good scouting and accurate information, if the bot picks the wrong case it could be disastrous. This method is similar to the Bayesian planning mentioned above, but there is more learning done on the fly, which might impact performance.
-
-\section{Summary}
-This literature survey has covered a wide range of topics. It has
+\citeasnoun{certicky2013case} implemented a cased-based reasoning (CBR) method to determine which units to produce. CBR is a cyclical process where there is a databases of problem cases with solutions. For each problem, a case is chosen that best fits. The solution is adapted to fit the current problem and if it works it is added back to the database as a new case. Certicky constructed cases based on the ratios of units that the opponent has and the solutions are the recommend ratios for the agent's army. This process has the potential to be useful, but it needs quite a bit of expert knowledge about common army ratios and their counters. Additionally, this relies on good scouting and accurate information, if the agent picks the wrong case it could be disastrous. This method is perhaps a simpler incarnation of the Bayesian modelling methods discussed, and it could be a good starting point for an adaptive strategy.
 
 \chapter{Requirements}
 This chapter covers the basic requirements specification that was followed for the project.
 
 \section{Functional Requirements}
 \begin{itemize}
-\item A POSH plan must be created that can control a Protoss bot:
+\item A POSH plan must be created that can control a Protoss agent:
     \begin{itemize}
-    \item{The bot must be able to gather resources as the Protoss}
-    \item{The bot must be able to create Protoss units and buildings}
-    \item{The bot must be able to attack the enemy as the Protoss}
+    \item{The agent must be able to gather resources as the Protoss}
+    \item{The agent must be able to create Protoss units and buildings}
+    \item{The agent must be able to attack the enemy as the Protoss}
     \end{itemize}
-\item A POSH plan must be created that can control a Terran bot:
+\item A POSH plan must be created that can control a Terran agent:
     \begin{itemize}
-    \item{The bot must be able to gather resources as the Terran}
-    \item{The bot must be able to create Terran units and buildings}
-    \item{The bot must be able to attack the enemy as the Terran}
+    \item{The agent must be able to gather resources as the Terran}
+    \item{The agent must be able to create Terran units and buildings}
+    \item{The agent must be able to attack the enemy as the Terran}
     \end{itemize}
 \end{itemize}
 \section{Non-Functional Requirements}
@@ -221,8 +220,7 @@ This chapter covers the basic requirements specification that was followed for t
 This chapter covers the design work done for the project, including an overview of the initial class structure of the behaviour library, the changes needed to generalise the behaviour library and the process
 
 \section{Generalisation}
-Behaviour oriented design encourages behaviours to be implemented in an object-oriented style \cite{bryson2003behavior}. So generalising Davies' behaviour library should be done in an object-oriented style. In this style, a super-class is created by extracting common attributes and methods from more specialised classes. The specialised classes then become sub-classes of the new class. Because Davies' library has no behaviour for other races, this project will apply the process backwards; using the already implemented behaviour as a base and sub-classing parts that can't be applied to the other races. 
-
+Behaviour oriented design encourages behaviours to be implemented in an object-oriented style \cite{bryson2003behavior}. So generalising Davies' behaviour library should be done in an object-oriented style. In this style, a super-class is created by extracting common attributes and methods from more specialised classes. The specialised classes then become sub-classes of the new class. Because Davies' library has no behaviour for other races, this project will apply the process backwards; using the already implemented behaviour as a base and sub-classing parts that can't be applied to the other races.
 
 \section{Initial Behaviour Library Structure}
 The behaviour library is the main place that needs to be refactored and generalised. As mentioned in \ref{LitSrvyClass}, the behaviour library is decomposed into eight classes which manager the different areas of the game. Davies' class diagram can been seen in figure \ref{fig:SimonClassDia} and he outlined the class thusly:
@@ -280,7 +278,7 @@ After this initial design work, I proceeded with implementation. The iterative d
  This differs from BOD in that there is less focus on revising the specification, more on getting the other races capabilities up to par with the Zerg. The Zerg agent was used as the specification for the other races agents, so while revisions weren't avoided, they were not the focus of the process.
 
 \subsection{Final Class Structure}
-The final class structure of the behaviour library can be seen in figure \ref{fig:ClassDia}. The race-specific sub-classes have been hidden as they increase the complexity of the diagram without really adding any information. The only change to the structure that came up during implementation was to the intelligence mananger. It was found to be better to split the scouting control(moving the unit around) into its own class and have the intelligence manager start the scouting. This allowed for race specific scouting behaviour without code duplication.
+The final class structure of the behaviour library can be seen in figure \ref{fig:ClassDia}. The race-specific sub-classes have been hidden as they increase the complexity of the diagram without really adding any information. The only change to the structure that came up during implementation was to the intelligence manager. It was found to be better to split the scouting control(moving the unit around) into its own class and have the intelligence manager start the scouting. This allowed for race specific scouting behaviour without code duplication.
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.5]{ClassDia}
@@ -373,11 +371,12 @@ This subsection explains how the scouting behaviours of the AI were generalised 
 
 The original scouting code had a single behaviour to start scouting with a worker unit and it would continually scout with any Overlord units\footnote{Overlords are a flying Zerg unit that increase the unit cap. A Zerg player will build lots of these units.} that were produced. Scouts are moved along a predetermined path by sending move commands and waiting until the unit is idle to send another. This was done separately for the worker scout and the Overlord scouts. The aim when generalising was to refactor the two processes together into a single parameterised scout method.
 
-The chosen solution to this is to have a list of the currently scouting units, which can be checked for idleness each tick. A ScoutUnit class was created which along with the unit, kept track of the assigned scouting path, how far along the path the unit is, and a completion handler to be called when the path has been completed. The scouting path is stored as a queue of Point\footnote{java.awt.Point: Has only two public int variables x and y} objects. As the the scout reaches each location, the next location is popped from the queue. The completion handler is implemented as an interface with a single method scoutRouteCompleted(), which takes the scouts ID as a parameter (otherwise, the called object won't know which scout finished).
+The chosen solution to this is to have a list of the currently scouting units, which can be checked for idleness each tick. A ScoutUnit class was created which along with the unit, kept track of the assigned scouting path, how far along the path the unit is, and a completion handler to be called when the path has been completed. The scouting path is stored as a queue of Point\footnote{java.awt.Point: Has only two public int variables x and y} objects. As the scout reaches each location, the next location is popped from the queue. The completion handler is implemented as an interface with a single method scoutRouteCompleted(), which takes the scouts ID as a parameter (otherwise, the called object won't know which scout finished).
 
 The implementation of this generalisation grew quite large, large enough that scouting took up a large proportion of the intelligence manager. This spurred the decision to move scouting into its own class. The intelligence manager remains the initiator and completion handler for scouts; the scout manager is envisioned as more of an internal utility class. If the scout manager handled scouting completely, it would require race-specific sub-classes, which is to be avoided as much as possible as specified in the requirements.
 
 \subsection{Generalising the Military}
+\label{MilitaryGen}
 This subsection explains how the military behaviours of the AI were generalised and the reasoning behind the decisions.
 
 Military units were organised into hard-coded lists of units of certain types. So there was a ``zergling'' list and a ``hydralisk\footnote{Hydralisks are a Zerg ground unit with a ranged attack}'' list and so on, but these lists were hard-coded for a small number of types.
@@ -399,7 +398,7 @@ The original resource reservation system simply a integer variable that could be
 
 The solution implemented to solve this is to pass an integer ID along with the reservation amount. Then when the resources have been consumed, the reservation with the chosen ID can be cleared. This makes simultaneous reservations easier to deal with, but it doesn't solve the problem of not knowing when to clear the reservation. Reserving resources is only done when building as there is a delay between the command and the resources being spent. Any other time resources are spent, it happen instantly. By using the worker unit ID as the reservation ID, it can be identified when the resources have been spent and which reservation to clear.
 \subsubsection{Impatience}
-The original AI had an issue where after it destroyed the main enemy base, it wouldn't search for any extra bases that may have been built. This can result in a loss, as the enemy can rebuild its army. To counter-act this, an ``impaitience'' timer has been implemented. This is a timer that waits for a certain number of game ticks, then changes the attack destination to a different base location\footnote{Most, if not all, StarCraft maps have a limited number of viable base locations around clusters of resource nodes.}. The timer is reset upon sighting an enemy. The effect of this it that if the army successfully destroys the enemies main base, it will cycle around the map until it finds the remnant force.
+The original AI had an issue where after it destroyed the main enemy base, it wouldn't search for any extra bases that may have been built. This can result in a loss, as the enemy can rebuild its army. To counter-act this, an ``impatience'' timer has been implemented. This is a timer that waits for a certain number of game ticks, then changes the attack destination to a different base location\footnote{Most, if not all, StarCraft maps have a limited number of viable base locations around clusters of resource nodes.}. The timer is reset upon sighting an enemy. The effect of this it that if the army successfully destroys the enemies main base, it will cycle around the map until it finds the remnant force.
 \subsubsection{Expansion Locations}
 A problem in the AI identified by \citeasnoun{davies2012} was that possible expansion locations were calculated on straight line distance, instead of walking distance. So bases that are close by but take a long time to walk to would be preferred over more accessible options. This couldn't be fixed at the time as JNIBWAPI did not provide the necessary functions. The updated JNIBWAPI does provide the necessary functions, so the method has been updated to make better choices.
 
@@ -423,10 +422,10 @@ At this point there are several choices on what to do next.
 \item[Expand to new bases]{It is important to continue growing the economy after the start of the game. Expanding allows for a greater resources income, which leads to a larger and stronger army.}
 \item[Produce different units]{It is rarely a good idea to focus on a single type of unit. More units can be made available by building certain buildings. Which buildings to choose depends on the overall strategy.}
 \end{description}
-These behaviours can often be done in parallel, if the resources are available. There is also some overlap. New buildings can unlock new upgrades as well as new units.
+These behaviours can often be done in parallel, if the resources are available. There is also some overlap. New buildings can unlock new upgrades as well as new units. The plans created for the Protoss and Terran differ slightly from the Zerg plan; expansion happens slightly later as it costs more resources, and research buildings are built sooner because of racial differences\footnote{The Zerg have more research options in their basic buildings than the other races do.}.
 
 \subsubsection{When to Attack}
-Choosing the best army size to begin to attack is tricky. Too soon and it may not be strong enough to succeed. Too late and the enemy may be too well defend, or countered your unit choices. There isn't a good formal way to decide this, it has to be worked out via trial and error and probably should be adjusted depending on the opponent. There is a simple competence to give some variability to this, where the attack time is adjusted based on the enemies race.
+Choosing the best army size to begin to attack is tricky. Too soon and it may not be strong enough to succeed. Too late and the enemy may be too well defend, or countered your unit choices. There isn't a good formal way to decide this, it has to be worked out via trial and error and probably should be adjusted depending on the opponent's strategy. There is a simple competence to give some variability to this, where the attack size is adjusted based on the enemies race. For example, the Protoss plan attacks later when facing a Zerg opponent, as the Zerg often have invisible units and delaying the attack allows for detection units to be produced.
 
 
 \subsection{Simplified Competences}
@@ -504,6 +503,99 @@ These plans group worker production into a single competence with each element c
 
 
 \chapter{Results}
+To measure the performance of agents, they have been tested in matches against existing StarCraft AI, mainly the official AI provided by Blizzard.
+
+The tests will use the same metrics that \citeasnoun{davies2012} used, which are really the only quantifiable metrics available. Using them will make it easier to compare with Davies' work. Davies' used two metrics, the outcome of the match and the percentage difference between the final scores of both players. Both metrics are calculated by the game.
+
+The outcome of a match can either be a win or a loss and occurs when one player has lost all their buildings. The score is the total of three scores, the unit score, the building score and the resource score. The unit and building scores are calculated on the amount and the types of units/buildings produced and destroyed (more powerful/expensive units are worth more). Destroying a unit or building is usually worth double the score from producing that unit. The resource score is the total resources collected.
+
+The win/loss metric is of obvious importance when deciding if an agent was successful, the difference in scores is useful to show \textit{how} successful an agent was. A small difference in score implies that the match was close; neither side had too much of an advantage. A large difference shows the opposite.
+
+The tests will be split between two maps, to see if this affects performance. The maps used will be Azalea, which Davies used for his tests, and TBD because reasons.
+
+PUT TABLE HERE
+
+ANALYSIS HERE  
+
+
+\chapter{Discussion}
+
+
+\section{Behaviour Oriented Design}
+This project made use of both the architecture and the methodology of BOD. The elements are explained in more depth in section \ref{BOD} and by \citeasnoun{bryson2003behavior}.
+
+The architecture of BOD has two layers, a behaviour library and POSH plans for action selection. This structure has been beneficial for this project. The conceptual distinction between behaviours and action selection encourages modularity and generality, which made the task of extending the behaviours much easier. Because any behaviours that can be called from POSH plans could be called at any point, robustness and some generality is favoured during implementation.  POSH plans allow for the rapid creation and modification of elements, which fits the iterative development methodology well.
+
+The development methodology is a generic iterative model, with a focus on refactoring and frequent testing. It is useful as it focuses effort on small areas, which influences the implementation towards modularity and reduces the amount that needs to be tested. It also simplifies debugging, by reducing the scope of where a bug can occur.
+
+Frequent testing is useful when the complexity of agents or the environment is high, like in StarCraft. There are too many interactions and variables, so they can't be completely predicted before hand and assumptions have to be made. Frequent testing can correct these assumptions before they have a large effect on the code.
+
+The refactoring process is arguably the most important part of the BOD methodology. Before implementing a new part of the specification, the specification and the existing implementation is evaluated, to check for behaviours that are too complex, that would work better as a different element. Often when implementing, the desired behaviour arises from hacks and intuition. Looking at code after some time can give a developer a different perspective and allow them to pick out an elegant solution. This leads to the code being easier to understand and to extend.
+
+\section{POSH}
+
+POSH plans are a useful tool. They are quick to set up, and provide a simple way to direct complex behaviours. However, they do have their limitations.
+
+\subsection{Problems with Development}
+Developing POSH plans is not as easy as it could be. It isn't overly difficult but the lack of a good development environment and debugging tools can take time away from actual development work. There are two ways to develop POSH plans, by using a text editor or by using the ABODE editor \cite{abode}. ABODE does provide a graphical visualisation of plans, however it is still beta software so it suffers from bugs, it doesn't have any debugging features or code completion, and it has a lack-luster user interface. It is usually easier to edit the plans in a text editor, at least at first. Plans are in single files, so if one has a lot of elements it can be difficult to organise.  The syntax can also cause issues when developing in a text editor. It has similarities to Lisp, with lots of parenthesises which can easily be misplaced.
+
+The editing issues are very minor quibbles, but the lack of proper debugging tools is a bigger problem. Debugging of the plans is limited to console output, which gets quickly overloaded once plans reach a reasonable size. This output is verbose without being particularly informative, drives are ``inhibited or not ready'', for example, without any information as to why. It would be useful to know which kind of failure it is, inhibition or unreadiness. When inhibited, the duration of the inhibition could be displayed and when the element isn't ready the trigger that failed could be displayed. The ability to set break points and step through the plan execution would make it easier to check this information and allow a developer to quickly get to grips with a plan's flow.
+
+\subsection{Primitive Parameterisation}
+In the python side of the behaviour library there are many action primitives and senses which cannot be generalised due to the way POSH works. Elements in POSH plans do not accept parameters, so primitives must be explicit about what they do (see listing \ref{behaviours}). Because the underlying behaviour has been generalised, there is a lot of code duplication in the python behaviour modules that isn't really necessary. While this doesn't really affect an agents performance, or even the complexity of an agents plan (an agent will only use a small fraction of available primitives), it feels like ``code smell''\cite{Emden02javaquality}, it could hamper future development.
+
+One way to solve this problem would be to move the action selection into the behaviour library. Have an action ``choose next building'' and then other behaviours can use that next building accordingly. This would require no changes to POSH and is a recommended way to solve this issue \cite{bryson2003behavior}. However, it is a complex task, probably one that deserves its own project. Even with this kind of mechanism in place, the ability to sense and obtain specific buildings, units or research would still be desirable, to allow for plans to act outside of the shared action selection.
+
+A different way to solve this is having parameters passed with behaviours. The main effect of this would be to reduce the number of behaviours and code duplication needed. This would also give behaviours more flexibility and reduce the busywork needed to extend identical behaviours to similar objects.
+
+\begin{Code}[frame=single,language=Python,tabsize=4,breaklines,breakatwhitespace,caption={A small selection of similar behaviours to build different buildings.},label=behaviours]
+def build_bunker(self):
+	return self.agent.BWBot.bot.buildingManager.buildBuilding( UnitTypes.Terran_Bunker )
+
+def build_engineering_bay(self):
+	return self.agent.BWBot.bot.buildingManager.buildBuilding( UnitTypes.Terran_Engineering_Bay )
+
+def build_factory(self):
+	return self.agent.BWBot.bot.buildingManager.buildBuilding( UnitTypes.Terran_Factory )
+
+def build_missle_turret(self):
+	return self.agent.BWBot.bot.buildingManager.buildBuilding( UnitTypes.Terran_Missle_Turret )
+
+def build_science_facility(self):
+	return self.agent.BWBot.bot.buildingManager.buildBuilding( UnitTypes.Terran_Science_Facility )
+\end{Code}
+
+
+Moving complex action selection into the behaviour library feels a bit like re-inventing the wheel. There is already action selection happening in POSH, why duplicate the effort? The reason to do so at the moment is because POSH is limited, probably intentionally. There is an interplay in the BOD methodology over where complexity should be, the plans or the behaviour library. The BOD methodology encourages developers to strike the best balance here via rapid iteration, frequent testing, and the repeated re-evaluation of what has been done. POSH is a tool in the methodology to direct a developer's thinking usefully about the best way to create an agent. So by limiting what can be expressed in a POSH plan, a developer is directed to moving complexity into the behaviour library\footnote{Conversely, an emphasis on modularity encourages the simplification and reduction of behaviours, pushing the complexity towards the plans}.
+
+Using the architecture of BOD could be a good way to introduce non-programmers to AI concepts by letting them easily build their own. Once you understand the aggregates of POSH -- something made easier with a graphical representation, like ABODE -- creating plans becomes a matter of piecing together the building blocks; the complicated implementation is kept hidden from the end user. This project attempted to facilitate a situation like this in the future by including behaviours for as many in-game actions as possible. Whether this was successful, and if BOD could be used as a learning tool, would need to be tested in future work.
+
+\section{State of the Behaviour Library}
+This project has been successful in its goal of extending Davies' behaviour library. The Java code has been refactored into a generalised structure, which brings together shared behaviours while still allowing for specialised (race specific) behaviour to be added when needed. The jython behaviour modules have also been extended so that they have actions and senses for every building, unit, and research available for every race in the game. There are also POSH plans that have been developed to showcase agents of the other races.
+
+At this point, the library provides a solid base on which to build or try out new AI strategies in the StarCraft environment. It provides the fundamental behaviours required to perform in a game of StarCraft\footnote{Attacking and defending, resource gathering, exploration and expansion, and construction, unit production and research} for all races, and they are exposed in a reasonable way as POSH plan primitives. 
+
+\section{Remaining Issues and Future Work}
+There are still areas of the library that should be worked on and expanded, more advanced behaviours to be added, and maintenance to be done. This section covers some of them.
+
+\begin{itemize}
+\item{The BWAPI library and related projects are still under active development. Before this project began, the main library had released a major version (from 3.7 to 4.0) and during development JNIBWAPI was also updated. Because of issues experienced updating at the start of development (see section \ref{APIIssue}), the project was not updated to these new versions. However, the new versions do make some major changes and fixes, so should be merged at some point.}
+\item{The are a few advanced behaviours missing from the library. 
+    \begin{itemize}
+        \item{There are no behaviours to load or unload units from flying transport units. These actions are useful for sneak attacks and for expanding to normally inaccessible areas of the map, so they should be added at some point.}
+        \item{There are no behaviours to handle the Terran's movable buildings (several Terran buildings can take off and land somewhere else). It is a common tactic to use this feature to ``wall off'' the starting base as a defensive measure, where a movable building acts as a gate. Outside this use case, this is a pretty rare tactic, so perhaps only the walling off behaviour is needed.}
+        \item{The Zerg have a building that has two parts, which allows instant travel from one end to the other. It is possible to build one end of this building currently, but building the other end doesn't fit into the current construction system and determining the best location to build it presents its own challenges.}
+    \end{itemize}}
+\item{Agents need better ways to adapt their strategy. A simple production-based system would be a good place to start with this, where if the opponents have certain buildings or units, the agents adapt accordingly. This should be implementable in the current system, the plan developed for the Protoss has a primitive version of this where attacks happen earlier or later depending on the opponents race. To extend it would just need some scouting improvements\footnote{Currently, scouts are only used to locate the enemy. Scout routes would need to be adjusted to give the most information possible.} and more senses; there are guides available to explain specific counter-tactics \cite{StratWiki}.}
+\item{The library needs better unit micro-management. Several possible methods were outlined in section \ref{LitSrvyMicro}, probably the best candidate for future improvements would be potential fields\footnote{Where units move and attack based on the gradient of their location. Other entities in the game have attractive or repulsive forces based on their state.}. The currently unit control acts in a similar way to a potential fields; each enemy unit has a priority based on its type and distance from the current unit. By taking other factors into account, like the health of units and how much damage the current unit can do, this could be converted into a better approximation of a potential field without major restructuring.}
+\item{Advanced unit control is missing for most units. Unless the unit was used in one of the provided plans, no additional behaviour was added, so most units won't use their abilities. This is something that should improve overtime as more plans are developed, even if better micro-management is not added.}
+\end{itemize}
+
+
+
+
+
+
 
 
 
