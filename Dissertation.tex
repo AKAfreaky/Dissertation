@@ -75,13 +75,13 @@ This is the introductory chapter.
 \chapter{Literature Survey}
 In 2012, Simon Davies created an AI agent for the real-time strategy game StarCraft: Brood War. He followed the Behaviour Oriented Design development methodology and focused his efforts on an agent for the Zerg race. This project aims to generalise the work Davies performed to allow for agents of other races and possibly implement improvements.
 
-StarCraft has recently seen increased development in the field of AI, due to the release of a convenient API for the purpose of AI development. Before beginning focused development effort, a survey of the work done in this area was conducted. What follows is the results of this survey, including an explanation of what StarCraft is; the field of AI and agents in general; the Behaviour Oriented Design methodology; an overview of what Davies accomplished; and a review of some techniques that could be used to improve Davies agent.
+StarCraft has recently seen increased development in the field of AI, due to the release of a convenient API for the purpose of AI development. Before beginning focused development effort, a survey of the work done in this area was conducted. What follows is the results of this survey, including an explanation of what StarCraft is; the field of AI and agents in general; the Behaviour Oriented Design methodology; an overview of what Davies accomplished; and a review of some techniques that could be used to improve Davies' agent.
 \section{StarCraft}
-StarCraft is a real-time strategy game where the player commands an army from one of three distinct races \footnote{Races can be thought about as teams or factions. Race is the term used in the StarCraft community}. It was released in 1998 by Blizzard Entertainment and its expansion StarCraft: Brood War was released later the same year \cite{Blizzard}. During a game, the player controls their army from a top-down perspective, or ``God's eye view'' (see figure \ref{fig:StarCraft}). The army must harvest two limited resources, minerals and vespene gas, and use them to construct buildings, recruit units and research upgrades with the ultimate goal of destroying the opponent. The game can be said to be split into three stages: The opening, where choosing the most suitable order of construction is vital due to limited resources; the mid-game, where players build up for larger attacks and must expand to gain more resources; and the end-game, where one player has gained the advantage and should be looking to make a very large push to secure it \cite{yi2011adaptive}.
+StarCraft is a real-time strategy game where the player commands an army from one of three distinct races\footnote{Races can be thought about as teams or factions. Race is the term used in the StarCraft community}. It was released in 1998 by Blizzard Entertainment and its expansion StarCraft: Brood War was released later the same year \cite{Blizzard}. During a game, the player controls their army from a top-down perspective, or ``God's eye view'' (see figure~\ref{fig:StarCraft}). The army must harvest two limited resources, minerals and vespene gas, and use them to construct buildings, recruit units and research upgrades with the ultimate goal of destroying the opponent. The game can be said to be split into three stages: The opening, where choosing the most suitable order of construction is vital due to limited resources; the mid-game, where players build up for larger attacks and must expand to gain more resources; and the end-game, where one player has gained the advantage and should be looking to make a very large push to secure it \cite{yi2011adaptive}.
 
 The three races differ from each other substantially in both play style and unit ability. The insectile Zerg focus on small, fast and cheap units and swarm tactics; the psychic and advanced Protoss focus on expensive but extremely powerful units; and the human Terran are the balance between the two, not as weak or as numerous as the Zerg, but not as powerful or as expensive as the Protoss. They also focus on attacking from range.  Due to the game's age and popularity, there are many online communities that have collated a large amount of information about the game and effective strategies, such as the \citeasnoun{SCWiki} and \citeasnoun{TeamLiquid}.
 
-StarCraft has regularly found itself used as a subject in academia, probably due to its prominence and well-balanced game play.  Uses can vary from essays on what StarCraft's design communicates \cite{galloway2007starcraft}, analysis of the game's network traffic \cite{dainotti2005packet} , to algorithmically generating playable maps \cite{togelius2010multiobjective}. The creation of the Brood War Application Programming Interface (BWAPI) in 2010 \cite{bwapiMain} has led to increased usage as a platform to explore and construct AI and a target for AI competitions \cite{bwapiCompetitions}.
+StarCraft has regularly found itself used as a subject in academia, probably due to its prominence and well-balanced game play.  Uses can vary from essays on what StarCraft's design communicates \cite{galloway2007starcraft}, analysis of the game's network traffic \cite{dainotti2005packet}, to algorithmically generating playable maps \cite{togelius2010multiobjective}. The creation of the Brood War Application Programming Interface (BWAPI) in 2010 \cite{bwapiMain} has led to increased usage as a platform to explore and construct AI and a target for AI competitions \cite{bwapiCompetitions}.
 
 \begin{figure}[h]
     \centering
@@ -93,7 +93,7 @@ StarCraft has regularly found itself used as a subject in academia, probably due
 \section{Artificial Intelligence}
 AI is a wide ranging field concerned with the research and development of machines/programs capable of intelligence. It includes a wide variety of sub-fields like ``computer vision, natural language, decision theory, genetic algorithms and robotics'' \cite{mccorduck2004machines}. There is the concept of strong AIs, which are the kind of AI visualised by the general public and science fiction writers, true ``machines that think'', conscious and capable of human emotion \cite{kurzweil2005singularity}. AIs that don't attempt to simulate the entirety of human intelligence can be called weak AI, and it's probably safe to say all AI's created to date are weak AI, including those found in games.
 
-The concept of an agent is a popular one in AI. An agent is a system capable flexible, autonomous action in some environment \cite{wooldridge1995intelligent}. That's a rather vague definition, so to expand it; an agent is a computer system which has a goal to accomplish, resides in an environment which it can effect some change upon and can react to changes in that environment. An environment does not have to be physical, but there are other classifications to consider \cite{russell1995artificial}:
+The concept of an agent is a popular one in AI. An agent is a system capable of flexible, autonomous action in some environment \cite{wooldridge1995intelligent}. That's a rather vague definition, so to expand it; an agent is a computer system which has a goal to accomplish, resides in an environment which it can effect some change upon and can react to changes in that environment. An environment does not have to be physical, but there are other classifications to consider \cite{russell1995artificial}:
 \begin{itemize}
 \item{Accessible vs. inaccessible – How much information is available to the agent about the environment? Accessible environments provide complete, accurate and up-to-date information about the environment's state. }
 \item{Deterministic vs. non-deterministic – What happens when the agent acts? In deterministic environments an action has a single guaranteed effect, with no uncertainty. }
@@ -111,7 +111,7 @@ BOD is an AI development methodology conceived by Bryson \cite{bryson2001intelli
 As stated,  the BOD architecture consists of two main parts:
 \begin{description}
 \item[The Behaviour Library] Behaviours are like object oriented design objects and encapsulate how to do something, including perception and actions. Behaviours should be modular, can have state, can implement learning techniques, or even be wrappers for external libraries. This separation from the action selection also facilitates code re-use and allows modification of behaviours without affecting plans \cite{gaudlbehaviour}.
-\item[POSH plans and action selection] \label{POSHPlans}POSH plans are a hierarchy of behaviours and their triggers \cite{gaudlbehaviour}. The primitives of the hierarchy are actions and senses. These primitives are formed into three groupings, action patterns, competences and drive collections, in order of increasing complexity. Action patterns are simple sequences of primitives; competences are basic reactive plans, a prioritised list of actions and triggers; drive collections are the root of the hierarchy and determine where the agent's attention should be focused \cite{bryson2003behavior}.
+\item[POSH plans and action selection] \label{POSHPlans}POSH plans are a hierarchy of actions and their triggers \cite{gaudlbehaviour}. The primitives of the hierarchy are actions and senses. These primitives are formed into three groupings, action patterns, competences and drive collections, in order of increasing complexity. Action patterns are simple sequences of primitives; competences are basic reactive plans, a prioritised list of actions and triggers; drive collections are the root of the hierarchy and determine where the agent's attention should be focused \cite{bryson2003behavior}.
 \end{description}
 
 \subsection{Decomposition}
@@ -134,7 +134,7 @@ In 2012, Simon Davies used BOD to create a Zerg AI agent for StarCraft \cite{dav
 
 This strategy leaves the agent weak in the early game, and stronger in the late game. It doesn't use information about its opponents to modify this strategy, so often lost when opponents tried an early game push. The agent also has problems with the implementation being a bit rough; there's only two hard coded base expansions; melee (close combat) units will try to attack air units; and forces wait on a single slow scout to find the enemy, when they could do it themselves.
 
-The architecture of the agent's implementation has three layers, detailed below and visualised in \ref{fig:AI-Architecture}
+The architecture of the agent's implementation has three layers, detailed below and visualised in~\ref{fig:AI-Architecture}
 \begin{description}
 \item[The POSH layer] This layer contains the POSH action selection and plans, and a thin jython behaviour library which calls into the behaviour layer.
 \item[The Behaviour layer] This layer contains the actual behaviour implementation in Java and it uses the Java Native Interface\footnote{Java Native Interface is a programming framework that enables Java code to call and be called by native applications \cite{JNIDef}.} for BWAPI (JNIBWAPI) library \cite{JNIBWAPI} to access the StarCraft layer.
@@ -217,13 +217,13 @@ This chapter covers the basic requirements specification that was followed for t
 
 
 \chapter{Design}
-This chapter covers the design work done for the project, including an overview of the initial class structure of the behaviour library, the changes needed to generalise the behaviour library and the process
+This chapter covers the design work done for the project, including an overview of the initial class structure of the behaviour library, the changes needed to generalise the behaviour library and the process used to effect the generalisation.
 
 \section{Generalisation}
-Behaviour oriented design encourages behaviours to be implemented in an object-oriented style \cite{bryson2003behavior}. So generalising Davies' behaviour library should be done in an object-oriented style. In this style, a super-class is created by extracting common attributes and methods from more specialised classes. The specialised classes then become sub-classes of the new class. Because Davies' library has no behaviour for other races, this project will apply the process backwards; using the already implemented behaviour as a base and sub-classing parts that can't be applied to the other races.
+Behaviour Oriented Design encourages behaviours to be implemented in an object-oriented style \cite{bryson2003behavior}. So generalising Davies' behaviour library should be done in an object-oriented style. In this style, a super-class is created by extracting common attributes and methods from more specialised classes. The specialised classes then become sub-classes of the new class. Because Davies' library has no behaviour for other races, this project will apply the process backwards; using the already implemented behaviour as a base and sub-classing parts that can't be applied to the other races.
 
 \section{Initial Behaviour Library Structure}
-The behaviour library is the main place that needs to be refactored and generalised. As mentioned in \ref{LitSrvyClass}, the behaviour library is decomposed into eight classes which manager the different areas of the game. Davies' class diagram can been seen in figure \ref{fig:SimonClassDia} and he outlined the class thusly:
+The behaviour library is the main place that needs to be refactored and generalised. As mentioned in section~\ref{LitSrvyClass}, the behaviour library is decomposed into eight classes which manager the different areas of the game. Davies' class diagram can been seen in figure~\ref{fig:SimonClassDia} and he outlined the class thusly:
 \begin{description}
 \item[Resource Manager]{Senses for actual and predicted resource counts, as well as reserving resources for future building construction.}
 \item[Unit Manager]{Allows the selection of specific unit types. Mostly used by other managers.}
@@ -240,7 +240,7 @@ The immediate design work was to analyse each class's code and identify methods 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.5]{OrigClassDia}
-    \caption{Davies' class diagram that shows the Managers used for the categorising the different behaviours. The connections between the managers shows which classes call behaviours from other managers.\protect\cite{davies2012}}
+    \caption{Davies' class diagram that shows the Managers used for the categorising the different behaviours. The connections between the managers shows which classes call behaviours from other managers.\protect\cite[Fig.~3.2]{davies2012}}
     \label{fig:SimonClassDia}
 \end{figure}
 
@@ -250,13 +250,13 @@ After statically analysing the code, it was found that half the classes could be
 
 These classes were:
 \begin{description}
-\item[Resource Manager]Every race competes for the same resources and they each handles resources in the same way.
+\item[Resource Manager]Every race competes for the same resources and they each handle resources in the same way.
 \item[Unit Manager]The methods in this class are already parameterised by unit type.
 \item[Worker Manager]Each race uses workers and gathers resources in nearly the same way. Generalisation is mostly changing method and variable names.
 \item[Intelligence Manager]Each race receives the same information about the world. Generalisation just needs to parameterise scouting.
 \end{description}
 
-The remaining classes were sub-classed in a general way, which can be seen in figure \ref{fig:GeneralStructure}. During the initialisation of the AI client, the appropriate sub-class will be created, based on what BWAPI reports about the player's selected race.
+The remaining classes were sub-classed in a general way, which can be seen in figure~\ref{fig:GeneralStructure}. During the initialisation of the AI client, the appropriate sub-class will be created, based on what BWAPI reports about the player's selected race.
 
 \begin{figure}[h]
     \centering
@@ -278,11 +278,11 @@ After this initial design work, I proceeded with implementation. The iterative d
  This differs from BOD in that there is less focus on revising the specification, more on getting the other races capabilities up to par with the Zerg. The Zerg agent was used as the specification for the other races agents, so while revisions weren't avoided, they were not the focus of the process.
 
 \subsection{Final Class Structure}
-The final class structure of the behaviour library can be seen in figure \ref{fig:ClassDia}. The race-specific sub-classes have been hidden as they increase the complexity of the diagram without really adding any information. The only change to the structure that came up during implementation was to the intelligence manager. It was found to be better to split the scouting control(moving the unit around) into its own class and have the intelligence manager start the scouting. This allowed for race specific scouting behaviour without code duplication.
+The final class structure of the behaviour library can be seen in figure~\ref{fig:ClassDia}. The race-specific sub-classes have been hidden as they increase the complexity of the diagram without really adding any information. The only change to the structure that came up during implementation was to the intelligence manager. It was found to be better to split the scouting control(moving the unit around) into its own class and have the intelligence manager start the scouting. This allowed for race specific scouting behaviour without code duplication.
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.5]{ClassDia}
-    \caption{The final class structure of the behaviour library. Classes with a ``\lbrack*\rbrack'' in their name have race specific behaviour in sub-classes in the style of figure \ref{fig:GeneralStructure}.}
+    \caption{The final class structure of the behaviour library. Classes with a ``\lbrack*\rbrack'' in their name have race specific behaviour in sub-classes in the style of figure~\ref{fig:GeneralStructure}.}
     \label{fig:ClassDia}
 \end{figure}
 
@@ -297,7 +297,7 @@ This subsection explains the issues experienced by updating the external librari
 
 BWAPI and JNIBWAPI had both released newer version since \possessivecite{davies2012} work. It was decided to update the project to use these newer versions as they offered bug fixes and the JNIBWAPI update exposed more BWAPI functionality. The update went fine, and seemed to be without issues. It was then noticed that workers would not act on any command they were given, unless it was sent during a game tick call.\footnote{A common feature of real-time games. This is a function called regularly that will perform all the computation for the game engine. For StarCraft/BWAPI the function is called gameUpdate() and gets called at ~20Hz.} Actions from POSH are called from outside the game tick and were seemingly ignored by the engine.
 
-To solve this required the implementation of a queue in the worker manager class where a POSH action can add the order data to when it wants to tell the game to do something. Order data generally includes the type of order; the unit id of what is being ordered; an x and y value of the location of the order, or another unit id to perform the order on. This data is stored in a short class. When the game tick gets called, all entries in the queue are processed and the orders sent to the game.
+To solve this required the implementation of a queue in the worker manager class where a POSH action can add the order data to when it wants to tell the game to do something. Order data generally includes the type of order; the unit ID of what is being ordered; an x and y value of the location of the order, or another unit ID to perform the order on. This data is stored in a short class. When the game tick gets called, all entries in the queue are processed and the orders sent to the game.
 
 The bug was not limited to just workers but also affected producing units and researching upgrades, so the same fix has been applied to the production and upgrade manager classes.
 
@@ -305,12 +305,12 @@ The bug was not limited to just workers but also affected producing units and re
 \subsection{Parameterisation of Building, Recruitment and Research}
 This subsection explains how the building, production and upgrade managers were moved from specific behaviour methods to general, parameterised methods.
 
-In the initial stages of the project, the main content of the race-specific managers for building, production and upgrades was methods to build specific buildings, produce specific units and research specific upgrades. An example can be seen in listing \ref{spawnZergling}. As more of these methods were added for each race, a pattern was noticed.
+In the initial stages of the project, the main content of the race-specific managers for building, production and upgrades was methods to build specific buildings, produce specific units and research specific upgrades. An example can be seen in listing~\ref{spawnZergling}. As more of these methods were added for each race, a pattern was noticed.
 
 The pattern is:
 \begin{itemize}
 \item{The progenitor unit type for the requested unit type is determined, hard-coded initially.}
-\item{A free unit of progenitor type is found.}
+\item{A free unit of the progenitor type is found.}
 \item{It is checked if the necessary resources and research are available.}
 \item{The action is performed.}
 \end{itemize}
@@ -330,9 +330,9 @@ public boolean spawnZerglings(){
 }
 \end{Code}
 
-Using methods provided by JNIBWAPI, it is possible to find out all the needed information just from the unit type. The code to do this can be seen in listing \ref{produceUnit}. The important methods that allow this simplification is canMake() method provided by JNIBWAPI and the getLeastBusyUnitofType() method added to the unit manager.
+Using methods provided by JNIBWAPI, it is possible to find out all the needed information just from the unit type. The code to do this can be seen in listing~\ref{produceUnit}. The important methods that allow this simplification is canMake() method provided by JNIBWAPI and the getLeastBusyUnitofType() method added to the unit manager.
 
-canMake() has two forms in BWAPI, and it is the first that is the most valuable. The first method checks that it is valid to build that unit type; that means the necessary resources are available, the necessary research has been performed, and that there exists a unit on your roster that is the progenitor type for the passed type. The second canMake() method checks if a specific unit can make the passed unit type; so it's the correct type and it is not busy with another task.
+canMake() has two forms in BWAPI, and it is the first that is the most valuable. The first method checks that it is valid to build that unit type; that means the necessary resources are available, the necessary research has been performed, and that there exists a unit on your roster that is the progenitor type for the passed type. The second canMake() method checks if a specific unit can make the passed unit type; so it is the correct type and it is not busy with another task.
 
 getLeastBusyUnitofType() is needed as it is common to build multiple production units as certain races to parallelise the tasks they perform.\footnote{Production units can only perform a single task at a time, and most tasks take a long time, so it is pretty much a required tactic as the Terran and Protoss.} The method checks each unit of the passed unit type and returns the unit that has the smallest production queue, and that isn't researching anything.
 
@@ -369,21 +369,23 @@ public boolean produceUnit(UnitType.UnitTypes unitType){
 \subsection{Generalising Scouting}
 This subsection explains how the scouting behaviours of the AI were generalised and the reasoning behind the decisions.
 
-The original scouting code had a single behaviour to start scouting with a worker unit and it would continually scout with any Overlord units\footnote{Overlords are a flying Zerg unit that increase the unit cap. A Zerg player will build lots of these units.} that were produced. Scouts are moved along a predetermined path by sending move commands and waiting until the unit is idle to send another. This was done separately for the worker scout and the Overlord scouts. The aim when generalising was to refactor the two processes together into a single parameterised scout method.
+The original scouting code had two types of units that it would use for scouts. Each type was managed by separate but similar methods. The aim when generalising was to merge the two methods together, preserving the functionality of both methods. The merged method also needed generalisation so that it could be applied to any type of unit. 
 
-The chosen solution to this is to have a list of the currently scouting units, which can be checked for idleness each tick. A ScoutUnit class was created which along with the unit, kept track of the assigned scouting path, how far along the path the unit is, and a completion handler to be called when the path has been completed. The scouting path is stored as a queue of Point\footnote{java.awt.Point: Has only two public int variables x and y} objects. As the scout reaches each location, the next location is popped from the queue. The completion handler is implemented as an interface with a single method scoutRouteCompleted(), which takes the scouts ID as a parameter (otherwise, the called object won't know which scout finished).
+This has been done by maintaining a list of the currently scouting units. A ``ScoutUnit'' class was created to encapsulate all the information needed to perform the scouting. This included the unit object, the path to scout, how far along the path the unit is, and a completion handler to be called when the path has been completed. The scouting path is stored as a queue of Point\footnote{java.awt.Point: Has only two public int variables x and y} objects. As the scout reaches each location, the next location is popped from the queue. The completion handler is implemented as an interface with a single method scoutRouteCompleted(), which takes the scouts ID as a parameter (otherwise, the called object won't know which scout finished).
 
 The implementation of this generalisation grew quite large, large enough that scouting took up a large proportion of the intelligence manager. This spurred the decision to move scouting into its own class. The intelligence manager remains the initiator and completion handler for scouts; the scout manager is envisioned as more of an internal utility class. If the scout manager handled scouting completely, it would require race-specific sub-classes, which is to be avoided as much as possible as specified in the requirements.
 
 \subsection{Generalising the Military}
 \label{MilitaryGen}
-This subsection explains how the military behaviours of the AI were generalised and the reasoning behind the decisions.
+This subsection explains how the military behaviours of the AI were generalised and the reasoning behind the decisions. 
 
-Military units were organised into hard-coded lists of units of certain types. So there was a ``zergling'' list and a ``hydralisk\footnote{Hydralisks are a Zerg ground unit with a ranged attack}'' list and so on, but these lists were hard-coded for a small number of types.
+The action selection of military units requires quick reactions and a large amount of contextual information, like what units are around, what position they are in, map obstacles, etc. The correct action also depends on the type of the unit being controlled. Using POSH plans is not feasible for this as it is not fast enough and it doesn't have the fine precision needed. So this action selection has to be implemented in the behaviour libraries. 
 
-The first target of generalisation was focused on these lists. The individual lists have been combined into a map where keys are the unit type id and the value is the list of units. All units that are created are added to these groups (excluding buildings). Units that change into other units are moved between lists. Destroyed units are removed from the lists. This provides a solid base to generalise the class further.
+Davies' had hard-coded the behaviour for the units used in his plan, which meant control for different unit types had to be manually added. This is somewhat desirable, as there are many units which would benefit from unique behaviour. However, it makes adding a new unit to a plan harder than it needs to be; sometimes the unique behaviour isn't essential to a unit's performance. So, the goals while generalising this class were to remove as much hard-coded behaviour as possible while being easily extendable with specialised behaviours.
 
-The next target of generalisation looked at how units are controlled. Originally, this was done by iterating through each unit list and sending the chosen command to each unit. The solution first tried was to just copy this functionality in the race-specific sub-classes. Apart from being bad software development practise, this was problematic as it meant controlled units had to be hard-coded in, just like the original code. On the other hand, controlling all units in the same way is undesirable as different unit types often have abilities they can use or want to move and attack in a different way.
+Military units were organised into hard-coded lists of units of certain types. So there was a ``zergling'' list and a ``hydralisk\footnote{Hydralisks are a Zerg ground unit with a ranged attack}'' list and so on. To extended this without using individual lists for each unit type, the individual lists have been combined into a map. The keys in the map are the unit type ID and the values are the lists of units of each type. All units that are created are added to these groups (excluding buildings); units that change into other units are moved between lists; Destroyed units are removed from the lists. This simplifies the process of adding behaviours for a new unit type; all units are accessed from a central place, which can do all the maintenance for you.
+
+After the management was generalised, the focus moved to the control. Originally, units were controlled by iterating through each unit list and sending the chosen command to each unit. The solution first tried was to just copy this functionality in the race-specific sub-classes. Apart from being bad software development practise, this was problematic as it meant control for new unit types had to be added manually, just like the original code. On the other hand, controlling all units in the same way is undesirable as different unit types often have abilities they can use or want to move and attack in a different way.
 
 The implemented solution to this is to use the basic movement and attack behaviour for all units in the super class, while having any specialised behaviour in the race-specific sub-class. A list of ``special unit types'' is kept which indicates to the default method that it should skip the current unit type and let the sub-methods handle it. This makes it easy to add new units to POSH plans while allowing specialised behaviour where necessary.
 
@@ -394,23 +396,22 @@ The building manager maintains a list of build locations, which it chooses from 
 
 Another improvement to build locations is that when one is added, the position is checked to ensure it doesn't conflict with any existing build locations. This is needed for both the Protoss and the Terran as both would duplicate locations as they built buildings which would then create cluttered bases.
 \subsubsection{Resource Reservation}
-The original resource reservation system simply a integer variable that could be set when a behaviour needed to reserve some resources. Multiple resources reserving at the same time just wasn't feasible because while behaviours could simply increase the reservation instead of setting it, the behaviours are no longer running by the time the task is performed and the resources consumed.
+The original resource reservation system simply an integer variable that could be set when a behaviour needed to reserve some resources. Multiple resources reserving at the same time just wasn't feasible because while behaviours could simply increase the reservation instead of setting it, the behaviours are no longer running by the time the task is performed and the resources consumed.
 
 The solution implemented to solve this is to pass an integer ID along with the reservation amount. Then when the resources have been consumed, the reservation with the chosen ID can be cleared. This makes simultaneous reservations easier to deal with, but it doesn't solve the problem of not knowing when to clear the reservation. Reserving resources is only done when building as there is a delay between the command and the resources being spent. Any other time resources are spent, it happen instantly. By using the worker unit ID as the reservation ID, it can be identified when the resources have been spent and which reservation to clear.
 \subsubsection{Impatience}
-The original AI had an issue where after it destroyed the main enemy base, it wouldn't search for any extra bases that may have been built. This can result in a loss, as the enemy can rebuild its army. To counter-act this, an ``impatience'' timer has been implemented. This is a timer that waits for a certain number of game ticks, then changes the attack destination to a different base location\footnote{Most, if not all, StarCraft maps have a limited number of viable base locations around clusters of resource nodes.}. The timer is reset upon sighting an enemy. The effect of this it that if the army successfully destroys the enemies main base, it will cycle around the map until it finds the remnant force.
+The original AI had an issue where after it destroyed the main enemy base, it wouldn't search for any extra bases that may have been built. This can result in a loss, as the enemy can rebuild its army. To counter-act this, an ``impatience'' timer has been implemented. This is a timer that waits for a certain number of game ticks, then changes the attack destination to a different base location\footnote{Most, if not all, StarCraft maps have a limited number of viable base locations around clusters of resource nodes.}. The timer is reset upon sighting an enemy. The effect of this it that if the army successfully destroys the enemy's main base, it will cycle around the map until it finds the remnant force.
 \subsubsection{Expansion Locations}
 A problem in the AI identified by \citeasnoun{davies2012} was that possible expansion locations were calculated on straight line distance, instead of walking distance. So bases that are close by but take a long time to walk to would be preferred over more accessible options. This couldn't be fixed at the time as JNIBWAPI did not provide the necessary functions. The updated JNIBWAPI does provide the necessary functions, so the method has been updated to make better choices.
 
 \section{POSH Plans}
-POSH plans are hierarchical plans with lisp like syntax. They are explained in section \ref{POSHPlans}. This section details some of the POSH plan elements created or changed during the project.
+POSH plans are hierarchical plans with lisp like syntax. They are explained in section~\ref{POSHPlans}. This section details some of the POSH plan elements created or changed during the project.
 
 \subsection{Overall Strategy}
-
 The aim of this project is to flesh out Davies' behaviour library, so that it can be used by all races. To test that the generalisations were successful, POSH plans were created for the Protoss and the Terran. These plans followed the same general strategy that Davies' plan followed, with minor adjustments. This sub-section will outline that strategy.
 
 \subsubsection{Initial Behaviour}
-The very start of a game is identical for all races. Workers are ordered to collect minerals and new workers are produced. The first behaviour is handled automatically by the behaviour library. The second behaviour has to be outlined in the plan, and initially the Protoss and Terran copied the Zerg. As development continued, some problems were found with Davies' approach, so worker production was modified slightly(see section \ref{workerProd}).
+The very start of a game is identical for all races. Workers are ordered to collect minerals and new workers are produced. The first behaviour is handled automatically by the behaviour library. The second behaviour has to be outlined in the plan, and initially the Protoss and Terran copied the Zerg. As development continued, some problems were found with Davies' approach, so worker production was modified slightly(see section~\ref{workerProd}).
 
 \subsubsection{Building a Military}
 Once a decent number of workers have been amassed, and minerals are flowing in, it is time to start spending. The next goal for every race is to construct their first tier military building\footnote{Buildings in StarCraft often require other buildings to be built before they can be built. Buildings without these requirements can be called the first tier buildings.}, so that some soldiers can be recruited for defense (and eventual offense). The behaviour for Protoss and Terran is slightly different to the Zerg here because of the unique way Zerg produce units. Protoss and Terran units are produced at certain buildings. It is common to build several of these buildings during the game so that units can be produced at a faster rate. It was decided that both the Protoss and the Terran would build two of these buildings, based on basic analysis of several online build orders\footnote{Build orders in the StarCraft community refer to the initial strategy of the player, detailing the order and timings of building and production. Build orders are regularly shared on websites like \citeasnoun{TeamLiquid} and \citeasnoun{StratWiki}.}. As soon as these buildings are finished, they begin producing the basic soldier for each race.
@@ -431,7 +432,7 @@ Choosing the best army size to begin to attack is tricky. Too soon and it may no
 \subsection{Simplified Competences}
 The iterative development process outlined by BOD involves re-evaluating previous implementation after each cycle. This sub-section details the results of one such evaluation where it was noticed that some behaviours were more complicated than they needed to be at the plan level and how that was remedied.
 
-The task of starting to gather gas is a two step process. The first a building needs to be built on the gas resource nodes. Once this building has completed, workers must be moved from other tasks to begin harvesting the gas. The original POSH plan (see listing \ref{oldGasPOSH}) had both these steps in a competence. Due to bugs resulting from upgrading the external APIs (see section \ref{APIIssue}), the second step of the competence would often not work, and there would be a large delay between the building being completed and workers starting to gather gas.
+The task of starting to gather gas is a two step process. The first a building needs to be built on the gas resource nodes. Once this building has completed, workers must be moved from other tasks to begin harvesting the gas. The original POSH plan (see listing~\ref{oldGasPOSH}) had both these steps in a competence. Due to bugs resulting from upgrading the external APIs (see section~\ref{APIIssue}), the second step of the competence would often not work, and there would be a large delay between the building being completed and workers starting to gather gas.
 
 \begin{Code}[frame=single,language=Lisp,tabsize=4,breaklines,breakatwhitespace,caption={The original POSH competence to manage collecting gas},label=oldGasPOSH]
 	(C collect-gas-competence (seconds 1.0) (goal ((gas_saturated)))
@@ -451,7 +452,7 @@ The task of starting to gather gas is a two step process. The first a building n
 	)
 \end{Code}
 
-The solution found for this is to move the second step directly into the behaviour library. It will never be the case that a gas extraction building is constructed without needing workers sent to it. A new feature of JNIBWAPI is an event when ever a unit is completed, so the completion of the extraction building is detected and workers are reassigned. The competence has been refactored into a drive element and an action pattern\footnote{The action pattern only has a single primitive. It is necessary as the version of POSH used cannot call action primitives from a drive element.}. The drive element can be seen in listing \ref{newGasPOSH}.
+The solution found for this is to move the second step directly into the behaviour library. It will never be the case that a gas extraction building is constructed without needing workers sent to it. A new feature of JNIBWAPI is an event when ever a unit is completed, so the completion of the extraction building is detected and workers are reassigned. The competence has been refactored into a drive element and an action pattern\footnote{The action pattern only has a single primitive. It is necessary as the version of POSH used cannot call action primitives from a drive element.}. The drive element can be seen in listing~\ref{newGasPOSH}.
 
 \begin{Code}[frame=single,language=Lisp,tabsize=4,breaklines,breakatwhitespace,caption={The current POSH drive to begin collecting gas},label=newGasPOSH]
 (
@@ -498,7 +499,7 @@ During testing, it was noticed that Davies' plan produces workers quite frequent
 )
 \end{Code}
 
-These plans group worker production into a single competence with each element covering a different stage of worker production. Listing \ref{workerPOSH} shows the competence used by the Protoss plan. At the start of the game, worker production has very little constraints. This is so enough workers are produced to create a good resource income. Production is then halted until some military units have been produced. This provides some protection against early attacks by the opponent. It also allows resources to build up, that way more resource expensive behaviours are likely to fire. Worker production is constrained again in the late game until an expansion is built, as increasing the amount of workers at a resource node gives diminishing returns. Other constraints are similar to the mid game because the calling drive element is low priority. As the game progress, higher priority drive elements become available, so worker production is chosen less, so more constraints aren't needed. The higher priority drives are effectively implicit constraints on this behaviour.
+These plans group worker production into a single competence with each element covering a different stage of worker production. Listing~\ref{workerPOSH} shows the competence used by the Protoss plan. At the start of the game, worker production has very little constraints. This is so enough workers are produced to create a good resource income. Production is then halted until some military units have been produced. This provides some protection against early attacks by the opponent. It also allows resources to build up, that way more resource expensive behaviours are likely to fire. Worker production is constrained again in the late game until an expansion is built, as increasing the amount of workers at a resource node gives diminishing returns. Other constraints are similar to the mid game because the calling drive element is low priority. As the game progress, higher priority drive elements become available, so worker production is chosen less, so more constraints aren't needed. The higher priority drives are effectively implicit constraints on this behaviour.
 
 
 
@@ -515,14 +516,14 @@ The tests will be split between two maps, to see if this affects performance. Th
 
 PUT TABLE HERE
 
-ANALYSIS HERE  
+ANALYSIS HERE
 
 
 \chapter{Discussion}
 
 
 \section{Behaviour Oriented Design}
-This project made use of both the architecture and the methodology of BOD. The elements are explained in more depth in section \ref{BOD} and by \citeasnoun{bryson2003behavior}.
+This project made use of both the architecture and the methodology of BOD. The elements are explained in more depth in section~\ref{BOD} and by \citeasnoun{bryson2003behavior}.
 
 The architecture of BOD has two layers, a behaviour library and POSH plans for action selection. This structure has been beneficial for this project. The conceptual distinction between behaviours and action selection encourages modularity and generality, which made the task of extending the behaviours much easier. Because any behaviours that can be called from POSH plans could be called at any point, robustness and some generality is favoured during implementation.  POSH plans allow for the rapid creation and modification of elements, which fits the iterative development methodology well.
 
@@ -542,7 +543,7 @@ Developing POSH plans is not as easy as it could be. It isn't overly difficult b
 The editing issues are very minor quibbles, but the lack of proper debugging tools is a bigger problem. Debugging of the plans is limited to console output, which gets quickly overloaded once plans reach a reasonable size. This output is verbose without being particularly informative, drives are ``inhibited or not ready'', for example, without any information as to why. It would be useful to know which kind of failure it is, inhibition or unreadiness. When inhibited, the duration of the inhibition could be displayed and when the element isn't ready the trigger that failed could be displayed. The ability to set break points and step through the plan execution would make it easier to check this information and allow a developer to quickly get to grips with a plan's flow.
 
 \subsection{Primitive Parameterisation}
-In the python side of the behaviour library there are many action primitives and senses which cannot be generalised due to the way POSH works. Elements in POSH plans do not accept parameters, so primitives must be explicit about what they do (see listing \ref{behaviours}). Because the underlying behaviour has been generalised, there is a lot of code duplication in the python behaviour modules that isn't really necessary. While this doesn't really affect an agents performance, or even the complexity of an agents plan (an agent will only use a small fraction of available primitives), it feels like ``code smell''\cite{Emden02javaquality}, it could hamper future development.
+In the python side of the behaviour library there are many action primitives and senses which cannot be generalised due to the way POSH works. Elements in POSH plans do not accept parameters, so primitives must be explicit about what they do (see listing~\ref{behaviours}). Because the underlying behaviour has been generalised, there is a lot of code duplication in the python behaviour modules that isn't really necessary. While this doesn't really affect an agents performance, or even the complexity of an agents plan (an agent will only use a small fraction of available primitives), it feels like ``code smell''\cite{Emden02javaquality}, it could hamper future development.
 
 One way to solve this problem would be to move the action selection into the behaviour library. Have an action ``choose next building'' and then other behaviours can use that next building accordingly. This would require no changes to POSH and is a recommended way to solve this issue \cite{bryson2003behavior}. However, it is a complex task, probably one that deserves its own project. Even with this kind of mechanism in place, the ability to sense and obtain specific buildings, units or research would still be desirable, to allow for plans to act outside of the shared action selection.
 
@@ -573,21 +574,21 @@ Using the architecture of BOD could be a good way to introduce non-programmers t
 \section{State of the Behaviour Library}
 This project has been successful in its goal of extending Davies' behaviour library. The Java code has been refactored into a generalised structure, which brings together shared behaviours while still allowing for specialised (race specific) behaviour to be added when needed. The jython behaviour modules have also been extended so that they have actions and senses for every building, unit, and research available for every race in the game. There are also POSH plans that have been developed to showcase agents of the other races.
 
-At this point, the library provides a solid base on which to build or try out new AI strategies in the StarCraft environment. It provides the fundamental behaviours required to perform in a game of StarCraft\footnote{Attacking and defending, resource gathering, exploration and expansion, and construction, unit production and research} for all races, and they are exposed in a reasonable way as POSH plan primitives. 
+At this point, the library provides a solid base on which to build or try out new AI strategies in the StarCraft environment. It provides the fundamental behaviours required to perform in a game of StarCraft\footnote{Attacking and defending, resource gathering, exploration and expansion, and construction, unit production and research} for all races, and they are exposed in a reasonable way as POSH plan primitives.
 
 \section{Remaining Issues and Future Work}
 There are still areas of the library that should be worked on and expanded, more advanced behaviours to be added, and maintenance to be done. This section covers some of them.
 
 \begin{itemize}
-\item{The BWAPI library and related projects are still under active development. Before this project began, the main library had released a major version (from 3.7 to 4.0) and during development JNIBWAPI was also updated. Because of issues experienced updating at the start of development (see section \ref{APIIssue}), the project was not updated to these new versions. However, the new versions do make some major changes and fixes, so should be merged at some point.}
-\item{The are a few advanced behaviours missing from the library. 
+\item{The BWAPI library and related projects are still under active development. Before this project began, the main library had released a major version (from 3.7 to 4.0) and during development JNIBWAPI was also updated. Because of issues experienced updating at the start of development (see section~\ref{APIIssue}), the project was not updated to these new versions. However, the new versions do make some major changes and fixes, so should be merged at some point.}
+\item{The are a few advanced behaviours missing from the library.
     \begin{itemize}
         \item{There are no behaviours to load or unload units from flying transport units. These actions are useful for sneak attacks and for expanding to normally inaccessible areas of the map, so they should be added at some point.}
         \item{There are no behaviours to handle the Terran's movable buildings (several Terran buildings can take off and land somewhere else). It is a common tactic to use this feature to ``wall off'' the starting base as a defensive measure, where a movable building acts as a gate. Outside this use case, this is a pretty rare tactic, so perhaps only the walling off behaviour is needed.}
         \item{The Zerg have a building that has two parts, which allows instant travel from one end to the other. It is possible to build one end of this building currently, but building the other end doesn't fit into the current construction system and determining the best location to build it presents its own challenges.}
     \end{itemize}}
 \item{Agents need better ways to adapt their strategy. A simple production-based system would be a good place to start with this, where if the opponents have certain buildings or units, the agents adapt accordingly. This should be implementable in the current system, the plan developed for the Protoss has a primitive version of this where attacks happen earlier or later depending on the opponents race. To extend it would just need some scouting improvements\footnote{Currently, scouts are only used to locate the enemy. Scout routes would need to be adjusted to give the most information possible.} and more senses; there are guides available to explain specific counter-tactics \cite{StratWiki}.}
-\item{The library needs better unit micro-management. Several possible methods were outlined in section \ref{LitSrvyMicro}, probably the best candidate for future improvements would be potential fields\footnote{Where units move and attack based on the gradient of their location. Other entities in the game have attractive or repulsive forces based on their state.}. The currently unit control acts in a similar way to a potential fields; each enemy unit has a priority based on its type and distance from the current unit. By taking other factors into account, like the health of units and how much damage the current unit can do, this could be converted into a better approximation of a potential field without major restructuring.}
+\item{The library needs better unit micro-management. Several possible methods were outlined in section~\ref{LitSrvyMicro}, probably the best candidate for future improvements would be potential fields\footnote{Where units move and attack based on the gradient of their location. Other entities in the game have attractive or repulsive forces based on their state.}. The currently unit control acts in a similar way to a potential fields; each enemy unit has a priority based on its type and distance from the current unit. By taking other factors into account, like the health of units and how much damage the current unit can do, this could be converted into a better approximation of a potential field without major restructuring.}
 \item{Advanced unit control is missing for most units. Unless the unit was used in one of the provided plans, no additional behaviour was added, so most units won't use their abilities. This is something that should improve overtime as more plans are developed, even if better micro-management is not added.}
 \end{itemize}
 
