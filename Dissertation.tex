@@ -286,6 +286,9 @@ The final class structure of the behaviour library can be seen in figure~\ref{fi
     \label{fig:ClassDia}
 \end{figure}
 
+\subsection{Further Design Work}
+In addition to the high level design detailed above, there were several low-level design problems which emerged during the course of the project. The specifics of these problems and the steps taken to overcome them are detailed in chapter~\ref{Implementation}.
+
 \chapter{Implementation}
 \label{Implementation}
 
@@ -369,7 +372,7 @@ public boolean produceUnit(UnitType.UnitTypes unitType){
 \subsection{Generalising Scouting}
 This subsection explains how the scouting behaviours of the AI were generalised and the reasoning behind the decisions.
 
-The original scouting code had two types of units that it would use for scouts. Each type was managed by separate but similar methods. The aim when generalising was to merge the two methods together, preserving the functionality of both methods. The merged method also needed generalisation so that it could be applied to any type of unit. 
+The original scouting code had two types of units that it would use for scouts. Each type was managed by separate but similar methods. The aim when generalising was to merge the two methods together, preserving the functionality of both methods. The merged method also needed generalisation so that it could be applied to any type of unit.
 
 This has been done by maintaining a list of the currently scouting units. A ``ScoutUnit'' class was created to encapsulate all the information needed to perform the scouting. This included the unit object, the path to scout, how far along the path the unit is, and a completion handler to be called when the path has been completed. The scouting path is stored as a queue of Point\footnote{java.awt.Point: Has only two public int variables x and y} objects. As the scout reaches each location, the next location is popped from the queue. The completion handler is implemented as an interface with a single method scoutRouteCompleted(), which takes the scouts ID as a parameter (otherwise, the called object won't know which scout finished).
 
@@ -377,9 +380,9 @@ The implementation of this generalisation grew quite large, large enough that sc
 
 \subsection{Generalising the Military}
 \label{MilitaryGen}
-This subsection explains how the military behaviours of the AI were generalised and the reasoning behind the decisions. 
+This subsection explains how the military behaviours of the AI were generalised and the reasoning behind the decisions.
 
-The action selection of military units requires quick reactions and a large amount of contextual information, like what units are around, what position they are in, map obstacles, etc. The correct action also depends on the type of the unit being controlled. Using POSH plans is not feasible for this as it is not fast enough and it doesn't have the fine precision needed. So this action selection has to be implemented in the behaviour libraries. 
+The action selection of military units requires quick reactions and a large amount of contextual information, like what units are around, what position they are in, map obstacles, etc. The correct action also depends on the type of the unit being controlled. Using POSH plans is not feasible for this as it is not fast enough and it doesn't have the fine precision needed. So this action selection has to be implemented in the behaviour libraries.
 
 Davies' had hard-coded the behaviour for the units used in his plan, which meant control for different unit types had to be manually added. This is somewhat desirable, as there are many units which would benefit from unique behaviour. However, it makes adding a new unit to a plan harder than it needs to be; sometimes the unique behaviour isn't essential to a unit's performance. So, the goals while generalising this class were to remove as much hard-coded behaviour as possible while being easily extendable with specialised behaviours.
 
@@ -504,19 +507,25 @@ These plans group worker production into a single competence with each element c
 
 
 \chapter{Results}
-To measure the performance of agents, they have been tested in matches against existing StarCraft AI, mainly the official AI provided by Blizzard.
+To measure the performance of agents, they have been tested in matches against existing StarCraft AI; the official AI provided by Blizzard.
 
-The tests will use the same metrics that \citeasnoun{davies2012} used, which are really the only quantifiable metrics available. Using them will make it easier to compare with Davies' work. Davies' used two metrics, the outcome of the match and the percentage difference between the final scores of both players. Both metrics are calculated by the game.
+The tests used the same metrics that \citeasnoun{davies2012} used. A more meaningful comparison with Davies's work can be made when the same metrics are used. Davies' used two metrics, the outcome of the match and the percentage difference between the final scores of both players. Both metrics are calculated by the game.
 
 The outcome of a match can either be a win or a loss and occurs when one player has lost all their buildings. The score is the total of three scores, the unit score, the building score and the resource score. The unit and building scores are calculated on the amount and the types of units/buildings produced and destroyed (more powerful/expensive units are worth more). Destroying a unit or building is usually worth double the score from producing that unit. The resource score is the total resources collected.
 
 The win/loss metric is of obvious importance when deciding if an agent was successful, the difference in scores is useful to show \textit{how} successful an agent was. A small difference in score implies that the match was close; neither side had too much of an advantage. A large difference shows the opposite.
 
-The tests will be split between two maps, to see if this affects performance. The maps used will be Azalea, which Davies used for his tests, and TBD because reasons.
+The tests were split between two maps, ``Azalea'' and ``Astral Balance''. ``Azalea'' is the map Davies' used for development and testing, while ``Astral Balance'' is the map that this project mainly used during development. Two maps were chosen to show that the library and plans are general enough to work in different scenarios. 
 
-PUT TABLE HERE
+The full table of results can be found in appendix 
 
-ANALYSIS HERE
+
+
+
+Both the Protoss and the Terran agent had very bad performance against the Terran AI. This is likely down to combination of weaknesses in unit micro-management and an overreliance on basic units in these plans. A group of the basic Terran military unit, the marine, can very quickly kill  a single target through focused fire. A flaw in the unit micro-management makes it common for units to attack in single file, which makes them very vulnerable when attacking a Terran opponent. This flaw could probably be countered by using more powerful units that can withstand the focused firing.
+
+Like Davies' agent, the Protoss and Terran agents are weak against a very early attack. They are slightly better, in that they do produce some units early on to mitigate the attack, but these units aren't always successful. This could be improved through building an early defensive building, but their are complications here about deciding the best location.
+
 
 
 \chapter{Discussion}
@@ -538,11 +547,13 @@ The refactoring process is arguably the most important part of the BOD methodolo
 POSH plans are a useful tool. They are quick to set up, and provide a simple way to direct complex behaviours. However, they do have their limitations.
 
 \subsection{Problems with Development}
-Developing POSH plans is not as easy as it could be. It isn't overly difficult but the lack of a good development environment and debugging tools can take time away from actual development work. There are two ways to develop POSH plans, by using a text editor or by using the ABODE editor \cite{abode}. ABODE does provide a graphical visualisation of plans, however it is still beta software so it suffers from bugs, it doesn't have any debugging features or code completion, and it has a lack-luster user interface. It is usually easier to edit the plans in a text editor, at least at first. Plans are in single files, so if one has a lot of elements it can be difficult to organise.  The syntax can also cause issues when developing in a text editor. It has similarities to Lisp, with lots of parenthesises which can easily be misplaced.
+\label{POSHDev}
+Developing POSH plans is not as easy as it could be. It isn't overly difficult but the lack of a good development environment and debugging tools can take time away from actual development work. There are two ways to develop POSH plans, by using a text editor or by using the ABODE editor \cite{abode}. ABODE could be considered the ``official'' editor for POSH plans and it provides a graphical visualisation of plans, which is very helpful in conceptualisation. However, it is still beta software so it suffers from bugs; it doesn't have any debugging features or code completion; and it has a lack-luster user interface. It is usually easier to edit the plans in a text editor, at least at first. Plans are in single files, so if one has a lot of elements it can be difficult to organise.  The syntax can also cause issues when developing in a text editor. It has similarities to Lisp, with lots of parenthesises which can easily be misplaced; an error that usually doesn't materialise until runtime.
 
 The editing issues are very minor quibbles, but the lack of proper debugging tools is a bigger problem. Debugging of the plans is limited to console output, which gets quickly overloaded once plans reach a reasonable size. This output is verbose without being particularly informative, drives are ``inhibited or not ready'', for example, without any information as to why. It would be useful to know which kind of failure it is, inhibition or unreadiness. When inhibited, the duration of the inhibition could be displayed and when the element isn't ready the trigger that failed could be displayed. The ability to set break points and step through the plan execution would make it easier to check this information and allow a developer to quickly get to grips with a plan's flow.
 
 \subsection{Primitive Parameterisation}
+\label{POSHPara}
 In the python side of the behaviour library there are many action primitives and senses which cannot be generalised due to the way POSH works. Elements in POSH plans do not accept parameters, so primitives must be explicit about what they do (see listing~\ref{behaviours}). Because the underlying behaviour has been generalised, there is a lot of code duplication in the python behaviour modules that isn't really necessary. While this doesn't really affect an agents performance, or even the complexity of an agents plan (an agent will only use a small fraction of available primitives), it feels like ``code smell''\cite{Emden02javaquality}, it could hamper future development.
 
 One way to solve this problem would be to move the action selection into the behaviour library. Have an action ``choose next building'' and then other behaviours can use that next building accordingly. This would require no changes to POSH and is a recommended way to solve this issue \cite{bryson2003behavior}. However, it is a complex task, probably one that deserves its own project. Even with this kind of mechanism in place, the ability to sense and obtain specific buildings, units or research would still be desirable, to allow for plans to act outside of the shared action selection.
@@ -569,7 +580,7 @@ def build_science_facility(self):
 
 Moving complex action selection into the behaviour library feels a bit like re-inventing the wheel. There is already action selection happening in POSH, why duplicate the effort? The reason to do so at the moment is because POSH is limited, probably intentionally. There is an interplay in the BOD methodology over where complexity should be, the plans or the behaviour library. The BOD methodology encourages developers to strike the best balance here via rapid iteration, frequent testing, and the repeated re-evaluation of what has been done. POSH is a tool in the methodology to direct a developer's thinking usefully about the best way to create an agent. So by limiting what can be expressed in a POSH plan, a developer is directed to moving complexity into the behaviour library\footnote{Conversely, an emphasis on modularity encourages the simplification and reduction of behaviours, pushing the complexity towards the plans}.
 
-Using the architecture of BOD could be a good way to introduce non-programmers to AI concepts by letting them easily build their own. Once you understand the aggregates of POSH -- something made easier with a graphical representation, like ABODE -- creating plans becomes a matter of piecing together the building blocks; the complicated implementation is kept hidden from the end user. This project attempted to facilitate a situation like this in the future by including behaviours for as many in-game actions as possible. Whether this was successful, and if BOD could be used as a learning tool, would need to be tested in future work.
+Using the architecture of BOD could be a good way to introduce non-programmers to AI concepts by letting them easily build their own. Once you understand the aggregates of POSH -- something made easier with a graphical representation, like ABODE -- creating plans becomes a matter of piecing together the building blocks; the complicated implementation is kept hidden from the end user. This project attempted to facilitate a situation like this in the future of the library by including behaviours for as many in-game actions as possible. There has been some success using POSH and BOD in this way in the Pogamut project\cite{gemrot2009pogamut}.
 
 \section{State of the Behaviour Library}
 This project has been successful in its goal of extending Davies' behaviour library. The Java code has been refactored into a generalised structure, which brings together shared behaviours while still allowing for specialised (race specific) behaviour to be added when needed. The jython behaviour modules have also been extended so that they have actions and senses for every building, unit, and research available for every race in the game. There are also POSH plans that have been developed to showcase agents of the other races.
@@ -590,6 +601,8 @@ There are still areas of the library that should be worked on and expanded, more
 \item{Agents need better ways to adapt their strategy. A simple production-based system would be a good place to start with this, where if the opponents have certain buildings or units, the agents adapt accordingly. This should be implementable in the current system, the plan developed for the Protoss has a primitive version of this where attacks happen earlier or later depending on the opponents race. To extend it would just need some scouting improvements\footnote{Currently, scouts are only used to locate the enemy. Scout routes would need to be adjusted to give the most information possible.} and more senses; there are guides available to explain specific counter-tactics \cite{StratWiki}.}
 \item{The library needs better unit micro-management. Several possible methods were outlined in section~\ref{LitSrvyMicro}, probably the best candidate for future improvements would be potential fields\footnote{Where units move and attack based on the gradient of their location. Other entities in the game have attractive or repulsive forces based on their state.}. The currently unit control acts in a similar way to a potential fields; each enemy unit has a priority based on its type and distance from the current unit. By taking other factors into account, like the health of units and how much damage the current unit can do, this could be converted into a better approximation of a potential field without major restructuring.}
 \item{Advanced unit control is missing for most units. Unless the unit was used in one of the provided plans, no additional behaviour was added, so most units won't use their abilities. This is something that should improve overtime as more plans are developed, even if better micro-management is not added.}
+\item{As discussed in section~\ref{POSHDev}, there are several improvements that could be made to the development process of POSH plans. The jyPOSH implementation itself (and the other available implementations of POSH) is lacking debug features like break points and useful console output. The available methods for creating and editing POSH plans could also be improved.}
+\item{It would be interesting to test if there are any benefits to parameterising POSH, which has been discussed in section~\ref{POSHPara}. Parameterised actions and senses would certainly increase the expressive power of POSH plans, but that might not be desirable to the BOD methodology.}
 \end{itemize}
 
 

@@ -6,28 +6,30 @@
 \newblock Retrieved November 21, 2013.
 
 \harvarditem{Bryson}{2001}{bryson2001intelligence}
-Bryson, J.~J.  \harvardyearleft 2001\harvardyearright , `Intelligence by
-  design: principles of modularity and coordination for engineering complex
-  adaptive agents'.
+Bryson, J.~J.  \harvardyearleft 2001\harvardyearright , Intelligence by Design:
+  {P}rinciples of Modularity and Coordination for Engineering Complex Adaptive
+  Agents, PhD thesis, {MIT}, Department of {EECS}, Cambridge, {MA}.
+\newblock {AI} Technical Report 2001-003.
 
 \harvarditem{Bryson}{2003}{bryson2003behavior}
-Bryson, J.~J.  \harvardyearleft 2003\harvardyearright , `The behavior-oriented
-  design of modular agent intelligence', {\em Agent technologies,
-  infrastructures, tools, and applications for e-services} pp.~61--76.
+Bryson, J.~J.  \harvardyearleft 2003\harvardyearright , The
+  {B}ehavior-{O}riented {D}esign of modular agent intelligence, {\em in} `Agent
+  technologies, infrastructures, tools, and applications for e-services',
+  Springer Berlin Heidelberg, pp.~61--76.
 
-\harvarditem{{\em BWAPI}}{2010}{bwapiMain}
-{\em BWAPI}  \harvardyearleft 2010\harvardyearright ,
+\harvarditem{{\em {BWAPI}}}{2010}{bwapiMain}
+{\em {BWAPI}}  \harvardyearleft 2010\harvardyearright ,
   \url{https://code.google.com/p/bwapi/}.
 \newblock Retrieved November 21, 2013.
 
-\harvarditem{{\em BWAPI - Competitions}}{2011}{bwapiCompetitions}
-{\em BWAPI - Competitions}  \harvardyearleft 2011\harvardyearright ,
+\harvarditem{{\em {BWAPI - Competitions}}}{2011}{bwapiCompetitions}
+{\em {BWAPI - Competitions}}  \harvardyearleft 2011\harvardyearright ,
   \url{https://code.google.com/p/bwapi/wiki/Competitions}.
 \newblock Retrieved November 21, 2013.
 
 \harvarditem{Certicky \harvardand\ Certicky}{2013}{certicky2013case}
 Certicky, M. \harvardand\ Certicky, M.  \harvardyearleft 2013\harvardyearright
-  , Case-based reasoning for army compositions in real-time strategy games,
+  , {Case-Based Reasoning for Army Compositions in Real-Time Strategy Games},
   {\em in} `Scientific Conference of Young Researchers 2013', FEI, Technical
   University of Ko{\v{s}}ice, pp.~70--73.
 
@@ -45,89 +47,101 @@ Davies, S.  \harvardyearleft 2012\harvardyearright , Development of an ai for
 
 \harvarditem{Emden \harvardand\ Moonen}{2002}{Emden02javaquality}
 Emden, E.~V. \harvardand\ Moonen, L.  \harvardyearleft 2002\harvardyearright ,
-  Java quality assurance by detecting code smells, {\em in} `in Proceedings of
-  the 9th Working Conference on Reverse Engineering. IEEE Computer', Society
+  {Java Quality Assurance by Detecting Code Smells}, {\em in} `in Proceedings
+  of the 9th Working Conference on Reverse Engineering. IEEE Computer', Society
   Press, pp.~97--107.
-\newblock Just read the abstract for a reasonable definition of code smell.
+\newblock (Just read the abstract for a reasonable definition of code smell.).
 
 \harvarditem{Galloway}{2007}{galloway2007starcraft}
 Galloway, A.~R.  \harvardyearleft 2007\harvardyearright , `Starcraft, or,
-  balance', {\em Grey Room} {\bf 28},~86--107.
+  {B}alance', {\em Grey Room} {\bf 28},~86--107.
 
 \harvarditem{Gaudl}{2012}{abode}
-Gaudl, S.  \harvardyearleft 2012\harvardyearright , `Abode',
+Gaudl, S.  \harvardyearleft 2012\harvardyearright , `{ABODE}',
   \url{https://code.google.com/p/abode-star/}.
 \newblock Retrieved April 01, 2014.
 
 \harvarditem[Gaudl et~al.]{Gaudl, Davies \harvardand\
   Bryson}{2013}{gaudlbehaviour}
 Gaudl, S., Davies, S. \harvardand\ Bryson, J.~J.  \harvardyearleft
-  2013\harvardyearright , `{B}ehaviour {O}riented {D}esign for
-  {R}eal-{T}ime-{S}trategy games'.
+  2013\harvardyearright , {Behaviour Oriented Design for Real-Time-Strategy
+  Games: An Approach on Iterative Development for {\sc StarCraft AI}}, {\em in}
+  `Foundations of Digital Games (FDG)'.
+
+\harvarditem[Gemrot et~al.]{Gemrot, Kadlec, B{\'\i}da, Burkert, P{\'\i}bil,
+  Havl{\'\i}{\v{c}}ek, Zem{\v{c}}{\'a}k, {\v{S}}imlovi{\v{c}}, Vansa,
+  {\v{S}}tolba et~al.}{2009}{gemrot2009pogamut}
+Gemrot, J., Kadlec, R., B{\'\i}da, M., Burkert, O., P{\'\i}bil, R.,
+  Havl{\'\i}{\v{c}}ek, J., Zem{\v{c}}{\'a}k, L., {\v{S}}imlovi{\v{c}}, J.,
+  Vansa, R., {\v{S}}tolba, M. et~al.  \harvardyearleft 2009\harvardyearright ,
+  Pogamut 3 can assist developers in building ai (not only) for their videogame
+  agents, {\em in} `Agents for Games and Simulations', Springer, pp.~1--15.
 
 \harvarditem{Hagelbäck}{2010}{AIBot}
-Hagelbäck, J.  \harvardyearleft 2010\harvardyearright , `A starcraft ai bot',
-  \url{https://code.google.com/p/bthai/}.
+Hagelbäck, J.  \harvardyearleft 2010\harvardyearright , `{A StarCraft AI
+  bot}', \url{https://code.google.com/p/bthai/}.
 \newblock Retrieved November 22, 2013.
 
 \harvarditem[Hostetler et~al.]{Hostetler, Dereszynski, Dietterich \harvardand\
   Fern}{2012}{hostetler2012inferring}
 Hostetler, J., Dereszynski, E.~W., Dietterich, T.~G. \harvardand\ Fern, A.
-  \harvardyearleft 2012\harvardyearright , `Inferring strategies from limited
-  reconnaissance in real-time strategy games', {\em arXiv preprint
+  \harvardyearleft 2012\harvardyearright , `{Inferring Strategies from Limited
+  Reconnaissance in Real-Time Strategy games}', {\em arXiv preprint
   arXiv:1210.4880} .
 
 \harvarditem{Huang}{2011}{OvermindArticle}
-Huang, H.  \harvardyearleft 2011\harvardyearright , `Skynet meets the swarm',
-  \url{http://arstechnica.com/gaming/2011/01/skynet-meets-the-swarm-how-the-berkeley-overmind-won-the-2010-starcraft-ai-competition/}.
+Huang, H.  \harvardyearleft 2011\harvardyearright , `Skynet meets the {S}warm',
+  \url{http://arstechnica.com/gaming/2011/01/skynet-meets-the-swarm/}.
 \newblock Retrieved November 22, 2013.
 
 \harvarditem{Klien}{2011}{BerkeleyOvermind}
-Klien, D.  \harvardyearleft 2011\harvardyearright , `Berkeley overmind',
+Klien, D.  \harvardyearleft 2011\harvardyearright , `{Berkeley Overmind}',
   \url{http://overmind.cs.berkeley.edu/\#desc}.
 \newblock Retrieved November 22, 2013.
 
 \harvarditem{Kurzweil}{2005}{kurzweil2005singularity}
-Kurzweil, R.  \harvardyearleft 2005\harvardyearright , `The singularity is
-  near: When humans transcend biology'.
+Kurzweil, R.  \harvardyearleft 2005\harvardyearright , {\em {The Singularity is
+  Near: When Humans Transcend Biology}}, Penguin.
 
 \harvarditem{McCorduck}{2004}{mccorduck2004machines}
-McCorduck, P.  \harvardyearleft 2004\harvardyearright , `Machines who think: A
-  personal inquiry into the history and prospects of artificial intelligence,
-  ak peters', {\em Natick, Mass} .
+McCorduck, P.  \harvardyearleft 2004\harvardyearright , {\em {Machines Who
+  Think: A Personal Inquiry into the History and Prospects of Artificial
+  Intelligence}}, AK Peters.
 
-\harvarditem{{\em Monte-Carlo method}}{2011}{MonteCarlo}
-{\em Monte-Carlo method}  \harvardyearleft 2011\harvardyearright ,
+\harvarditem{{\em Monte-{C}arlo method}}{2011}{MonteCarlo}
+{\em Monte-{C}arlo method}  \harvardyearleft 2011\harvardyearright ,
   \url{http://www.encyclopediaofmath.org/index.php/Monte-Carlo\_method}.
 \newblock Retrieved November 22, 2013.
 
 \harvarditem{Oracle}{2002}{JNIDef}
-Oracle  \harvardyearleft 2002\harvardyearright , `Java native interface',
+Oracle  \harvardyearleft 2002\harvardyearright , `{Java Native Interface}',
   \url{http://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/intro.html}.
 \newblock Retrieved April 01, 2014.
 
 \harvarditem{Rathe \harvardand\ Svendsen}{2012}{rathe2012micromanagement}
 Rathe, E.~A. \harvardand\ Svendsen, J.~B.  \harvardyearleft
-  2012\harvardyearright , `Micromanagement in {S}tarcraft using potential
-  fields tuned with a multi-objective genetic algorithm'.
+  2012\harvardyearright , Micromanagement in {S}tarcraft using potential fields
+  tuned with a multi-objective genetic algorithm, Master's thesis, Institutt
+  for datateknikk og informasjonsvitenskap.
 
 \harvarditem[Russell et~al.]{Russell, Norvig, Canny, Malik \harvardand\
   Edwards}{1995}{russell1995artificial}
 Russell, S.~J., Norvig, P., Canny, J.~F., Malik, J.~M. \harvardand\ Edwards,
-  D.~D.  \harvardyearleft 1995\harvardyearright , `Artificial intelligence: a
-  modern approach'.
+  D.~D.  \harvardyearleft 1995\harvardyearright , {\em {Artificial
+  Intelligence: a Modern Approach}}, Prentice hall.
 
 \harvarditem{Safadi \harvardand\ Ernst}{2010}{safadi2010organization}
 Safadi, F. \harvardand\ Ernst, D.  \harvardyearleft 2010\harvardyearright ,
-  `Organization in ai design for real-time strategy games'.
+  Organization in {AI} design for {Real-Time Strategy} games, Master's thesis,
+  University of Lige.
 
-\harvarditem{{\em StarCraft Replays}}{2002}{Replays}
-{\em StarCraft Replays}  \harvardyearleft 2002\harvardyearright ,
+\harvarditem{{\em Star{C}raft {R}eplays}}{2002}{Replays}
+{\em Star{C}raft {R}eplays}  \harvardyearleft 2002\harvardyearright ,
   \url{http://www.teamliquid.net/replay/}.
 \newblock Retrieved November 22, 2013.
 
-\harvarditem{{\em StarCraft Wiki}}{2005}{SCWiki}
-{\em StarCraft Wiki}  \harvardyearleft 2005\harvardyearright ,
+\harvarditem{{\em {StarCraft Wiki}}}{2005}{SCWiki}
+{\em {StarCraft Wiki}}  \harvardyearleft 2005\harvardyearright ,
   \url{http://starcraft.wikia.com/wiki/StarCraft\_Wiki}.
 \newblock Retrieved November 21, 2013.
 
@@ -138,22 +152,22 @@ Safadi, F. \harvardand\ Ernst, D.  \harvardyearleft 2010\harvardyearright ,
 
 \harvarditem{Synnaeve \harvardand\ Bessiere}{2011}{synnaeve2011bayesian}
 Synnaeve, G. \harvardand\ Bessiere, P.  \harvardyearleft 2011\harvardyearright
-  , A bayesian model for rts units control applied to starcraft, {\em in}
+  , {A Bayesian model for RTS units control applied to StarCraft}, {\em in}
   `Computational Intelligence and Games (CIG), 2011 IEEE Conference on', IEEE,
   pp.~190--196.
 
 \harvarditem{Synnaeve \harvardand\ Bessiere}{2012}{synnaeve2012bayesian}
 Synnaeve, G. \harvardand\ Bessiere, P.  \harvardyearleft 2012\harvardyearright
-  , A bayesian tactician, {\em in} `Proceedings of the Computer Games Workshop
-  at the European Conference of Artificial Intelligence 2012'.
+  , {A Bayesian Tactician}, {\em in} `Proceedings of the Computer Games
+  Workshop at the European Conference of Artificial Intelligence 2012'.
 
 \harvarditem{{Team Liquid}}{2010}{TLMicro}
 {Team Liquid}  \harvardyearleft 2010\harvardyearright , `Micro',
   \url{http://wiki.teamliquid.net/starcraft2/Micro\_(StarCraft)}.
 \newblock Retrieved March 27, 2014.
 
-\harvarditem{{\em Team Liquid}}{2002}{TeamLiquid}
-{\em Team Liquid}  \harvardyearleft 2002\harvardyearright ,
+\harvarditem{{\em {Team Liquid}}}{2002}{TeamLiquid}
+{\em {Team Liquid}}  \harvardyearleft 2002\harvardyearright ,
   \url{http://www.teamliquid.net/}.
 \newblock Retrieved November 21, 2013.
 
@@ -167,8 +181,8 @@ Togelius, J., Preuss, M., Beume, N., Wessing, S., Hagelback, J. \harvardand\
 \harvarditem[Wang et~al.]{Wang, Nguyen, Thawonmas \harvardand\
   Rinaldo}{2012}{zheusing}
 Wang, Z., Nguyen, K.~Q., Thawonmas, R. \harvardand\ Rinaldo, F.
-  \harvardyearleft 2012\harvardyearright , {M}onte-{C}arlo planning for unit
-  control in starcraft, {\em in} `Consumer Electronics (GCCE), 2012 IEEE 1st
+  \harvardyearleft 2012\harvardyearright , {{M}onte-{C}arlo planning for unit
+  control in StarCraft}, {\em in} `Consumer Electronics (GCCE), 2012 IEEE 1st
   Global Conference on', IEEE, pp.~263--264.
 
 \harvarditem{Weber}{2011}{JNIBWAPI}
@@ -184,11 +198,12 @@ Weber, B.~G. \harvardand\ Mateas, M.  \harvardyearleft 2009\harvardyearright ,
 
 \harvarditem{Wooldridge \harvardand\ Jennings}{1995}{wooldridge1995intelligent}
 Wooldridge, M. \harvardand\ Jennings, N.~R.  \harvardyearleft
-  1995\harvardyearright , `Intelligent agents: Theory and practice', {\em The
+  1995\harvardyearright , `{Intelligent Agents: Theory and Practice}', {\em The
   knowledge engineering review} {\bf 10}(02),~115--152.
 
 \harvarditem{Yi}{2011}{yi2011adaptive}
-Yi, S.  \harvardyearleft 2011\harvardyearright , `Adaptive strategy decision
-  mechanism for starcraft ai', {\em EKC 2010} pp.~47--57.
+Yi, S.  \harvardyearleft 2011\harvardyearright , Adaptive strategy decision
+  mechanism for starcraft ai, {\em in} `EKC 2010', Springer Berlin Heidelberg,
+  pp.~47--57.
 
 \end{thebibliography}

@@ -27,6 +27,7 @@
 \contentsline {subsection}{\numberline {4.3.1}Initial Design}{14}{subsection.4.3.1}
 \contentsline {subsection}{\numberline {4.3.2}Iterative Design Process}{15}{subsection.4.3.2}
 \contentsline {subsection}{\numberline {4.3.3}Final Class Structure}{16}{subsection.4.3.3}
+\contentsline {subsection}{\numberline {4.3.4}Further Design Work}{16}{subsection.4.3.4}
 \contentsline {chapter}{\numberline {5}Implementation}{17}{chapter.5}
 \contentsline {section}{\numberline {5.1}Behaviour Library Generalisation}{17}{section.5.1}
 \contentsline {subsection}{\numberline {5.1.1}API Issues}{17}{subsection.5.1.1}
@@ -40,23 +41,23 @@
 \contentsline {subsubsection}{Expansion Locations}{22}{section*.16}
 \contentsline {section}{\numberline {5.2}POSH Plans}{22}{section.5.2}
 \contentsline {subsection}{\numberline {5.2.1}Overall Strategy}{22}{subsection.5.2.1}
-\contentsline {subsubsection}{Initial Behaviour}{22}{section*.17}
+\contentsline {subsubsection}{Initial Behaviour}{23}{section*.17}
 \contentsline {subsubsection}{Building a Military}{23}{section*.18}
 \contentsline {subsubsection}{What to do Next}{23}{section*.19}
 \contentsline {subsubsection}{When to Attack}{24}{section*.20}
 \contentsline {subsection}{\numberline {5.2.2}Simplified Competences}{24}{subsection.5.2.2}
-\contentsline {subsection}{\numberline {5.2.3}Improvements to Worker Production}{25}{subsection.5.2.3}
-\contentsline {chapter}{\numberline {6}Results}{27}{chapter.6}
-\contentsline {chapter}{\numberline {7}Discussion}{28}{chapter.7}
-\contentsline {section}{\numberline {7.1}Behaviour Oriented Design}{28}{section.7.1}
-\contentsline {section}{\numberline {7.2}POSH}{29}{section.7.2}
-\contentsline {subsection}{\numberline {7.2.1}Problems with Development}{29}{subsection.7.2.1}
-\contentsline {subsection}{\numberline {7.2.2}Primitive Parameterisation}{29}{subsection.7.2.2}
-\contentsline {section}{\numberline {7.3}State of the Behaviour Library}{31}{section.7.3}
-\contentsline {section}{\numberline {7.4}Remaining Issues and Future Work}{31}{section.7.4}
-\contentsline {chapter}{\numberline {8}Conclusions}{33}{chapter.8}
-\contentsline {chapter}{\numberline {A}Design Diagrams}{37}{appendix.A}
-\contentsline {chapter}{\numberline {B}User Documentation}{38}{appendix.B}
-\contentsline {chapter}{\numberline {C}Raw results output}{39}{appendix.C}
-\contentsline {chapter}{\numberline {D}Code}{40}{appendix.D}
-\contentsline {section}{\numberline {D.1}File: yourCodeFile.java}{41}{section.D.1}
+\contentsline {subsection}{\numberline {5.2.3}Improvements to Worker Production}{26}{subsection.5.2.3}
+\contentsline {chapter}{\numberline {6}Results}{28}{chapter.6}
+\contentsline {chapter}{\numberline {7}Discussion}{29}{chapter.7}
+\contentsline {section}{\numberline {7.1}Behaviour Oriented Design}{29}{section.7.1}
+\contentsline {section}{\numberline {7.2}POSH}{30}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Problems with Development}{30}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Primitive Parameterisation}{30}{subsection.7.2.2}
+\contentsline {section}{\numberline {7.3}State of the Behaviour Library}{32}{section.7.3}
+\contentsline {section}{\numberline {7.4}Remaining Issues and Future Work}{32}{section.7.4}
+\contentsline {chapter}{\numberline {8}Conclusions}{34}{chapter.8}
+\contentsline {chapter}{\numberline {A}Design Diagrams}{38}{appendix.A}
+\contentsline {chapter}{\numberline {B}User Documentation}{39}{appendix.B}
+\contentsline {chapter}{\numberline {C}Raw results output}{40}{appendix.C}
+\contentsline {chapter}{\numberline {D}Code}{41}{appendix.D}
+\contentsline {section}{\numberline {D.1}File: yourCodeFile.java}{42}{section.D.1}
