@@ -41,9 +41,13 @@
 
 
 \abstract
-Your abstract should appear here.  An abstract is a short
-paragraph describing the aims of the project, what was
-achieved and what contributions it has made.
+Based on the work of Simon \citeasnoun{davies2012}, this dissertation takes the AI agent he developed for the video game StarCraft: Brood war and extends it to work for other races/factions in the game.
+
+Part of the development included a survey of recent AI techniques that have been applied to StarCraft, that could be useful for future work on this project.
+
+This document details the design and implementation processes employed during development, including the issues encountered and how they were overcome. It offers some ideas of improvements to the Behaviour Oriented Design methodology, and identifies areas for further improvements to the project.
+
+The software resulting from this project can play a full game as any of the races/factions in StarCraft. It also provides the tools to create more varied and possibly more successful agents.
 \newpage
 
 
@@ -56,7 +60,9 @@ achieved and what contributions it has made.
 
 
 \chapter*{Acknowledgements}
-Add any acknowledgements here.
+I would like to thank my supervisor Dr. Bryson for the support given through out this project.
+
+I would also like to thank Simon Davies for his work and the readability of his code.
 \newpage
 
 
@@ -66,17 +72,38 @@ Add any acknowledgements here.
 
 
 \chapter{Introduction}
-%% Uncomment this to include a separate tex file wih the introduction contents
-%\include{introduction.tex}
 
-This is the introductory chapter.
+This dissertation builds upon the work done by Simon \citeasnoun{davies2012} where he created an AI agent for the video game StarCraft: Brood War. In the game of StarCraft, there are three ``races'' or factions which have different strategies and capabilities. The agent Davies created could only play as a single race and the aim of this dissertation was to extend Davies' work to the other races in the game.
 
+Davies used the Behaviour Oriented Design methodology \cite{bryson2003behavior} to develop his agent, and this project will continue to use it. Behaviour Oriented Design is a combination of architecture and development methodology, so as the project is already structured to the Behaviour Oriented Design architecture, it makes sense to continue with the methodology.
+
+\section{What is StarCraft?}
+ StarCraft is a video game where the player acts as a general in command of an army. From a top-down perspective, the player directs their units to collect resources, build buildings, and produce more units. The action happens in real time, so any hesitation can be costly. The player has a single opponent, and the goal is to eliminate then by destroying all their units. The units have a variety of roles and abilities and the layer must decide how to leverage them effectively. More details about the game and the strategies involved can be found in section~\ref{StarCraft}.
+
+\section{What is Behaviour Oriented Design}
+ This is covered in detail in section~\ref{BOD}. Behaviour Oriented Design has two areas, an architecture and a development methodology.
+
+ The architecture has two layers, a library of behaviour modules, and a hierarchical, reactive plan for action section \cite{bryson2003behavior}. The behaviour library determines how to do something, while the reactive plans determine when to do something.
+
+The development methodology is an iterative process and it encourages the developer to refactor and change the specification of the agent based on frequent tests and a set of heuristics with the goal of crafting the best design possible.
+
+\section{Key Contributions}
+The contributions of this dissertation are:
+\begin{itemize}
+\item{The development of agents capable of playing StarCraft: Brood War as the ``Protoss''  and as the ``Terran''. This is mainly covered by chapter~\ref{Implementation}.}
+\item{The extension and generalisation of the work done by Davies to facilitate agents of multiple races and to make further extension easier. This covered in detail in chapter \ref{Design} and also appears in chapter \ref{Implementation}.}
+\item{Discussion of the development process and the issues encountered. The discussion is centered in chapter~\ref{Implementation}, but also appears in chapter~\ref{Design} and chapter~\ref{Discussion}.}
+\item{A brief overview of other AI techniques that have been applied to StarCraft: Brood War. This can be seen in chapter~\ref{LitSrvy}.}
+\item{An analysis of Behaviour Oriented Design, and in particular the POSH action selection. This includes possible improvements and is seen in chapter~\ref{Discussion}.}
+\end{itemize}
 
 \chapter{Literature Survey}
-In 2012, Simon Davies created an AI agent for the real-time strategy game StarCraft: Brood War. He followed the Behaviour Oriented Design development methodology and focused his efforts on an agent for the Zerg race. This project aims to generalise the work Davies performed to allow for agents of other races and possibly implement improvements.
+\label{LitSrvy}
+The game of StarCraft has recently seen increased development in the field of AI, due to the release of a convenient API for the purpose of AI development. Before beginning focused development effort, a survey of the work done in this area was conducted. What follows is the results of this survey, including an explanation of what StarCraft is; the field of AI and agents in general; the Behaviour Oriented Design methodology; an overview of what Davies accomplished; and a review of some techniques that could be used to improve Davies' agent.
 
-StarCraft has recently seen increased development in the field of AI, due to the release of a convenient API for the purpose of AI development. Before beginning focused development effort, a survey of the work done in this area was conducted. What follows is the results of this survey, including an explanation of what StarCraft is; the field of AI and agents in general; the Behaviour Oriented Design methodology; an overview of what Davies accomplished; and a review of some techniques that could be used to improve Davies' agent.
+
 \section{StarCraft}
+\label{StarCraft}
 StarCraft is a real-time strategy game where the player commands an army from one of three distinct races\footnote{Races can be thought about as teams or factions. Race is the term used in the StarCraft community}. It was released in 1998 by Blizzard Entertainment and its expansion StarCraft: Brood War was released later the same year \cite{Blizzard}. During a game, the player controls their army from a top-down perspective, or ``God's eye view'' (see figure~\ref{fig:StarCraft}). The army must harvest two limited resources, minerals and vespene gas, and use them to construct buildings, recruit units and research upgrades with the ultimate goal of destroying the opponent. The game can be said to be split into three stages: The opening, where choosing the most suitable order of construction is vital due to limited resources; the mid-game, where players build up for larger attacks and must expand to gain more resources; and the end-game, where one player has gained the advantage and should be looking to make a very large push to secure it \cite{yi2011adaptive}.
 
 The three races differ from each other substantially in both play style and unit ability. The insectile Zerg focus on small, fast and cheap units and swarm tactics; the psychic and advanced Protoss focus on expensive but extremely powerful units; and the human Terran are the balance between the two, not as weak or as numerous as the Zerg, but not as powerful or as expensive as the Protoss. They also focus on attacking from range.  Due to the game's age and popularity, there are many online communities that have collated a large amount of information about the game and effective strategies, such as the \citeasnoun{SCWiki} and \citeasnoun{TeamLiquid}.
@@ -181,6 +208,15 @@ There are many replays of StarCraft games publicly available \cite{Replays}, som
 \subsubsection{Case-based Reasoning}
 \citeasnoun{certicky2013case} implemented a cased-based reasoning (CBR) method to determine which units to produce. CBR is a cyclical process where there is a databases of problem cases with solutions. For each problem, a case is chosen that best fits. The solution is adapted to fit the current problem and if it works it is added back to the database as a new case. Certicky constructed cases based on the ratios of units that the opponent has and the solutions are the recommend ratios for the agent's army. This process has the potential to be useful, but it needs quite a bit of expert knowledge about common army ratios and their counters. Additionally, this relies on good scouting and accurate information, if the agent picks the wrong case it could be disastrous. This method is perhaps a simpler incarnation of the Bayesian modelling methods discussed, and it could be a good starting point for an adaptive strategy.
 
+\section{Summary}
+This literature survey has investigated several areas of the StarCraft AI development space. It has provided an overview of what StarCraft is and the strategies involved in playing the game. This survey has briefly introduced the field of AI and AI agents, and identified where an AI agent for StarCraft fits in this field.
+
+The current state of the project has been discussed and the Behaviour Oriented Design methodology has been explained. This is the methodology that Davies used in his project, and this project will continue to use the BOD methodology. The project is already structured in the BOD style and converting it to another style would have little point.
+
+This survey has also reviewed several concepts that have already been applied to StarCraft. These concepts could prove useful if there is time in this project to work on general improvements to the behaviour library. The most promising of these concepts are the potential fields method for controlling units and some sort of production or case-based system for better reactive planning. The library's unit control already resembles a extremely simple potential field, so extending it shouldn't require a massive re-write of the control code. POSH is already a reactive planning system, so most improvements could be made at the plan level, with more information made available as senses.
+
+This survey has established the context of the project and provided a good base of ideas which can be used to build upon Davies work.
+
 \chapter{Requirements}
 This chapter covers the basic requirements specification that was followed for the project.
 
@@ -217,6 +253,7 @@ This chapter covers the basic requirements specification that was followed for t
 
 
 \chapter{Design}
+\label{Design}
 This chapter covers the design work done for the project, including an overview of the initial class structure of the behaviour library, the changes needed to generalise the behaviour library and the process used to effect the generalisation.
 
 \section{Generalisation}
@@ -291,6 +328,7 @@ In addition to the high level design detailed above, there were several low-leve
 
 \chapter{Implementation}
 \label{Implementation}
+This chapter covers the development work done for the project, including the details of the generalisation process, issues that were encountered, and the rationale behind the POSH plans that were created for the Protoss and Terran agents.
 
 \section{Behaviour Library Generalisation}
 This section covers some of the work done generalising the Java behaviour library.
@@ -504,33 +542,69 @@ During testing, it was noticed that Davies' plan produces workers quite frequent
 
 These plans group worker production into a single competence with each element covering a different stage of worker production. Listing~\ref{workerPOSH} shows the competence used by the Protoss plan. At the start of the game, worker production has very little constraints. This is so enough workers are produced to create a good resource income. Production is then halted until some military units have been produced. This provides some protection against early attacks by the opponent. It also allows resources to build up, that way more resource expensive behaviours are likely to fire. Worker production is constrained again in the late game until an expansion is built, as increasing the amount of workers at a resource node gives diminishing returns. Other constraints are similar to the mid game because the calling drive element is low priority. As the game progress, higher priority drive elements become available, so worker production is chosen less, so more constraints aren't needed. The higher priority drives are effectively implicit constraints on this behaviour.
 
-
-
 \chapter{Results}
-To measure the performance of agents, they have been tested in matches against existing StarCraft AI; the official AI provided by Blizzard.
+\label{Results}
+To measure the performance of agents, they have been tested in matches against the official AI provided by Blizzard. This chapter details the results of those tests and offers some analysis about the meaning of the results.
 
-The tests used the same metrics that \citeasnoun{davies2012} used. A more meaningful comparison with Davies's work can be made when the same metrics are used. Davies' used two metrics, the outcome of the match and the percentage difference between the final scores of both players. Both metrics are calculated by the game.
+\section{Testing details}
+The tests used the same metrics that \citeasnoun{davies2012} used. This allows for a more meaningful comparison with Davies's work. Davies' used two metrics, the outcome of the match and the percentage difference between the final scores of both players. Wether a player has won or lost is decided by the game, as is each player's score. The percentage difference between the final scores was calculated as the BOD agent's score minus the enemy agent's score, then divided by the BOD agent's score and multiplied by 100.
 
 The outcome of a match can either be a win or a loss and occurs when one player has lost all their buildings. The score is the total of three scores, the unit score, the building score and the resource score. The unit and building scores are calculated on the amount and the types of units/buildings produced and destroyed (more powerful/expensive units are worth more). Destroying a unit or building is usually worth double the score from producing that unit. The resource score is the total resources collected.
 
 The win/loss metric is of obvious importance when deciding if an agent was successful, the difference in scores is useful to show \textit{how} successful an agent was. A small difference in score implies that the match was close; neither side had too much of an advantage. A large difference shows the opposite.
 
-The tests were split between two maps, ``Azalea'' and ``Astral Balance''. ``Azalea'' is the map Davies' used for development and testing, while ``Astral Balance'' is the map that this project mainly used during development. Two maps were chosen to show that the library and plans are general enough to work in different scenarios. 
+The tests were split between two maps, ``Azalea'' and ``Astral Balance''. ``Azalea'' is the map Davies' used for development and testing, while ``Astral Balance'' is the map that this project mainly used during development. Two maps were chosen to show that the library and plans are general enough to work in different scenarios.
 
-The full table of results can be found in appendix 
+\section{Results}
+The full tables of results can be found in appendix \ref{appData}
 
+\begin{table}[t]
+  \centering
+  \begin{tabular}{| l | l | l | r |}
+    \hline
+    Agent Race & Enemy Race & Win:Loss Ratio & Average Score Difference \\ \hline
+    Protoss & Protoss & 2 : 1 & -1.78\% \\
+    Protoss & Terran  & 0 : 6 & -87.04\% \\
+    Protoss & Zerg    & 5 : 1 & 18.10\% \\
+    \hline
+    Terran & Protoss & 2 : 1 & -20.22\% \\
+    Terran & Terran  & 0 : 6 & -92.18\% \\
+    Terran & Zerg    & 5 : 1 & 24.41\% \\
+    \hline
+  \end{tabular}
+  \caption{The average results of 36 matches against the default StarCraft AI, split by race.}
+  \label{TPTable}
+\end{table}
 
+As can be seen in table~\ref{TPTable}, the Protoss and Terran agents performed very similarly. This can be attributed to the general similarities in their strategies. Both agents build up a medium sized force of simple units and then attack.  This strategy fails against early attacks, and when the attack fails.
 
+The score differences in table~\ref{TPTable} against the Protoss are negative even though there is a positive win to loss ratio. This is because the Protoss wins were due to early game attacks, which end up with a large score difference due to the other agent not destroying anything of the enemy's.
 
-Both the Protoss and the Terran agent had very bad performance against the Terran AI. This is likely down to combination of weaknesses in unit micro-management and an overreliance on basic units in these plans. A group of the basic Terran military unit, the marine, can very quickly kill  a single target through focused fire. A flaw in the unit micro-management makes it common for units to attack in single file, which makes them very vulnerable when attacking a Terran opponent. This flaw could probably be countered by using more powerful units that can withstand the focused firing.
+Both agents had very bad performance against the Terran AI. This is likely down to the combination of weaknesses in unit micro-management and an overreliance on basic units in these plans. A group of the basic Terran military unit, the marine, can very quickly kill a single target through focused fire. A flaw in the unit micro-management makes it common for units to attack in single file, which makes them very vulnerable when attacking a Terran opponent. This flaw could probably be countered by using more powerful units that could withstand the focused firing.
 
-Like Davies' agent, the Protoss and Terran agents are weak against a very early attack. They are slightly better, in that they do produce some units early on to mitigate the attack, but these units aren't always successful. This could be improved through building an early defensive building, but their are complications here about deciding the best location.
+Like Davies' agent, the Protoss and Terran agents are weak against a very early attack. They are slightly better, in that they do produce some units early on to mitigate any attacks, but these units aren't always successful. This could be improved through building an early defensive building, but there are complications here about deciding the best location.
 
+Overall, the two new agents have a similar (though slightly worse) performance to Davies' agent. This shows that the library has been successfully generalised to the multiple StarCraft races. The agents perform slightly worse mainly because the chosen strategy isn't ideal for all situations. It has its peak power in the middle of the game, so an AI that attacks early or that can defend until it accesses late game units will usually beat it. This shows the need for a more adaptable strategy, or at least extending the strategy to build late game units.
+
+\begin{table}[t]
+  \centering
+  \begin{tabular}{| l | l | r |}
+    \hline
+    Enemy Race & Win:Loss Ratio & Average Score Difference \\ \hline
+    Protoss & 1 : 2 & -54.41\% \\ \hline
+    Terran  & 2 : 1 & 5.70\% \\ \hline
+    Zerg    & 3 : 0 & 31.97\% \\ \hline
+  \end{tabular}
+  \caption{Average results of nine games played by Davies' Zerg agent, split by race.}
+  \label{ZergTable}
+\end{table}
+
+Table \ref{ZergTable} shows that the performance of Davies' agent hasn't been affected too badly. The win to loss ratio is slightly better than what Davies found, but the score difference is slightly worse. This implies that the behaviour modules have become less efficient through the changes made for generalisation, which is normally expected when generalising. It may also be the case that the POSH plan is optimised for certain behaviours acting in a certain and those behaviours now act slightly differently. This could be fixed through further development.
 
 
 \chapter{Discussion}
-
-
+\label{Discussion}
+This chapter details the thoughts and ideas that have occurred during this project, mainly relating to analysis of BOD. It also identifies areas of the project which require further work.
 \section{Behaviour Oriented Design}
 This project made use of both the architecture and the methodology of BOD. The elements are explained in more depth in section~\ref{BOD} and by \citeasnoun{bryson2003behavior}.
 
@@ -599,61 +673,180 @@ There are still areas of the library that should be worked on and expanded, more
         \item{The Zerg have a building that has two parts, which allows instant travel from one end to the other. It is possible to build one end of this building currently, but building the other end doesn't fit into the current construction system and determining the best location to build it presents its own challenges.}
     \end{itemize}}
 \item{Agents need better ways to adapt their strategy. A simple production-based system would be a good place to start with this, where if the opponents have certain buildings or units, the agents adapt accordingly. This should be implementable in the current system, the plan developed for the Protoss has a primitive version of this where attacks happen earlier or later depending on the opponents race. To extend it would just need some scouting improvements\footnote{Currently, scouts are only used to locate the enemy. Scout routes would need to be adjusted to give the most information possible.} and more senses; there are guides available to explain specific counter-tactics \cite{StratWiki}.}
-\item{The library needs better unit micro-management. Several possible methods were outlined in section~\ref{LitSrvyMicro}, probably the best candidate for future improvements would be potential fields\footnote{Where units move and attack based on the gradient of their location. Other entities in the game have attractive or repulsive forces based on their state.}. The currently unit control acts in a similar way to a potential fields; each enemy unit has a priority based on its type and distance from the current unit. By taking other factors into account, like the health of units and how much damage the current unit can do, this could be converted into a better approximation of a potential field without major restructuring.}
+\item{The library needs better unit micro-management. Several possible methods were outlined in section~\ref{LitSrvyMicro}, probably the best candidate for future improvements would be potential fields\footnote{Where units move and attack based on the gradient of their location. Other entities in the game have attractive or repulsive forces based on their state.}. The current unit control acts in a similar way to a potential fields; each enemy unit has a priority based on its type and distance from the current unit. By taking other factors into account, like the health of units and how much damage the current unit can do, this could be converted into a better approximation of a potential field without major restructuring.}
 \item{Advanced unit control is missing for most units. Unless the unit was used in one of the provided plans, no additional behaviour was added, so most units won't use their abilities. This is something that should improve overtime as more plans are developed, even if better micro-management is not added.}
 \item{As discussed in section~\ref{POSHDev}, there are several improvements that could be made to the development process of POSH plans. The jyPOSH implementation itself (and the other available implementations of POSH) is lacking debug features like break points and useful console output. The available methods for creating and editing POSH plans could also be improved.}
-\item{It would be interesting to test if there are any benefits to parameterising POSH, which has been discussed in section~\ref{POSHPara}. Parameterised actions and senses would certainly increase the expressive power of POSH plans, but that might not be desirable to the BOD methodology.}
+\item{It would be interesting to test if there are any benefits to parameterising POSH, which has been discussed in section~\ref{POSHPara}. Parameterised actions and senses would certainly increase the expressive power of POSH plans, but that might not be desirable in the BOD methodology.}
+\item{StarCraft is most commonly played as a one versus one match, at least at a professional level. However the game can support up to eight players in a match. The current library could probably cope with an eight player free for all (with no teams), however it has no support for co-operation. This would be an interesting avenue to explore.}
 \end{itemize}
 
-
-
-
-
-
-
-
-
-%%
-%% Now we are back to the standard project contents that you should include
-%%
-
 \chapter{Conclusions}
-%% Uncomment this to include a separate tex file wih the conclusion contents
-%\include{conclusion.tex}
+This chapter summarise the achievements of this project and discuss areas that this dissertation covers.
+\section{Summary of Achievements}
 
-This is the chapter in which you review the major achievements in the
-light of your original objectives, critique the process, critique your
-own learning and identify possible future work.
+\subsection{Discussion of other AI techniques}
+In the literature survey, several AI techniques that have already been applied to StarCraft were discussed. These techniques were explained and some thoughts were offered on the feasibility of implementing those techniques into the current behaviours.
+
+\subsection{Improved the StarCraft BOD AI}
+This project has extended and generalised the work of \citeasnoun{davies2012} from being able to control a single race in StarCraft, to being able to control any race in the game. The development process followed the BOD development methodology and architecture, using POSH action selection to call a variety of developed behaviours. These behaviours were linked to the game of StarCraft via the Java Native Interface to the  Brood War API \cite{JNIBWAPI}. The details and rationale behind the development of the behaviours and plans have been discussed throughout this dissertation. Remaining issues and areas for future development have been identified and discussed.
+
+\subsection{Identification of future work}
+This dissertation identifies several areas of the project that are lacking and could do with improvements. These improvements range from minor problems like improving the placement of buildings or updating to the latest external libraries, to major issues like unit control or adaptive strategies.
+
+\subsection{Evaluation of BOD}
+Overall, BOD has been a useful tool during development. The architecture especially simplifies development and encourages well-written code via modularisation. The methodology has an intuitive process and the frequent re-analysing of what has been done helps keep code tidy. That isn't to say BOD is without problems, there were a few that appeared during development. This document discusses these problems and some possible solutions to them.
+
+
 
 \bibliography{LitRef}
 
 \appendix
 
-%%
-%% Use the appendix for major chunks of detailed work, such as these. Tailor
-%% these to your own requirements
-%%
-
-\chapter{Design Diagrams}
-
 \chapter{User Documentation}
+This appendix covers the documentation for running the agents, which is also available in the readme packaged with the code. It is adapted from the readme distributed by \citeasnoun{davies2012}.
+\section{Readme}
+------------------------\\
+Installation Instructions\\
+------------------------\\
+	---\\
+	Prerequisites\\
+	---\\
+	To run the AI the following prerequisites are required:\\
+		- Jython (tested on Jython 2.5.3)\\
+		- JyPOSH (available at http://www.cs.bath.ac.uk/\~jjb/web/pyposh.html)\\
+		- Java (tested on Java 1.7)\\
+		- Python (tested on Python 2.7.3)\\
+		- StarCraft : Brood War (patched to 1.16.1)\\
+		- BWAPI (tested with BWAPI 3.6.1)\\
+		- ChaosLauncher (generally comes with BWAPI)\\
+	---\\
+	Instructions\\
+	---\\
+	Install JyPOSH (follow the on-line installation instructions for installing JyPOSH)
+	
+	Install BWAPI
+
+	Extract POSHLibrary to \textless jyposh-dir\textgreater /library/\\
+	Extract Behaviours to a directory of your choice.
+
+	Add the \textless Behaviours\textgreater /jnibwapi/release/AIClient.jar to your Java ClassPath.
+
+	Open \textless starcraft-dir\textgreater /bwapi-data/bwapi.ini\\
+	change AI and AI\_dbg to NULL
+
+	Run chaos launcher and enable BWAPI, and start StarCraft.
+	
+	Move client-bridge-\textless~CPU Architecture\textgreater~.dll to the JyPOSH directory.\\
+	(Move both if you are unsure of which architecture you CPU has)
+
+	Open a command line at the JyPOSH directory, and enter the following command:\\
+	jython launch.py starcraftbod -p \textless A plan name from the starcraftbod/plans folder, without the .lap\textgreater
+
+	This will then start the AI you chose, and if it has worked successfully then the following should appear:\\
+
+	Bridge: BWAPI Client launched!!!\\
+	Bridge: Connecting...\\
+	Bridge: waiting to enter match
+
+	Then start a game with the player set to the correct race in StarCraft!\\
+---\\
+Notes:
+
+The first time running the AI on a new map, the game will likely hang for up to several minutes while it analyzes the map.
+
+If there are Java reports linking issues, it is possible that client-bridge-\textless CPU Architecture\textgreater .dll has to be recompiled for different version of Java. The one included in this package is for the 32-bit version of Java 1.7. If this has to be recompiled, instructions are available on the JNIBWAPI page on how to do this.
+
+You can press 'D' to toggle the debugging information overlay.
 
 \chapter{Raw results output}
+This appendix contains the raw results used to create the tables in chapter \ref{Results}, split by the race of the agent.
+\label{appData}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{| l | l | l | r | r | r |}
+    \hline
+    Enemy Race & Map & Result & Agent Score & Enemy Score & Score Difference \\ \hline
+    Protoss & Astral Balance & Win & 83079 & 36373 & 56.21\% \\ \hline
+    Protoss & Astral Balance & Win & 65809 & 26655 & 59.49\% \\ \hline
+    Protoss & Astral Balance & Loss & 44822 & 81157 & -81.06\% \\ \hline
+    Terran & Astral Balance & Loss & 16378 & 28568 & -74.42\% \\ \hline
+    Terran & Astral Balance & Loss & 16025 & 28196 & -75.95\% \\ \hline
+    Terran & Astral Balance & Loss & 17237 & 30177 & -75.07\% \\ \hline
+    Zerg & Astral Balance & Win & 72653 & 38591 & 46.88\% \\ \hline
+    Zerg & Astral Balance & Win & 46455 & 24932 & 46.33\% \\ \hline
+    Zerg & Astral Balance & Win & 49570 & 30655 & 38.15\% \\ \hline
+    Protoss & Azalea & Win & 78693 & 43743 & 44.41\% \\ \hline
+    Protoss & Azalea & Win & 85504 & 54908 & 35.78\% \\ \hline
+    Protoss & Azalea & Loss & 9967 & 22482 & -125.56\% \\ \hline
+    Terran & Azalea & Loss & 13749 & 27129 & -97.31\% \\ \hline
+    Terran & Azalea & Loss & 21893 & 39617 & -80.95\% \\ \hline
+    Terran & Azalea & Loss & 10932 & 23889 & -118.52\% \\ \hline
+    Zerg & Azalea & Win & 87151 & 55038 & 36.84\% \\ \hline
+    Zerg & Azalea & Win & 69265 & 31622 & 54.34\% \\ \hline
+    Zerg & Azalea & Loss & 5163 & 11047 & -113.96\% \\ \hline
+  \end{tabular}
+  \caption{Raw data for tests with the Protoss Agent}
+  \label{DataRawProtoss}
+\end{table}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{| l | l | l | r | r | r |}
+    \hline
+    Enemy Race & Map & Result & Agent Score & Enemy Score & Score Difference \\ \hline
+    Protoss & Astral Balance & Win & 88106 & 49589 & 43.71\% \\ \hline
+    Protoss & Astral Balance & Win & 54372 & 30679 & 43.57\% \\ \hline
+    Protoss & Astral Balance & Loss & 8407 & 20009 & -138.00\% \\ \hline
+    Terran & Astral Balance & Loss & 11184 & 23936 & -114.02\% \\ \hline
+    Terran & Astral Balance & Loss & 29023 & 48530 & -67.21\% \\ \hline
+    Terran & Astral Balance & Loss & 24114 & 46675 & -93.55\% \\ \hline
+    Zerg & Astral Balance & Win & 55046 & 29210 & 46.93\% \\ \hline
+    Zerg & Astral Balance & Loss & 58115 & 87275 & -50.17\% \\ \hline
+    Zerg & Astral Balance & Win & 113179 & 71907 & 36.46\% \\ \hline
+    Protoss & Azalea & Win & 47003 & 25325 & 46.12\% \\ \hline
+    Protoss & Azalea & Win & 64460 & 37051 & 42.52\% \\ \hline
+    Protoss & Azalea & Loss & 12669 & 32848 & -159.27\% \\ \hline
+    Terran & Azalea & Loss & 11576 & 27763 & -139.83\% \\ \hline
+    Terran & Azalea & Loss & 25087 & 44582 & -77.70\% \\ \hline
+    Terran & Azalea & Loss & 36156 & 58131 & -60.77\% \\ \hline
+    Zerg & Azalea & Win & 179180 & 128587 & 28.23\% \\ \hline
+    Zerg & Azalea & Win & 85064 & 49408 & 41.91\% \\ \hline
+    Zerg & Azalea & Win & 104952 & 59697 & 43.11\% \\ \hline
+  \end{tabular}
+  \caption{Raw data for tests with the Terran Agent}\label{DataRawTerran}
+\end{table}
+\begin{table}[h]
+  \centering
+  \begin{tabular}{| l | l | l | r | r | r |}
+    \hline
+    Enemy Race & Map & Result & Agent Score & Enemy Score & Score Difference \\ \hline
+    Protoss & Azalea & Loss & 10396 & 20439 & -96.60\% \\ \hline
+    Protoss & Azalea & Win & 62406 & 49419 & 20.81\% \\ \hline
+    Protoss & Azalea & Loss & 53046 & 99440 & -87.45\% \\ \hline
+    Terran & Azalea & Win & 103023 & 92107 & 10.59\% \\ \hline
+    Terran & Azalea & Loss & 147853 & 183452 & -24.07\% \\ \hline
+    Terran & Azalea & Win & 59424 & 41251 & 30.58\% \\ \hline
+    Zerg & Azalea & Win & 45058 & 28300 & 37.19\% \\ \hline
+    Zerg & Azalea & Win & 52246 & 32813 & 37.19\% \\ \hline
+    Zerg & Azalea & Win & 81272 & 63773 & 21.53\% \\ \hline
+  \end{tabular}
+  \caption{Raw data for tests with the Zerg Agent}\label{DataRawZerg}
+\end{table}
+
 
 \chapter{Code}
+This appendix contains a sample of the code the was written for this project. The full code can be accessed on the CD provided with this dissertation, or online at \url{https://github.com/AKAfreaky/jnibwapi}.
+\section{File: ProductionManager.java}
+The production manager class provides the main action for the POSH plans to produce new units, as well as build addons\footnote{Addons are a feature specific to the Terran, where certain building can ``add on'' sub-buildings which unlock other things. This process fit unit production much better than it fit the building pipeline, so the functionality was added to the production manager.}.
+\subsection{produceUnit method}
+This is the method the POSH plans call. It uses the unit type parameter and the Brood War API object to check that the prerequisites for production exist. It then uses the unit manager to find a free unit of the correct type, and the order gets put on the queue.
+\lstinputlisting[basicstyle=\scriptsize,tabsize=4,language=Java,firstline=29,lastline=72]{ProductionManager.java}
+\subsection{gameUpdate method}
+This is the ``tick'' method for this class, and it is called every frame. It pops every item in the queue, and then sends the appropriate order to the game.
+\lstinputlisting[basicstyle=\scriptsize,tabsize=4,language=Java,firstline=75,lastline=102]{ProductionManager.java}
 
-%%
-%% NOTE that for this to typeset correctly, ensure you use the pdflatex
-%%      command in preference to the latex command.  If you do not have
-%%      the pdflatex command, you will need to remove the landscape and
-%%      multicols tags and just make do with single column listing output
-%%
+\section{File: UpgradeManager.java}
+The upgrade manager class provides the main actions and senses for the POSH plans to research upgrades. It is similar in structure to the production manager, but has several extra methods, firstly because senses were needed for what upgrades had been researched, secondly because StarCraft makes a distinction between upgrades\footnote{Simple changes to unit stats} and ``techs''\footnote{New, usable abilities} which meant several methods were duplicated.
+\lstinputlisting[basicstyle=\scriptsize,tabsize=4,language=Java,firstline=11]{UpgradeManager.java}
 
-\begin{landscape}
-\begin{multicols}{2}
-\section{File: yourCodeFile.java}
-\lstinputlisting[basicstyle=\scriptsize]{yourCodeFile.java}
-\end{multicols}
-\end{landscape}
 
 \end{document} 
